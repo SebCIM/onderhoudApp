@@ -6,8 +6,8 @@
 </head>
 <body>
 <h1>
-	Welcome, ${USER}
+	Welcome, ${username}
 </h1>
-
+<a href="panel">Reparatie verzoek indienen?</a>
 </body>
 </html>

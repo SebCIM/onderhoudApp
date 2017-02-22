@@ -1,11 +1,5 @@
 package com.cimsolutions.onderhoudApp;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,26 +7,43 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cimsolutions.DAO.UserDao;
+import com.cimsolutions.entities.Apuser;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
 public class HomeController {
-	
+	UserDao dao = new UserDao();
+	Apuser currentUser = new Apuser();
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home() {
-		return "login";
+	public String home(Model model) {
+		if(currentUser.getUsername() != null){
+			model.addAttribute("username", currentUser.getUsername());
+			return "panel";
+		}else return "login";
 	}
 	@RequestMapping(value="checkLogin", method=RequestMethod.POST)
 	public String checkLogin(@RequestParam("txtName") String name, @RequestParam("txtPass") String pass,
 			Model model) {
-		UserDao dao = new UserDao();
 		boolean result = dao.checkLogin(name, pass);
+		currentUser.setUsername(name);
+		
 		if (result) {
-			model.addAttribute("USER", name);
+			model.addAttribute("username", name);
 			return "home";
 		}else return "invalid";
+	}
+	@RequestMapping(value = "panel", method = RequestMethod.GET)
+	public String panel(Model model) {
+		model.addAttribute("username", currentUser.getUsername());
+		return "panel";
+	}
+	
+	@RequestMapping(value = "logout", method = RequestMethod.GET)
+	public String logout() {
+		currentUser.setUsername(null);
+		return "login";
 	}
 }
