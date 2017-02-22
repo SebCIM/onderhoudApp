@@ -10,7 +10,7 @@ import com.cimsolutions.utils.HibernateUtils;
 
 public class UserDao implements Serializable {
 
-	public boolean checkLogin(String username, String pass) {
+	public boolean checkLogin(String username, String password) {
 		
 		//open session from class HibernateUtils
 		SessionFactory factory = HibernateUtils.getSessionFactory();
@@ -20,13 +20,13 @@ public class UserDao implements Serializable {
 		try {
 			//open session to work with database
 			session.getTransaction().begin();
-			String sql = "Select e from testdb e where e.username = :user and e.password = :pass";
+			String sql = "Select e from Apuser e where e.username = :username and e.password = :password";
 			Query query = session.createQuery(sql);
-			query.setParameter("user", username);
-			query.setParameter("pass", pass);
+			query.setParameter("username", username);
+			query.setParameter("password", password);
 			Object user = query.uniqueResult();
 			if (user != null) {
-				//close and commit trasaction of current session
+				//close and commit transaction of current session
 				session.getTransaction().commit();
 				return true;
 			}

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-Feb-2017 11:26:07 by Hibernate Tools 4.3.5.Final -->
+<hibernate-mapping>
+    <class name="com.cimsolutions.entities.Apuser" table="apuser" catalog="onderhouddb" optimistic-lock="version">
+        <id name="username" type="string">
+            <column name="username" length="50" />
+            <generator class="assigned" />
+        </id>
+        <property name="lastname" type="string">
+            <column name="lastname" length="45" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="45" />
+        </property>
+        <property name="isAdmin" type="java.lang.Boolean">
+            <column name="isAdmin" />
+        </property>
+    </class>
+</hibernate-mapping>

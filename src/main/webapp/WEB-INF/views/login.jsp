@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>Login Page</h1>
-	<form action="checklogin" method="post">
+	<form action="checkLogin" method="post">
 		Username:<input type="text" name="txtName" /><br />
 		Password:<input type="password" name="txtPass" /><br />
 		<input type="submit" value="Login" />
