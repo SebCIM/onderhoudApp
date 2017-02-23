@@ -17,6 +17,7 @@ public interface UserDao {
 	public void addUser(Apuser p);
 	//Read
 	public Apuser getUserById(int id);
+	public Apuser getUserByToken(String token);
 	//Update
 	public void updateUser(Apuser p);
 	//Delete

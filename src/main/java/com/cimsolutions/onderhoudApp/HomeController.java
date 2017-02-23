@@ -45,11 +45,12 @@ public class HomeController {
 	@RequestMapping(value = "checkLogin", method = RequestMethod.POST)
 	public String checkLogin(@RequestParam("txtToken") String token, Model model) {
 		boolean result = dao.checkLogin(token);
-
+		// boolean getId = dao.checkLogin(token);
 		if (result) {
 			currentUser = new Apuser();
 			currentUser.setToken(token);
-			model.addAttribute("username", currentUser.getToken());
+//			currentUser = dao.getUserByToken(token);
+			model.addAttribute("user", currentUser);
 			return "home";
 		} else {
 			model.addAttribute("error", token + " is not valid!");

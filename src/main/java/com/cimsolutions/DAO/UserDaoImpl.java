@@ -124,6 +124,33 @@ public class UserDaoImpl implements UserDao {
 		}
 		return null;
 	}
+	
+	@Override
+	public Apuser getUserByToken(String token) {
+		System.out.println("test1");
+		// open session from class HibernateUtils
+		SessionFactory factory = HibernateUtils.getSessionFactory();
+		// get session to connect with database
+		Session session = factory.getCurrentSession();
+		
+		try {
+			// open session to work with database
+			session.getTransaction().begin();
+			Apuser u = (Apuser) session.load(Apuser.class, new String(token));
+			if (u != null) {
+				logger.info("User loaded successfully, User details=" + u);
+				// close and commit transaction of current session
+				session.getTransaction().commit();
+				return u;
+			}
+
+		} catch (Exception e) {
+			// if something goes wrong, we will rollback
+			session.getTransaction().rollback();
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	@Override
 	public void removeUser(int id) {
