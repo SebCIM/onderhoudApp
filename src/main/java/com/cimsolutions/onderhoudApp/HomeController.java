@@ -27,23 +27,26 @@ public class HomeController {
 		}
 	}
 	@RequestMapping(value="checkLogin", method=RequestMethod.POST)
-	public String checkLogin(@RequestParam("txtName") String name, @RequestParam("txtPass") String pass,
+	public String checkLogin(@RequestParam("txtToken") String token,
 			Model model) {
-		boolean result = dao.checkLogin(name, pass);
-		currentUser = new Apuser();
-		currentUser.setUsername(name);
+		boolean result = dao.checkLogin(token);
 		
 		if (result) {
-			model.addAttribute("username", name);
+			currentUser = new Apuser();
+			currentUser.setToken(token);
+			model.addAttribute("username", currentUser.getToken());
 			return "home";
-		}else return "invalid";
+		}else {
+			model.addAttribute("error", token+" is not valid!");
+			return "invalid";
+		}
 	}
 	@RequestMapping(value = "panel", method = RequestMethod.GET)
 	public String panel(Model model) {
 		if(currentUser == null){
 			return "login";
 		} else {
-			model.addAttribute("username", currentUser.getUsername());
+			model.addAttribute("username", currentUser.getToken());
 			return "panel";
 		}
 	}

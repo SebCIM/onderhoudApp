@@ -1,5 +1,5 @@
 package com.cimsolutions.entities;
-// Generated 22-Feb-2017 11:26:06 by Hibernate Tools 4.3.5.Final
+// Generated 23-Feb-2017 11:05:33 by Hibernate Tools 4.3.5.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +17,7 @@ public class Apuser implements java.io.Serializable {
 	private String lastname;
 	private String password;
 	private Boolean isAdmin;
+	private String token;
 
 	public Apuser() {
 	}
@@ -25,11 +26,12 @@ public class Apuser implements java.io.Serializable {
 		this.username = username;
 	}
 
-	public Apuser(String username, String lastname, String password, Boolean isAdmin) {
+	public Apuser(String username, String lastname, String password, Boolean isAdmin, String token) {
 		this.username = username;
 		this.lastname = lastname;
 		this.password = password;
 		this.isAdmin = isAdmin;
+		this.token = token;
 	}
 
 	@Id
@@ -68,6 +70,15 @@ public class Apuser implements java.io.Serializable {
 
 	public void setIsAdmin(Boolean isAdmin) {
 		this.isAdmin = isAdmin;
+	}
+
+	@Column(name = "token", length = 45)
+	public String getToken() {
+		return this.token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 }

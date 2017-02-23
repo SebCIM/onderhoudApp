@@ -9,8 +9,7 @@
 <body>
 	<h1>Login Page</h1>
 	<form action="checkLogin" method="post">
-		Username:<input type="text" name="txtName" /><br />
-		Password:<input type="password" name="txtPass" /><br />
+		Code:<input type="text" name="txtToken" /><br />
 		<input type="submit" value="Login" />
 	</form>
 </body>
