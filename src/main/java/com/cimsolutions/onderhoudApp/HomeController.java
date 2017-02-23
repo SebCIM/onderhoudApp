@@ -19,15 +19,18 @@ public class HomeController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
-		if(currentUser.getUsername() != null){
+		if(currentUser == null){
+			return "login";
+		} else {
 			model.addAttribute("username", currentUser.getUsername());
 			return "panel";
-		}else return "login";
+		}
 	}
 	@RequestMapping(value="checkLogin", method=RequestMethod.POST)
 	public String checkLogin(@RequestParam("txtName") String name, @RequestParam("txtPass") String pass,
 			Model model) {
 		boolean result = dao.checkLogin(name, pass);
+		currentUser = new Apuser();
 		currentUser.setUsername(name);
 		
 		if (result) {
@@ -37,13 +40,17 @@ public class HomeController {
 	}
 	@RequestMapping(value = "panel", method = RequestMethod.GET)
 	public String panel(Model model) {
-		model.addAttribute("username", currentUser.getUsername());
-		return "panel";
+		if(currentUser == null){
+			return "login";
+		} else {
+			model.addAttribute("username", currentUser.getUsername());
+			return "panel";
+		}
 	}
 	
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public String logout() {
-		currentUser.setUsername(null);
+		currentUser = null;
 		return "login";
 	}
 }

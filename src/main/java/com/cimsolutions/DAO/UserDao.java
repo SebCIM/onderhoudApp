@@ -25,7 +25,7 @@ public class UserDao implements Serializable {
 			query.setParameter("username", username);
 			query.setParameter("password", password);
 			Object user = query.uniqueResult();
-			if (user != null) {
+			if(user != null) {
 				//close and commit transaction of current session
 				session.getTransaction().commit();
 				return true;
