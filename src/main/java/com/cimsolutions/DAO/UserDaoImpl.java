@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import com.cimsolutions.entities.Apuser;
 import com.cimsolutions.utils.HibernateUtils;
@@ -56,9 +57,36 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public void addUser(Apuser u) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.persist(u);
-		logger.info("User saved successfully, User Details=" + u);
+		System.out.println("add user");
+		// open session from class HibernateUtils
+		SessionFactory factory = HibernateUtils.getSessionFactory();
+		// get session to connect with database
+		Session session = factory.getCurrentSession();
+		
+		Transaction testTransaction = null;
+		
+		try {
+			// open session to work with database
+			testTransaction = session.beginTransaction();
+			System.out.println(u.getLastname());
+			System.out.println(u.getPassword());
+			System.out.println(u.getUsername());
+			System.out.println(u.getToken());
+			System.out.println(u.getIsAdmin());
+			session.save(u);
+			testTransaction.commit();
+//			session.persist(u);
+			logger.info("User saved successfully, User Details=" + u);
+
+		} catch (Exception e) {
+			// if something goes wrong, we will rollback
+			session.getTransaction().rollback();
+			e.printStackTrace();
+		} finally {
+		    if (!testTransaction.wasCommitted()) {
+		    	testTransaction.rollback();
+		    }  
+		}
 	}
 
 	@Override

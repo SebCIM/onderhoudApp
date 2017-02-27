@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,7 +25,7 @@ public class HomeController {
 	Apuser currentUser = new Apuser();
 
 	private UserService userService;
-	
+
 	private UserServiceImpl userServiceImpl;
 
 	@Qualifier(value = "userService")
@@ -49,7 +50,7 @@ public class HomeController {
 		if (result) {
 			currentUser = new Apuser();
 			currentUser.setToken(token);
-//			currentUser = dao.getUserByToken(token);
+			// currentUser = dao.getUserByToken(token);
 			model.addAttribute("user", currentUser);
 			return "home";
 		} else {
@@ -77,9 +78,18 @@ public class HomeController {
 	@RequestMapping(value = "user/edit/{id}", method = RequestMethod.GET)
 	public String editUser(@PathVariable("id") int id, Model model) {
 		currentUser = dao.getUserById(id);
-		
+
 		model.addAttribute("user", currentUser);
 		model.addAttribute("listUsers", dao.listUsers());
 		return "user";
+	}
+
+	@RequestMapping(value = "/user/add", method = RequestMethod.POST)
+	public String addUser(@ModelAttribute("Apuser") Apuser u) {
+
+		dao.addUser(u);
+
+		return "redirect:/user/edit/1";
+
 	}
 }

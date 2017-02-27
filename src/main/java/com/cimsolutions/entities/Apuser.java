@@ -1,8 +1,10 @@
 package com.cimsolutions.entities;
-// Generated 23-Feb-2017 14:15:44 by Hibernate Tools 4.3.5.Final
+// Generated 27-Feb-2017 16:39:17 by Hibernate Tools 4.3.5.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,37 +15,33 @@ import javax.persistence.Table;
 @Table(name = "apuser", catalog = "onderhouddb")
 public class Apuser implements java.io.Serializable {
 
-	private int id;
+	private Integer id;
 	private String username;
 	private String lastname;
 	private String password;
-	private Boolean isAdmin;
 	private String token;
+	private Boolean isAdmin;
 
 	public Apuser() {
 	}
 
-	public Apuser(int id) {
-		this.id = id;
-	}
-
-	public Apuser(int id, String username, String lastname, String password, Boolean isAdmin, String token) {
-		this.id = id;
+	public Apuser(String username, String lastname, String password, String token, Boolean isAdmin) {
 		this.username = username;
 		this.lastname = lastname;
 		this.password = password;
-		this.isAdmin = isAdmin;
 		this.token = token;
+		this.isAdmin = isAdmin;
 	}
 
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -74,15 +72,6 @@ public class Apuser implements java.io.Serializable {
 		this.password = password;
 	}
 
-	@Column(name = "isAdmin")
-	public Boolean getIsAdmin() {
-		return this.isAdmin;
-	}
-
-	public void setIsAdmin(Boolean isAdmin) {
-		this.isAdmin = isAdmin;
-	}
-
 	@Column(name = "token", length = 45)
 	public String getToken() {
 		return this.token;
@@ -90,6 +79,15 @@ public class Apuser implements java.io.Serializable {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	@Column(name = "isAdmin")
+	public Boolean getIsAdmin() {
+		return this.isAdmin;
+	}
+
+	public void setIsAdmin(Boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 
 }

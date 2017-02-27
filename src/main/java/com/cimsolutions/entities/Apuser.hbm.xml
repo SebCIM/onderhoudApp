@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 23-Feb-2017 14:15:44 by Hibernate Tools 4.3.5.Final -->
+<!-- Generated 27-Feb-2017 16:39:17 by Hibernate Tools 4.3.5.Final -->
 <hibernate-mapping>
     <class name="com.cimsolutions.entities.Apuser" table="apuser" catalog="onderhouddb" optimistic-lock="version">
-        <id name="id" type="int">
+        <id name="id" type="java.lang.Integer">
             <column name="id" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
         <property name="username" type="string">
             <column name="username" length="45" />
@@ -17,11 +17,11 @@
         <property name="password" type="string">
             <column name="password" length="45" />
         </property>
-        <property name="isAdmin" type="java.lang.Boolean">
-            <column name="isAdmin" />
-        </property>
         <property name="token" type="string">
             <column name="token" length="45" />
+        </property>
+        <property name="isAdmin" type="java.lang.Boolean">
+            <column name="isAdmin" />
         </property>
     </class>
 </hibernate-mapping>
