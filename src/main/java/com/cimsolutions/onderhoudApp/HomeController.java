@@ -50,7 +50,7 @@ public class HomeController {
 		if (result) {
 			currentUser = new Apuser();
 			currentUser.setToken(token);
-			// currentUser = dao.getUserByToken(token);
+			currentUser = dao.getUserByToken(token);
 			model.addAttribute("user", currentUser);
 			return "home";
 		} else {
@@ -64,7 +64,7 @@ public class HomeController {
 		if (currentUser == null) {
 			return "login";
 		} else {
-			model.addAttribute("username", currentUser.getToken());
+			model.addAttribute("user", currentUser);
 			return "panel";
 		}
 	}

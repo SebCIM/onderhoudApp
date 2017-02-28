@@ -173,7 +173,6 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public Apuser getUserByToken(String token) {
-		System.out.println("test1");
 		// open session from class HibernateUtils
 		SessionFactory factory = HibernateUtils.getSessionFactory();
 		// get session to connect with database
@@ -182,16 +181,21 @@ public class UserDaoImpl implements UserDao {
 		try {
 			// open session to work with database
 			session.getTransaction().begin();
-			Apuser u = (Apuser) session.load(Apuser.class, new String(token));
-			if (u != null) {
-				logger.info("User loaded successfully, User details=" + u);
+			String sql = "Select e from Apuser e where e.token = :token";
+			Query query = session.createQuery(sql);
+			query.setParameter("token", token);
+			Object userResult = query.uniqueResult();
+			
+			if (userResult != null) {
 				// close and commit transaction of current session
 				session.getTransaction().commit();
-				return u;
+				Apuser user = (Apuser) userResult;
+				return user;
 			}
 
 		} catch (Exception e) {
-			// if something goes wrong, we will rollback
+			// TODO: handle exception
+			// if something go wrong, we will rollback
 			session.getTransaction().rollback();
 			e.printStackTrace();
 		}

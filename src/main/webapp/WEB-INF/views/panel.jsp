@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>
-	Welcome, ${user.token}
+	Welcome, ${user.username}
 </h1>
 <p>Reparatie verzoeken indienen.</p>
 <ul>
@@ -18,7 +18,7 @@
 	<li>
 		Invoeren
 	</li>
-	<c:if test="${!empty user}">
+	<c:if test="${user.isAdmin != true}">
 		<li>
 			Gebruikers
 		</li>
