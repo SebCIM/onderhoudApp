@@ -62,9 +62,11 @@ public class HomeController {
 	@RequestMapping(value = "panel", method = RequestMethod.GET)
 	public String panel(Model model) {
 		if (currentUser == null) {
+			System.out.println("geen user gevonden");
 			return "login";
 		} else {
 			model.addAttribute("user", currentUser);
+			System.out.println("user gevonden");
 			return "panel";
 		}
 	}
@@ -77,9 +79,15 @@ public class HomeController {
 	
 	@RequestMapping(value = "users", method = RequestMethod.GET)
 	public String showUsers(Model model) {
-		currentUser = null;
-		model.addAttribute("listUsers", dao.listUsers());
-		return "users";
+		if (currentUser == null) {
+			System.out.println("geen sessie gevonden");
+			return "login";
+		} else {
+			model.addAttribute("listUsers", dao.listUsers());
+			model.addAttribute("user", currentUser);
+			System.out.println("usersessie gevonden");
+			return "users";
+		}
 	}
 	
 	@RequestMapping(value = "user/edit", method = RequestMethod.POST)
@@ -110,10 +118,14 @@ public class HomeController {
 	
 	@RequestMapping(value = "/user/remove/{id}", method = RequestMethod.GET)
 	public String removeUser(@PathVariable("id") int id, Model model) {
-
-		dao.removeUser(id);
-
-		return "redirect:/users";
-
+		if (currentUser == null) {
+			System.out.println("geen sessie gevonden");
+			return "login";
+		} else {
+			dao.removeUser(id);
+			model.addAttribute("user", currentUser);
+			System.out.println("usersessie gevonden");
+			return "redirect:/users";
+		}
 	}
 }
