@@ -74,6 +74,21 @@ public class HomeController {
 		currentUser = null;
 		return "login";
 	}
+	
+	@RequestMapping(value = "users", method = RequestMethod.GET)
+	public String showUsers(Model model) {
+		currentUser = null;
+		model.addAttribute("listUsers", dao.listUsers());
+		return "users";
+	}
+	
+	@RequestMapping(value = "user/edit", method = RequestMethod.POST)
+	public String editUser(@ModelAttribute("Apuser") Apuser u) {
+		
+		dao.updateUser(u);
+		
+		return "redirect:/users";
+	}
 
 	@RequestMapping(value = "user/edit/{id}", method = RequestMethod.GET)
 	public String editUser(@PathVariable("id") int id, Model model) {
@@ -89,7 +104,16 @@ public class HomeController {
 
 		dao.addUser(u);
 
-		return "redirect:/user/edit/1";
+		return "redirect:/users";
+
+	}
+	
+	@RequestMapping(value = "/user/remove/{id}", method = RequestMethod.GET)
+	public String removeUser(@PathVariable("id") int id, Model model) {
+
+		dao.removeUser(id);
+
+		return "redirect:/users";
 
 	}
 }

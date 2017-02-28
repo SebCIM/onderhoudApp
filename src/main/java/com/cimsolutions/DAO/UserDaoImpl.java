@@ -62,9 +62,9 @@ public class UserDaoImpl implements UserDao {
 		SessionFactory factory = HibernateUtils.getSessionFactory();
 		// get session to connect with database
 		Session session = factory.getCurrentSession();
-		
+
 		Transaction testTransaction = null;
-		
+
 		try {
 			// open session to work with database
 			testTransaction = session.beginTransaction();
@@ -75,7 +75,7 @@ public class UserDaoImpl implements UserDao {
 			System.out.println(u.getIsAdmin());
 			session.save(u);
 			testTransaction.commit();
-//			session.persist(u);
+			// session.persist(u);
 			logger.info("User saved successfully, User Details=" + u);
 
 		} catch (Exception e) {
@@ -83,28 +83,47 @@ public class UserDaoImpl implements UserDao {
 			session.getTransaction().rollback();
 			e.printStackTrace();
 		} finally {
-		    if (!testTransaction.wasCommitted()) {
-		    	testTransaction.rollback();
-		    }  
+			if (!testTransaction.wasCommitted()) {
+				testTransaction.rollback();
+			}
 		}
 	}
 
 	@Override
-	public void updateUser(Apuser u) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.update(u);
-		logger.info("User updated successfully, User Details=" + u);
+	public void updateUser(Apuser p) {
+		System.out.println("removing user");
+		System.out.println(p);
+		// open session from class HibernateUtils
+		SessionFactory factory = HibernateUtils.getSessionFactory();
+		// get session to connect with database
+		Session session = factory.getCurrentSession();
+
+		Transaction testTransaction = null;
+
+		try {
+			// open session to work with database
+			testTransaction = session.beginTransaction();
+			if (p != null) {
+				session.update(p);
+				testTransaction.commit();
+				logger.info("User updated successfully, User details=" + p);
+			}
+
+		} catch (Exception e) {
+			// if something goes wrong, we will rollback
+			session.getTransaction().rollback();
+			e.printStackTrace();
+		}
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Apuser> listUsers() {
-		System.out.println("test1");
 		// open session from class HibernateUtils
 		SessionFactory factory = HibernateUtils.getSessionFactory();
 		// get session to connect with database
 		Session session = factory.getCurrentSession();
-		
+
 		try {
 			// open session to work with database
 			session.getTransaction().begin();
@@ -128,12 +147,11 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public Apuser getUserById(int id) {
-		System.out.println("test1");
 		// open session from class HibernateUtils
 		SessionFactory factory = HibernateUtils.getSessionFactory();
 		// get session to connect with database
 		Session session = factory.getCurrentSession();
-		
+
 		try {
 			// open session to work with database
 			session.getTransaction().begin();
@@ -152,7 +170,7 @@ public class UserDaoImpl implements UserDao {
 		}
 		return null;
 	}
-	
+
 	@Override
 	public Apuser getUserByToken(String token) {
 		System.out.println("test1");
@@ -160,7 +178,7 @@ public class UserDaoImpl implements UserDao {
 		SessionFactory factory = HibernateUtils.getSessionFactory();
 		// get session to connect with database
 		Session session = factory.getCurrentSession();
-		
+
 		try {
 			// open session to work with database
 			session.getTransaction().begin();
@@ -182,11 +200,30 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public void removeUser(int id) {
-		Session session = this.sessionFactory.getCurrentSession();
-		Apuser u = (Apuser) session.load(Apuser.class, new Integer(id));
-		if (null != u) {
-			session.delete(u);
+		System.out.println("removing user");
+		// open session from class HibernateUtils
+		SessionFactory factory = HibernateUtils.getSessionFactory();
+		// get session to connect with database
+		Session session = factory.getCurrentSession();
+
+		Transaction testTransaction = null;
+
+		try {
+			// open session to work with database
+			testTransaction = session.beginTransaction();
+
+			Apuser u = (Apuser) session.load(Apuser.class, new Integer(id));
+
+			if (u != null) {
+				session.delete(u);
+				testTransaction.commit();
+				logger.info("User deleted successfully, User details=" + u);
+			}
+
+		} catch (Exception e) {
+			// if something goes wrong, we will rollback
+			session.getTransaction().rollback();
+			e.printStackTrace();
 		}
-		logger.info("User deleted successfully, User details=" + u);
 	}
 }
