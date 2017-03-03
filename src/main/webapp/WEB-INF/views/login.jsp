@@ -1,16 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Login</title>
-</head>
-<body>
-	<h1>Login Page</h1>
+<%@include file='default.jsp'%>
+<div class="login">
+	<h1>Identificatie Code</h1>
 	<form action="checkLogin" method="post">
-		Code:<input type="text" name="txtToken" /><br />
-		<input type="submit" value="Login" />
+		<input type="text" name="txtToken" /><input
+			type="submit" class="login-btn" value="Login" />
 	</form>
-</body>
-</html>
+	</div>
+<%@include file='footer.jsp'%>

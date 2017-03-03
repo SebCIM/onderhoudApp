@@ -1,5 +1,8 @@
 package com.cimsolutions.onderhoudApp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -38,8 +41,9 @@ public class HomeController {
 		if (currentUser == null) {
 			return "login";
 		} else {
-			model.addAttribute("username", currentUser.getUsername());
-			return "panel";
+			model.addAttribute("user", currentUser);
+			model.addAttribute("title", "Login Paneel");
+			return "home";
 		}
 	}
 
@@ -52,9 +56,11 @@ public class HomeController {
 			currentUser.setToken(token);
 			currentUser = dao.getUserByToken(token);
 			model.addAttribute("user", currentUser);
+			model.addAttribute("title", "Gebruikerspaneel");
 			return "home";
 		} else {
 			model.addAttribute("error", token + " is not valid!");
+			model.addAttribute("title", "Invalid Token");
 			return "invalid";
 		}
 	}
@@ -67,7 +73,8 @@ public class HomeController {
 		} else {
 			model.addAttribute("user", currentUser);
 			System.out.println("user gevonden");
-			return "panel";
+			model.addAttribute("title", "Gebruikerspaneel");
+			return "home";
 		}
 	}
 
@@ -76,35 +83,52 @@ public class HomeController {
 		currentUser = null;
 		return "login";
 	}
-	
+
 	@RequestMapping(value = "users", method = RequestMethod.GET)
 	public String showUsers(Model model) {
 		if (currentUser == null) {
 			System.out.println("geen sessie gevonden");
 			return "login";
 		} else {
-			model.addAttribute("listUsers", dao.listUsers());
-			model.addAttribute("user", currentUser);
-			System.out.println("usersessie gevonden");
-			return "users";
+			if (this.currentUser.getIsAdmin() == false) {
+				return "home";
+			} else {
+				model.addAttribute("listUsers", dao.listUsers());
+				model.addAttribute("user", currentUser);
+				model.addAttribute("title", "Gebruikers");
+				System.out.println("usersessie gevonden");
+				return "users";
+			}
 		}
 	}
-	
+
 	@RequestMapping(value = "user/edit", method = RequestMethod.POST)
 	public String editUser(@ModelAttribute("Apuser") Apuser u) {
-		
+
 		dao.updateUser(u);
-		
+
 		return "redirect:/users";
 	}
 
 	@RequestMapping(value = "user/edit/{id}", method = RequestMethod.GET)
 	public String editUser(@PathVariable("id") int id, Model model) {
-		currentUser = dao.getUserById(id);
+		if (currentUser == null) {
+			System.out.println("geen sessie gevonden");
+			return "login";
+		} else {
+			if (this.currentUser.getIsAdmin() == false) {
+				return "home";
+			} else {
+				Apuser editUser = new Apuser();
+				editUser = dao.getUserById(id);
 
-		model.addAttribute("user", currentUser);
-		model.addAttribute("listUsers", dao.listUsers());
-		return "user";
+				model.addAttribute("user", currentUser);
+				model.addAttribute("edituser", editUser);
+				model.addAttribute("listUsers", dao.listUsers());
+				model.addAttribute("title", "Gebruiker -" + editUser.getUsername());
+				return "user";
+			}
+		}
 	}
 
 	@RequestMapping(value = "/user/add", method = RequestMethod.POST)
@@ -115,7 +139,7 @@ public class HomeController {
 		return "redirect:/users";
 
 	}
-	
+
 	@RequestMapping(value = "/user/remove/{id}", method = RequestMethod.GET)
 	public String removeUser(@PathVariable("id") int id, Model model) {
 		if (currentUser == null) {
@@ -126,6 +150,27 @@ public class HomeController {
 			model.addAttribute("user", currentUser);
 			System.out.println("usersessie gevonden");
 			return "redirect:/users";
+		}
+	}
+
+	@RequestMapping(value = "repair", method = RequestMethod.GET)
+	public String Invoer(Model model) {
+		if (currentUser == null) {
+			System.out.println("geen sessie gevonden");
+			return "login";
+		} else {
+			List<String> list = new ArrayList<String>();
+			list.add("List A");
+			list.add("List B");
+			list.add("List C");
+			list.add("List D");
+			list.add("List 1");
+			list.add("List 2");
+			list.add("List 3");
+
+			model.addAttribute("user", currentUser);
+			model.addAttribute("list", list);
+			return "invoer";
 		}
 	}
 }

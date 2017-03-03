@@ -1,54 +1,9 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ page session="true"%>
-<html>
-<head>
-<title>user Page</title>
-<style type="text/css">
-.tg {
-	border-collapse: collapse;
-	border-spacing: 0;
-	border-color: #ccc;
-}
-
-.tg td {
-	font-family: Arial, sans-serif;
-	font-size: 14px;
-	padding: 10px 5px;
-	border-style: solid;
-	border-width: 1px;
-	overflow: hidden;
-	word-break: normal;
-	border-color: #ccc;
-	color: #333;
-	background-color: #fff;
-}
-
-.tg th {
-	font-family: Arial, sans-serif;
-	font-size: 14px;
-	font-weight: normal;
-	padding: 10px 5px;
-	border-style: solid;
-	border-width: 1px;
-	overflow: hidden;
-	word-break: normal;
-	border-color: #ccc;
-	color: #333;
-	background-color: #f0f0f0;
-}
-
-.tg .tg-4eph {
-	background-color: #f9f9f9
-}
-</style>
-</head>
-<body>
+<%@include file='default.jsp'%>
+	<h1><a href="/onderhoudApp/users">Back</a></h1>
 	<h1>Onderhoudsaannemer aanpassen</h1>
 	<c:url var="editAction" value="/user/edit"></c:url>
 
-	<form:form action="${editAction}" commandName="user">
+	<form:form action="${editAction}" commandName="edituser">
 		<table>
 		<tr>
 				<td><form:label path="id">
@@ -97,22 +52,23 @@
 	<c:if test="${!empty listUsers}">
 		<table class="tg">
 			<tr>
-				<th width="80">User ID</th>
-				<th width="120">Username</th>
-				<th width="120">Lastname</th>
+				<th width="80">ID</th>
+				<th width="120">Contactpersoon</th>
+				<th width="120">Bedrijf</th>
 				<th width="60">Edit</th>
 				<th width="60">Delete</th>
 			</tr>
 			<c:forEach items="${listUsers}" var="person">
-				<tr>
-					<td>${person.id}</td>
-					<td>${person.username}</td>
-					<td>${person.lastname}</td>
-					<td><a href="<c:url value='../edit/${person.id}' />">Edit</a></td>
-					<td><a href="<c:url value='../remove/${person.id}' />">Delete</a></td>
-				</tr>
+				<c:if test="${not person.isAdmin}">
+					<tr>
+						<td>${person.id}</td>
+						<td>${person.username}</td>
+						<td>${person.lastname}</td>
+						<td><a href="<c:url value='user/edit/${person.id}' />">Edit</a></td>
+						<td><a href="<c:url value='user/remove/${person.id}' />">Delete</a></td>
+					</tr>
+				</c:if>
 			</c:forEach>
 		</table>
 	</c:if>
-</body>
-</html>
+<%@include file='footer.jsp'%>

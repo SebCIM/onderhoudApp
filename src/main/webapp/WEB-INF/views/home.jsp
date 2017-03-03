@@ -1,13 +1,3 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
-<html>
-<head>
-	<title>Home</title>
-</head>
-<body>
-<h1>
-	Welcome, ${user.username}
-</h1>
-<a href="panel">Reparatie verzoek indienen?</a>
-</body>
-</html>
+<%@include file='default.jsp'%>
+Welkom op de Vorstschade applicatie waar je vorstschade reparaties kunt doorgeven en een overzicht kunt opvragen van voorgaande reparaties. <a href="/onderhoudApp/repair">Reparatie verzoek indienen?</a>
+<%@include file='footer.jsp'%>
