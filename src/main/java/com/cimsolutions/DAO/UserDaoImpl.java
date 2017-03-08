@@ -68,7 +68,6 @@ public class UserDaoImpl implements UserDao {
 		try {
 			// open session to work with database
 			testTransaction = session.beginTransaction();
-			System.out.println(u.getLastname());
 			System.out.println(u.getPassword());
 			System.out.println(u.getUsername());
 			System.out.println(u.getToken());

@@ -1196,7 +1196,7 @@ select, textarea, input[type="email"], input[type="number"], input[type="passwor
 	{
 	background: #fff;
 	border: solid 1px #a9a9a9;
-	padding: 3px 7px;
+	padding: 5px 8px;
 	margin: 3px 0;
 	box-shadow: 1px 1px 3px rgba(102, 102, 102, 0.1) inset;
 	border-radius: 3px;

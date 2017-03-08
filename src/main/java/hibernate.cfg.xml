@@ -15,5 +15,6 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.validator.apply_to_ddl">false</property>
         <mapping class="com.cimsolutions.entities.Apuser" />
+        <mapping class="com.cimsolutions.entities.Reparatie" />
     </session-factory>
 </hibernate-configuration>

@@ -1,6 +1,6 @@
 <%@include file='default.jsp'%>
 <div class="login">
-	<h1>Identificatie Code</h1>
+	<h3>Identificatie Code</h3>
 	<form action="checkLogin" method="post">
 		<input type="text" name="txtToken" /><input
 			type="submit" class="login-btn" value="Login" />

@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 08-Mar-2017 16:38:13 by Hibernate Tools 4.3.5.Final -->
+<hibernate-mapping>
+    <class name="com.cimsolutions.entities.Reparatie" table="reparatie" catalog="onderhouddb" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="soort" type="string">
+            <column name="soort" length="45" />
+        </property>
+        <property name="district" type="string">
+            <column name="district" length="45" />
+        </property>
+        <property name="rijksweg" type="string">
+            <column name="rijksweg" length="45" />
+        </property>
+        <property name="hectometerbord" type="string">
+            <column name="hectometerbord" length="45" />
+        </property>
+        <property name="baan" type="string">
+            <column name="baan" length="45" />
+        </property>
+        <property name="strook" type="string">
+            <column name="strook" length="45" />
+        </property>
+        <property name="verhardingssoort" type="string">
+            <column name="verhardingssoort" length="45" />
+        </property>
+        <property name="reparatiemethode" type="string">
+            <column name="reparatiemethode" length="45" />
+        </property>
+        <property name="datumtijd" type="timestamp">
+            <column name="datumtijd" length="19" />
+        </property>
+        <property name="noodofspoed" type="string">
+            <column name="noodofspoed" length="45" />
+        </property>
+        <property name="aantalgaten" type="string">
+            <column name="aantalgaten" length="45" />
+        </property>
+        <property name="opmerking" type="string">
+            <column name="opmerking" />
+        </property>
+    </class>
+</hibernate-mapping>
