@@ -1081,11 +1081,6 @@ a img {
 	border: 0
 }
 
-video, img, object, embed {
-	max-width: 100%;
-	height: auto
-}
-
 object, embed {
 	height: 100%
 }
@@ -1203,12 +1198,8 @@ select, textarea, input[type="email"], input[type="number"], input[type="passwor
 	border: solid 1px #a9a9a9;
 	padding: 3px 7px;
 	margin: 3px 0;
-	font: 0.9rem "RijksoverheidSansText", Verdana, Arial, sans-serif;
-	line-height: 2rem;
-	height: 2rem;
 	box-shadow: 1px 1px 3px rgba(102, 102, 102, 0.1) inset;
 	border-radius: 3px;
-	max-width: 100%
 }
 
 select:hover, textarea:hover, input[type="email"]:hover, input[type="number"]:hover,

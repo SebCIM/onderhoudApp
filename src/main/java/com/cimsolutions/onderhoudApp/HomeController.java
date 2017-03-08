@@ -39,6 +39,7 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
 		if (currentUser == null) {
+			model.addAttribute("title", "Login");
 			return "login";
 		} else {
 			model.addAttribute("user", currentUser);
@@ -79,8 +80,9 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
-	public String logout() {
+	public String logout(Model model) {
 		currentUser = null;
+		model.addAttribute("title", "Logout");
 		return "login";
 	}
 
@@ -148,6 +150,7 @@ public class HomeController {
 		} else {
 			dao.removeUser(id);
 			model.addAttribute("user", currentUser);
+			model.addAttribute("title", "Remove");
 			System.out.println("usersessie gevonden");
 			return "redirect:/users";
 		}

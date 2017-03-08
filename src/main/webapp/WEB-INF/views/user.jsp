@@ -1,6 +1,6 @@
 <%@include file='default.jsp'%>
 	<h1><a href="/onderhoudApp/users">Back</a></h1>
-	<h1>Onderhoudsaannemer aanpassen</h1>
+	<h3>Onderhoudsaannemer aanpassen</h3>
 	<c:url var="editAction" value="/user/edit"></c:url>
 
 	<form:form action="${editAction}" commandName="edituser">
@@ -18,16 +18,10 @@
 				<td><form:input path="username" /></td>
 			</tr>
 			<tr>
-				<td><form:label path="lastname">
-						<spring:message text="lastname" />
+				<td><form:label path="bedrijf">
+						<spring:message text="bedrijf" />
 					</form:label></td>
-				<td><form:input path="lastname" /></td>
-			</tr>
-			<tr>
-				<td><form:label path="password">
-						<spring:message text="password" />
-					</form:label></td>
-				<td><form:input path="password" /></td>
+				<td><form:input path="bedrijf" /></td>
 			</tr>
 			<tr>
 				<td><form:label path="token">
@@ -39,7 +33,7 @@
 				<td><form:label path="isAdmin">
 						<spring:message text="isAdmin" />
 					</form:label></td>
-				<td><form:input path="isAdmin" /></td>
+				<td><form:checkbox path="isAdmin" /></td>
 			</tr>
 			<tr>
 				<td colspan="2"><input type="submit"
@@ -63,7 +57,7 @@
 					<tr>
 						<td>${person.id}</td>
 						<td>${person.username}</td>
-						<td>${person.lastname}</td>
+						<td>${person.bedrijf}</td>
 						<td><a href="<c:url value='user/edit/${person.id}' />">Edit</a></td>
 						<td><a href="<c:url value='user/remove/${person.id}' />">Delete</a></td>
 					</tr>

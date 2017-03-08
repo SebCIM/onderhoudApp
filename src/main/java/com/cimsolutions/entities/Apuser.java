@@ -1,5 +1,5 @@
 package com.cimsolutions.entities;
-// Generated 27-Feb-2017 16:39:17 by Hibernate Tools 4.3.5.Final
+// Generated 08-Mar-2017 11:58:42 by Hibernate Tools 4.3.5.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,20 +17,27 @@ public class Apuser implements java.io.Serializable {
 
 	private Integer id;
 	private String username;
-	private String lastname;
+	private String bedrijf;
 	private String password;
 	private String token;
 	private Boolean isAdmin;
+	private String email;
+	private String tel;
+	private String district;
 
 	public Apuser() {
 	}
 
-	public Apuser(String username, String lastname, String password, String token, Boolean isAdmin) {
+	public Apuser(String username, String bedrijf, String password, String token, Boolean isAdmin, String email,
+			String tel, String district) {
 		this.username = username;
-		this.lastname = lastname;
+		this.bedrijf = bedrijf;
 		this.password = password;
 		this.token = token;
 		this.isAdmin = isAdmin;
+		this.email = email;
+		this.tel = tel;
+		this.district = district;
 	}
 
 	@Id
@@ -54,13 +61,13 @@ public class Apuser implements java.io.Serializable {
 		this.username = username;
 	}
 
-	@Column(name = "lastname", length = 45)
-	public String getLastname() {
-		return this.lastname;
+	@Column(name = "bedrijf", length = 45)
+	public String getBedrijf() {
+		return this.bedrijf;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setBedrijf(String bedrijf) {
+		this.bedrijf = bedrijf;
 	}
 
 	@Column(name = "password", length = 45)
@@ -88,6 +95,33 @@ public class Apuser implements java.io.Serializable {
 
 	public void setIsAdmin(Boolean isAdmin) {
 		this.isAdmin = isAdmin;
+	}
+
+	@Column(name = "email", length = 45)
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	@Column(name = "tel", length = 45)
+	public String getTel() {
+		return this.tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+
+	@Column(name = "district", length = 45)
+	public String getDistrict() {
+		return this.district;
+	}
+
+	public void setDistrict(String district) {
+		this.district = district;
 	}
 
 }
