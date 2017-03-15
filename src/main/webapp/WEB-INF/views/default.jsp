@@ -62,6 +62,7 @@
 				<ul>
 					<li class="main-item "><a href="/onderhoudApp">Home</a></li>
 					<li class="main-item "><a href="/onderhoudApp/repair">Invoeren</a>
+					<li class="main-item "><a href="/onderhoudApp/overzicht">Overzicht</a>
 						<c:if test="${user.isAdmin}">
 							<li class="main-item "><a href="/onderhoudApp/users">Gebruikers</a>
 							</li>

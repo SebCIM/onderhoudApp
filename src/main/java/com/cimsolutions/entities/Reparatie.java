@@ -1,12 +1,16 @@
 package com.cimsolutions.entities;
-// Generated 08-Mar-2017 16:38:13 by Hibernate Tools 4.3.5.Final
+// Generated 15-Mar-2017 11:59:35 by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,13 +35,14 @@ public class Reparatie implements java.io.Serializable {
 	private String noodofspoed;
 	private String aantalgaten;
 	private String opmerking;
+	private Set<Userreparatie> userreparaties = new HashSet<Userreparatie>(0);
 
 	public Reparatie() {
 	}
 
 	public Reparatie(String soort, String district, String rijksweg, String hectometerbord, String baan, String strook,
 			String verhardingssoort, String reparatiemethode, Date datumtijd, String noodofspoed, String aantalgaten,
-			String opmerking) {
+			String opmerking, Set<Userreparatie> userreparaties) {
 		this.soort = soort;
 		this.district = district;
 		this.rijksweg = rijksweg;
@@ -50,6 +55,7 @@ public class Reparatie implements java.io.Serializable {
 		this.noodofspoed = noodofspoed;
 		this.aantalgaten = aantalgaten;
 		this.opmerking = opmerking;
+		this.userreparaties = userreparaties;
 	}
 
 	@Id
@@ -171,6 +177,15 @@ public class Reparatie implements java.io.Serializable {
 
 	public void setOpmerking(String opmerking) {
 		this.opmerking = opmerking;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "reparatie")
+	public Set<Userreparatie> getUserreparaties() {
+		return this.userreparaties;
+	}
+
+	public void setUserreparaties(Set<Userreparatie> userreparaties) {
+		this.userreparaties = userreparaties;
 	}
 
 }

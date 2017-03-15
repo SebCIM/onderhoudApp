@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 08-Mar-2017 16:38:13 by Hibernate Tools 4.3.5.Final -->
+<!-- Generated 15-Mar-2017 11:59:35 by Hibernate Tools 4.3.5.Final -->
 <hibernate-mapping>
     <class name="com.cimsolutions.entities.Reparatie" table="reparatie" catalog="onderhouddb" optimistic-lock="version">
         <id name="id" type="java.lang.Integer">
@@ -44,5 +44,11 @@
         <property name="opmerking" type="string">
             <column name="opmerking" />
         </property>
+        <set name="userreparaties" table="userreparatie" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="reparatieid" />
+            </key>
+            <one-to-many class="com.cimsolutions.entities.Userreparatie" />
+        </set>
     </class>
 </hibernate-mapping>

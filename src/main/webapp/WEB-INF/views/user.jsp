@@ -5,7 +5,10 @@
 
 	<form:form action="${editAction}" commandName="edituser">
 		<table>
-			<tr>
+			<tr class="hidden">
+				<td>Id:</td>
+				<td><form:input path="Id" /></td>
+			</tr>
 				<td>Gebruiker:</td>
 				<td><form:input path="username" /></td>
 			</tr>

@@ -1,6 +1,7 @@
 package com.cimsolutions.onderhoudApp;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cimsolutions.DAO.UserDaoImpl;
+import com.cimsolutions.DAO.ReparatieDAOImpl;
 import com.cimsolutions.entities.Apuser;
+import com.cimsolutions.entities.Userreparatie;
 import com.cimsolutions.service.UserService;
 import com.cimsolutions.service.UserServiceImpl;
 
@@ -24,6 +27,7 @@ import com.cimsolutions.service.UserServiceImpl;
 @Controller
 public class HomeController {
 	UserDaoImpl dao = new UserDaoImpl();
+	ReparatieDAOImpl daoR = new ReparatieDAOImpl();
 	private UserDaoImpl userDaoImpl;
 	Apuser currentUser = new Apuser();
 
@@ -108,6 +112,7 @@ public class HomeController {
 	public String editUser(@ModelAttribute("Apuser") Apuser u) {
 
 		dao.updateUser(u);
+		System.out.println("controller opgevangen");
 
 		return "redirect:/users";
 	}
@@ -174,6 +179,29 @@ public class HomeController {
 			model.addAttribute("user", currentUser);
 			model.addAttribute("list", list);
 			return "invoer";
+		}
+	}
+	
+	@RequestMapping(value = "overzicht", method = RequestMethod.GET)
+	public String showRepairs(Model model) {
+		List<Userreparatie> reparatieList = daoR.listReparaties();
+		for (Userreparatie userreparatie : reparatieList) {
+			System.out.println(userreparatie.getApuser().getEmail());
+		}
+
+		if (currentUser == null) {
+			System.out.println("geen sessie gevonden");
+			return "login";
+		} else {
+			if (this.currentUser.getIsAdmin() == false) {
+				return "home";
+			} else {
+				model.addAttribute("listReparaties", reparatieList);
+				model.addAttribute("user", currentUser);
+				model.addAttribute("title", "Gebruikers");
+				System.out.println("usersessie gevonden");
+				return "reparaties";
+			}
 		}
 	}
 }

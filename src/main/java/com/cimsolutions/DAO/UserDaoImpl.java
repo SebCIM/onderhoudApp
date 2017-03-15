@@ -96,7 +96,20 @@ public class UserDaoImpl implements UserDao {
 		SessionFactory factory = HibernateUtils.getSessionFactory();
 		// get session to connect with database
 		Session session = factory.getCurrentSession();
+		
+		System.out.println("updaten");
 
+		p.setPassword("asdf");
+		System.out.println("getId:" + p.getId());
+		System.out.println("getPassword:" + p.getPassword());
+		System.out.println("getUsername:" + p.getUsername());
+		System.out.println("getToken" + p.getToken());
+		System.out.println("getIsAdmin" + p.getIsAdmin());
+		System.out.println("getBedrijf:" + p.getBedrijf());
+		System.out.println("getDistrict:" + p.getDistrict());
+		System.out.println("getEmail:" + p.getEmail());
+		System.out.println("getTel:" + p.getTel());
+		
 		Transaction testTransaction = null;
 
 		try {
@@ -104,6 +117,7 @@ public class UserDaoImpl implements UserDao {
 			testTransaction = session.beginTransaction();
 			if (p != null) {
 				session.update(p);
+				System.out.println(p.getIsAdmin());
 				testTransaction.commit();
 				logger.info("User updated successfully, User details=" + p);
 			}

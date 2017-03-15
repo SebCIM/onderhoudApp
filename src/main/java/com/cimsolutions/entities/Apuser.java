@@ -1,11 +1,15 @@
 package com.cimsolutions.entities;
-// Generated 08-Mar-2017 16:38:13 by Hibernate Tools 4.3.5.Final
+// Generated 15-Mar-2017 11:59:35 by Hibernate Tools 4.3.5.Final
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -24,12 +28,13 @@ public class Apuser implements java.io.Serializable {
 	private String email;
 	private String tel;
 	private String district;
+	private Set<Userreparatie> userreparaties = new HashSet<Userreparatie>(0);
 
 	public Apuser() {
 	}
 
 	public Apuser(String username, String bedrijf, String password, String token, Boolean isAdmin, String email,
-			String tel, String district) {
+			String tel, String district, Set<Userreparatie> userreparaties) {
 		this.username = username;
 		this.bedrijf = bedrijf;
 		this.password = password;
@@ -38,6 +43,7 @@ public class Apuser implements java.io.Serializable {
 		this.email = email;
 		this.tel = tel;
 		this.district = district;
+		this.userreparaties = userreparaties;
 	}
 
 	@Id
@@ -122,6 +128,15 @@ public class Apuser implements java.io.Serializable {
 
 	public void setDistrict(String district) {
 		this.district = district;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "apuser")
+	public Set<Userreparatie> getUserreparaties() {
+		return this.userreparaties;
+	}
+
+	public void setUserreparaties(Set<Userreparatie> userreparaties) {
+		this.userreparaties = userreparaties;
 	}
 
 }

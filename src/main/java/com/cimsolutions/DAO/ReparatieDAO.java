@@ -7,7 +7,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cimsolutions.entities.Apuser;  
-import com.cimsolutions.entities.Reparatie;  
+import com.cimsolutions.entities.Reparatie;
+import com.cimsolutions.entities.Userreparatie;  
   
 //CRUD operations
 @Repository  
@@ -24,5 +25,5 @@ public interface ReparatieDAO {
 	//Delete
 	public void removeUser(int id);
 	//Get All
-	public List<Reparatie> listReparaties();
+	public List<Userreparatie> listReparaties();
 }
