@@ -5,20 +5,21 @@
 			<tr>
 				<th width="20">ID</th>
 				<th width="120">Onderhoudsaannemer</th>
-				<th width="200">Reparatie</th>
-				<th width="50"></th>
+				<th width="200">Reparatie datum</th>
+				<th width="200">Opmerking</th>
 				<th width="50"></th>
 			</tr>
 			<c:forEach items="${listReparaties}" var="reparatie">
-				<%-- <c:if test="${reparatie.apuserid == user.id}"> --%>
+				<c:if test="${reparatie.getApuser().getId() == user.id}">
 					<tr>
 						<td>${reparatie.id}</td>
-						<td>${reparatie.getApuser().getUsername()}</td>
+						<td>${reparatie.getApuser().getBedrijf()}</td>
 						<td>${reparatie.getReparatie().getDatumtijd()}</td>
-						<td><a href="<c:url value='user/edit/${reparatie.id}' />">Aanpassen</a></td>
-						<td><a href="<c:url value='user/remove/${reparatie.id}' />" class="confirm"  data-text="Weet je zeker dat je ${reparatie.id} wilt verwijderen?" >Verwijderen</a></td>
+						<td>${reparatie.getReparatie().getOpmerking()}</td>
+						<td><a href="<c:url value='repair/view/${reparatie.id}' />">Inzien</a></td>
+						<%-- <td><a href="<c:url value='user/remove/${reparatie.id}' />" class="confirm"  data-text="Weet je zeker dat je ${reparatie.id} wilt verwijderen?" >Verwijderen</a></td> --%>
 					</tr>
-				<%-- </c:if> --%>
+				</c:if>
 			</c:forEach>
 		</table>
 

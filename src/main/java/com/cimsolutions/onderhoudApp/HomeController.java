@@ -1,11 +1,8 @@
 package com.cimsolutions.onderhoudApp;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,11 +12,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cimsolutions.DAO.UserDaoImpl;
+import com.cimsolutions.DAO.WegenDAOImpl;
+import com.cimsolutions.DAO.BaanDAOImpl;
+import com.cimsolutions.DAO.DistrictDAOImpl;
 import com.cimsolutions.DAO.ReparatieDAOImpl;
+import com.cimsolutions.DAO.StrookDAOImpl;
 import com.cimsolutions.entities.Apuser;
+import com.cimsolutions.entities.Baan;
+import com.cimsolutions.entities.District;
+import com.cimsolutions.entities.Reparatie;
+import com.cimsolutions.entities.Strook;
 import com.cimsolutions.entities.Userreparatie;
-import com.cimsolutions.service.UserService;
-import com.cimsolutions.service.UserServiceImpl;
+import com.cimsolutions.entities.Wegenlijst;
 
 /**
  * Handles requests for the application home page.
@@ -28,17 +32,11 @@ import com.cimsolutions.service.UserServiceImpl;
 public class HomeController {
 	UserDaoImpl dao = new UserDaoImpl();
 	ReparatieDAOImpl daoR = new ReparatieDAOImpl();
-	private UserDaoImpl userDaoImpl;
+	DistrictDAOImpl daoD = new DistrictDAOImpl();
+	BaanDAOImpl daoB = new BaanDAOImpl();
+	WegenDAOImpl daoW = new WegenDAOImpl();
+	StrookDAOImpl daoS = new StrookDAOImpl();
 	Apuser currentUser = new Apuser();
-
-	private UserService userService;
-
-	private UserServiceImpl userServiceImpl;
-
-	@Qualifier(value = "userService")
-	public void setUserService(UserService us) {
-		this.userService = us;
-	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
@@ -167,7 +165,12 @@ public class HomeController {
 			System.out.println("geen sessie gevonden");
 			return "login";
 		} else {
+			ArrayList<String> soortList = new ArrayList<String>();
 			List<String> list = new ArrayList<String>();
+			List<District> listDistrict = daoD.listDistrict();
+			List<Baan> listBaan = daoB.listBaan();
+			List<Wegenlijst> listWegen = daoW.listWegen();
+			List<Strook> listStrook = daoS.listStrook();
 			list.add("List A");
 			list.add("List B");
 			list.add("List C");
@@ -175,33 +178,65 @@ public class HomeController {
 			list.add("List 1");
 			list.add("List 2");
 			list.add("List 3");
+			soortList.add("Rafeling");
+			soortList.add("Gaten");
+			soortList.add("Open naden");
 
 			model.addAttribute("user", currentUser);
 			model.addAttribute("list", list);
+			model.addAttribute("ListDistrict", listDistrict);
+			model.addAttribute("ListStrook", listStrook);
+			model.addAttribute("ListWegen", listWegen);
+			model.addAttribute("ListBaan", listBaan);
+			model.addAttribute("soortList", soortList);
 			return "invoer";
 		}
 	}
-	
+
 	@RequestMapping(value = "overzicht", method = RequestMethod.GET)
 	public String showRepairs(Model model) {
 		List<Userreparatie> reparatieList = daoR.listReparaties();
-		for (Userreparatie userreparatie : reparatieList) {
-			System.out.println(userreparatie.getApuser().getEmail());
-		}
 
 		if (currentUser == null) {
 			System.out.println("geen sessie gevonden");
 			return "login";
 		} else {
+			model.addAttribute("listReparaties", reparatieList);
+			model.addAttribute("user", currentUser);
+			model.addAttribute("title", "Gebruikers");
+			System.out.println("usersessie gevonden");
+			return "reparaties";
+		}
+	}
+
+	@RequestMapping(value = "repair/view/{id}", method = RequestMethod.GET)
+	public String viewRepair(@PathVariable("id") int id, Model model) {
+		if (currentUser == null) {
+			System.out.println("geen sessie gevonden");
+			return "login";
+		} else {
 			if (this.currentUser.getIsAdmin() == false) {
+				System.out.println("Geen admin rechten");
 				return "home";
 			} else {
-				model.addAttribute("listReparaties", reparatieList);
+				Userreparatie viewReparatie = new Userreparatie();
+				viewReparatie = daoR.getReparatieById(id);
+
 				model.addAttribute("user", currentUser);
-				model.addAttribute("title", "Gebruikers");
-				System.out.println("usersessie gevonden");
-				return "reparaties";
+				model.addAttribute("reparatie", viewReparatie);
+				model.addAttribute("listUsers", dao.listUsers());
+				model.addAttribute("title", "Gebruiker -" + currentUser.getUsername());
+				return "reparatie";
 			}
 		}
+	}
+	
+	@RequestMapping(value = "repair/add", method = RequestMethod.POST)
+	public String addRepair(@ModelAttribute("Reparatie") Reparatie r) {
+
+		daoR.addReparatie(r);
+		System.out.println("controller opgevangen");
+
+		return "redirect:/overzicht";
 	}
 }

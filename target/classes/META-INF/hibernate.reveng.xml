@@ -5,4 +5,8 @@
   <table-filter match-catalog="onderhouddb" match-name="apuser"/>
   <table-filter match-catalog="onderhouddb" match-name="reparatie"/>
   <table-filter match-catalog="onderhouddb" match-name="userreparatie"/>
+  <table-filter match-catalog="onderhouddb" match-name="district"/>
+  <table-filter match-catalog="onderhouddb" match-name="baan"/>
+  <table-filter match-catalog="onderhouddb" match-name="wegenlijst"/>
+  <table-filter match-catalog="onderhouddb" match-name="strook"/>
 </hibernate-reverse-engineering>

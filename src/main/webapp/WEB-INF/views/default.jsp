@@ -44,10 +44,10 @@
 			<header role="banner" class="site-header"> <nav> <c:if
 				test="${!empty user}">Welkom ${user.username},
 						<a href="/onderhoudApp/logout" title="Visit our English website">Uitloggen</a>
-			</c:if> </nav> <a href="" class="logo"><img
+			</c:if> </nav> <a href="" class="logo"><!-- <img
 				src="/onderhoudApp/resources/images/logo.png" width="234"
 				height="72"
-				alt="Rijkswaterstaat Ministerie van Infrastructuur en Milieu. Water. Wegen. Werken." /></a>
+				alt="Rijkswaterstaat Ministerie van Infrastructuur en Milieu. Water. Wegen. Werken." />  --></a>
 			</header>
 			<div class="title">
 				<div class="page-title">

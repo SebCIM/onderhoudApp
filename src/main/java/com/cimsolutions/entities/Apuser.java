@@ -1,5 +1,5 @@
 package com.cimsolutions.entities;
-// Generated 15-Mar-2017 11:59:35 by Hibernate Tools 4.3.5.Final
+// Generated 22-Mar-2017 16:22:45 by Hibernate Tools 4.3.5.Final
 
 import java.util.HashSet;
 import java.util.Set;

@@ -5,15 +5,15 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.cimsolutions.DAO.StrookDAO;
 import com.cimsolutions.DAO.UserDaoImpl;
-import com.cimsolutions.entities.Apuser;
-import com.cimsolutions.entities.Reparatie;
-import com.cimsolutions.entities.Userreparatie;
+import com.cimsolutions.entities.Baan;
+import com.cimsolutions.entities.Strook;
 import com.cimsolutions.utils.HibernateUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-public class ReparatieDAOImpl implements ReparatieDAO {
+public class StrookDAOImpl implements StrookDAO {
 	
 	private static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
 
@@ -25,7 +25,7 @@ public class ReparatieDAOImpl implements ReparatieDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Userreparatie> listReparaties() {
+	public List<Strook> listStrook() {
 		// open session from class HibernateUtils
 		SessionFactory factory = HibernateUtils.getSessionFactory();
 		// get session to connect with database
@@ -34,14 +34,14 @@ public class ReparatieDAOImpl implements ReparatieDAO {
 		try {
 			// open session to work with database
 			session.getTransaction().begin();
-			List<Userreparatie> reparatieList = session.createQuery("from Userreparatie").list();
-			if (reparatieList != null) {
-				for (Userreparatie s : reparatieList) {
-					logger.info("Reparatie List:" + s);
+			List<Strook> strookList = session.createQuery("from Strook").list();
+			if (strookList != null) {
+				for (Strook s : strookList) {
+					logger.info("Strook List:" + s);
 				}
 				// close and commit transaction of current session
 				session.getTransaction().commit();
-				return reparatieList;
+				return strookList;
 			}
 
 		} catch (Exception e) {
@@ -53,7 +53,7 @@ public class ReparatieDAOImpl implements ReparatieDAO {
 	}
 
 	@Override
-	public Userreparatie getReparatieById(int id) {
+	public Strook getStrookById(int id) {
 		// open session from class HibernateUtils
 		SessionFactory factory = HibernateUtils.getSessionFactory();
 		// get session to connect with database
@@ -62,9 +62,9 @@ public class ReparatieDAOImpl implements ReparatieDAO {
 		try {
 			// open session to work with database
 			session.getTransaction().begin();
-			Userreparatie s = (Userreparatie) session.load(Userreparatie.class, new Integer(id));
+			Strook s = (Strook) session.load(Strook.class, new Integer(id));
 			if (s != null) {
-				logger.info("Userreparatie loaded successfully, Userreparatie details=" + s);
+				logger.info("Strook loaded successfully, Strook details=" + s);
 				// close and commit transaction of current session
 				session.getTransaction().commit();
 				return s;
@@ -76,30 +76,6 @@ public class ReparatieDAOImpl implements ReparatieDAO {
 			e.printStackTrace();
 		}
 		return null;
-	}
-
-	@Override
-	public void addReparatie(Reparatie r) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Reparatie getReparatieByUser(Apuser u) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void updateUser(Reparatie r) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removeUser(int id) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

@@ -18,7 +18,7 @@ public interface ReparatieDAO {
 	//Create
 	public void addReparatie(Reparatie r);
 	//Read
-	public Reparatie getReparatieById(int id);
+	public Userreparatie getReparatieById(int id);
 	public Reparatie getReparatieByUser(Apuser u);
 	//Update
 	public void updateUser(Reparatie r);
