@@ -16,6 +16,7 @@ import com.cimsolutions.DAO.WegenDAOImpl;
 import com.cimsolutions.DAO.BaanDAOImpl;
 import com.cimsolutions.DAO.DistrictDAOImpl;
 import com.cimsolutions.DAO.ReparatieDAOImpl;
+import com.cimsolutions.DAO.UserReparatieDAOImpl;
 import com.cimsolutions.DAO.StrookDAOImpl;
 import com.cimsolutions.entities.Apuser;
 import com.cimsolutions.entities.Baan;
@@ -31,6 +32,7 @@ import com.cimsolutions.entities.Wegenlijst;
 @Controller
 public class HomeController {
 	UserDaoImpl dao = new UserDaoImpl();
+	UserReparatieDAOImpl daoUr = new UserReparatieDAOImpl();
 	ReparatieDAOImpl daoR = new ReparatieDAOImpl();
 	DistrictDAOImpl daoD = new DistrictDAOImpl();
 	BaanDAOImpl daoB = new BaanDAOImpl();
@@ -195,7 +197,7 @@ public class HomeController {
 
 	@RequestMapping(value = "overzicht", method = RequestMethod.GET)
 	public String showRepairs(Model model) {
-		List<Userreparatie> reparatieList = daoR.listReparaties();
+		List<Userreparatie> reparatieList = daoUr.listReparaties();
 
 		if (currentUser == null) {
 			System.out.println("geen sessie gevonden");
@@ -220,7 +222,9 @@ public class HomeController {
 				return "home";
 			} else {
 				Userreparatie viewReparatie = new Userreparatie();
-				viewReparatie = daoR.getReparatieById(id);
+				viewReparatie = daoUr.getReparatieById(id);
+				
+				System.out.println(viewReparatie.getApuser().getUsername());
 
 				model.addAttribute("user", currentUser);
 				model.addAttribute("reparatie", viewReparatie);
@@ -233,10 +237,25 @@ public class HomeController {
 	
 	@RequestMapping(value = "repair/add", method = RequestMethod.POST)
 	public String addRepair(@ModelAttribute("Reparatie") Reparatie r) {
-
-		daoR.addReparatie(r);
-		System.out.println("controller opgevangen");
+		daoUr.addReparatie(r, currentUser.getId());
 
 		return "redirect:/overzicht";
+	}
+	
+	@RequestMapping(value = "/repair/remove/{id}", method = RequestMethod.GET)
+	public String removeRepair(@PathVariable("id") int id, Model model) {
+		if (currentUser == null) {
+			System.out.println("geen sessie gevonden");
+			return "login";
+		} else {
+			
+			Userreparatie ur = daoUr.removeUserRepair(id);
+			daoR.removeRepair(ur.getReparatie().getId());
+			
+			model.addAttribute("user", currentUser);
+			model.addAttribute("title", "Remove");
+			System.out.println("usersessie gevonden");
+			return "redirect:/overzicht";
+		}
 	}
 }

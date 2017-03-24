@@ -143,7 +143,7 @@ public class UserDaoImpl implements UserDao {
 			List<Apuser> usersList = session.createQuery("from Apuser").list();
 			if (usersList != null) {
 				for (Apuser u : usersList) {
-					logger.info("User List::" + u);
+					// logger.info("User List::" + u);
 				}
 				// close and commit transaction of current session
 				session.getTransaction().commit();
@@ -170,7 +170,7 @@ public class UserDaoImpl implements UserDao {
 			session.getTransaction().begin();
 			Apuser u = (Apuser) session.load(Apuser.class, new Integer(id));
 			if (u != null) {
-				logger.info("User loaded successfully, User details=" + u);
+				// logger.info("User loaded successfully, User details=" + u);
 				// close and commit transaction of current session
 				session.getTransaction().commit();
 				return u;

@@ -4,9 +4,8 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
-import com.cimsolutions.DAO.UserDaoImpl;
-import com.cimsolutions.entities.Apuser;
 import com.cimsolutions.entities.Reparatie;
 import com.cimsolutions.entities.Userreparatie;
 import com.cimsolutions.utils.HibernateUtils;
@@ -14,7 +13,7 @@ import com.cimsolutions.utils.HibernateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 public class ReparatieDAOImpl implements ReparatieDAO {
-	
+	UserReparatieDAOImpl daoUr = new UserReparatieDAOImpl();
 	private static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
 
 	private SessionFactory sessionFactory;
@@ -25,7 +24,7 @@ public class ReparatieDAOImpl implements ReparatieDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Userreparatie> listReparaties() {
+	public List<Reparatie> listReparatie() {
 		// open session from class HibernateUtils
 		SessionFactory factory = HibernateUtils.getSessionFactory();
 		// get session to connect with database
@@ -34,10 +33,10 @@ public class ReparatieDAOImpl implements ReparatieDAO {
 		try {
 			// open session to work with database
 			session.getTransaction().begin();
-			List<Userreparatie> reparatieList = session.createQuery("from Userreparatie").list();
+			List<Reparatie> reparatieList = session.createQuery("from Reparatie").list();
 			if (reparatieList != null) {
-				for (Userreparatie s : reparatieList) {
-					logger.info("Reparatie List:" + s);
+				for (Reparatie r : reparatieList) {
+					// logger.info("Reparatie List:" + r);
 				}
 				// close and commit transaction of current session
 				session.getTransaction().commit();
@@ -53,7 +52,7 @@ public class ReparatieDAOImpl implements ReparatieDAO {
 	}
 
 	@Override
-	public Userreparatie getReparatieById(int id) {
+	public Reparatie getReparatieById(int id) {
 		// open session from class HibernateUtils
 		SessionFactory factory = HibernateUtils.getSessionFactory();
 		// get session to connect with database
@@ -62,12 +61,12 @@ public class ReparatieDAOImpl implements ReparatieDAO {
 		try {
 			// open session to work with database
 			session.getTransaction().begin();
-			Userreparatie s = (Userreparatie) session.load(Userreparatie.class, new Integer(id));
-			if (s != null) {
-				logger.info("Userreparatie loaded successfully, Userreparatie details=" + s);
+			Reparatie r = (Reparatie) session.load(Reparatie.class, new Integer(id));
+			if (r != null) {
+				// logger.info("Reparatie loaded successfully, Baan details=" + b);
 				// close and commit transaction of current session
 				session.getTransaction().commit();
-				return s;
+				return r;
 			}
 
 		} catch (Exception e) {
@@ -77,29 +76,36 @@ public class ReparatieDAOImpl implements ReparatieDAO {
 		}
 		return null;
 	}
-
+	
 	@Override
-	public void addReparatie(Reparatie r) {
+	public void removeRepair(int id) {
 		// TODO Auto-generated method stub
+		System.out.println("removing repair");
 		
-	}
+		// open session from class HibernateUtils
+		SessionFactory factory = HibernateUtils.getSessionFactory();
+		// get session to connect with database
+		Session session = factory.getCurrentSession();
 
-	@Override
-	public Reparatie getReparatieByUser(Apuser u) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		Transaction testTransaction = null;
 
-	@Override
-	public void updateUser(Reparatie r) {
-		// TODO Auto-generated method stub
-		
-	}
+		try {
+			// open session to work with database
+			testTransaction = session.beginTransaction();
 
-	@Override
-	public void removeUser(int id) {
-		// TODO Auto-generated method stub
-		
+			Reparatie r = (Reparatie) session.load(Reparatie.class, new Integer(id));
+
+			if (r != null) {
+				session.delete(r);
+				testTransaction.commit();
+				logger.info("Repair deleted successfully, User Repair=" + r);
+			}
+
+		} catch (Exception e) {
+			// if something goes wrong, we will rollback
+			session.getTransaction().rollback();
+			e.printStackTrace();
+		}
 	}
 
 }

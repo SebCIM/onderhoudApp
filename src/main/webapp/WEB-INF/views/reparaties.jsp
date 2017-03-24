@@ -17,7 +17,7 @@
 						<td>${reparatie.getReparatie().getDatumtijd()}</td>
 						<td>${reparatie.getReparatie().getOpmerking()}</td>
 						<td><a href="<c:url value='repair/view/${reparatie.id}' />">Inzien</a></td>
-						<%-- <td><a href="<c:url value='user/remove/${reparatie.id}' />" class="confirm"  data-text="Weet je zeker dat je ${reparatie.id} wilt verwijderen?" >Verwijderen</a></td> --%>
+						<td><a href="<c:url value='repair/remove/${reparatie.id}' />" class="confirm"  data-text="Weet je zeker dat je ${reparatie.id} wilt verwijderen?" >Verwijderen</a></td>
 					</tr>
 				</c:if>
 			</c:forEach>

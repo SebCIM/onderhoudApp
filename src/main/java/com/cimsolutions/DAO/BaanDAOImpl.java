@@ -34,7 +34,7 @@ public class BaanDAOImpl implements BaanDAO {
 			List<Baan> baanList = session.createQuery("from Baan").list();
 			if (baanList != null) {
 				for (Baan b : baanList) {
-					logger.info("Baan List:" + b);
+					// logger.info("Baan List:" + b);
 				}
 				// close and commit transaction of current session
 				session.getTransaction().commit();
@@ -61,7 +61,7 @@ public class BaanDAOImpl implements BaanDAO {
 			session.getTransaction().begin();
 			Baan b = (Baan) session.load(Baan.class, new Integer(id));
 			if (b != null) {
-				logger.info("Baan loaded successfully, Baan details=" + b);
+				// logger.info("Baan loaded successfully, Baan details=" + b);
 				// close and commit transaction of current session
 				session.getTransaction().commit();
 				return b;

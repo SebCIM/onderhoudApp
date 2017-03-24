@@ -14,7 +14,7 @@
 		</tr>
 		<tr>
 			<td>District Code</td>
-			<td><select>
+			<td><select name="district">
 					<c:forEach items="${ListDistrict}" var="district">
 						<option value="${district.getDistrictGebiedAfkorting()}">${district.getDistrictGebiedAfkorting()}</option>
 					</c:forEach>
@@ -22,7 +22,7 @@
 		</tr>
 		<tr>
 			<td>Rijkswegen:</td>
-			<td><select>
+			<td><select name="rijksweg">
 					<c:forEach items="${ListWegen}" var="weg">
 						<option value="${weg.getAanduiding()}">${weg.getWegnummer()}, ${weg.getAanduiding()}</option>
 					</c:forEach>
@@ -30,11 +30,11 @@
 		</tr>
 		<tr>
 			<td>Hectometerbord:</td>
-			<td><input type="text" value="" size="10"/></td>
+			<td><input name="hectomterbord" type="text" value="" size="10"/></td>
 		</tr>
 		<tr>
 			<td>Baan:</td>
-			<td><select>
+			<td><select name="baan">
 					<c:forEach items="${ListBaan}" var="baan">
 						<option value="${baan.getBaanNaam()}">${baan.getBaanNaam()}</option>
 					</c:forEach>
@@ -42,11 +42,15 @@
 		</tr>
 		<tr>
 			<td>Strook:</td>
-			<td><select>
+			<td><select name="strook">
 					<c:forEach items="${ListStrook}" var="strook">
 						<option value="${strook.getStrook()}">${strook.getStrook()}</option>
 					</c:forEach>
 			</select></td>
+		</tr>
+		<tr>
+			<td>Opmerking:</td>
+			<td><textarea name="opmerking" rows="4" cols="50"></textarea></td>
 		</tr>
 		<tr>
 			<td colspan="2"><input type="submit"

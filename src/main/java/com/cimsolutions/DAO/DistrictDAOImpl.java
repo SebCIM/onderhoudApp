@@ -33,7 +33,7 @@ public class DistrictDAOImpl implements DistrictDAO {
 			List<District> districtList = session.createQuery("from District").list();
 			if (districtList != null) {
 				for (District u : districtList) {
-					logger.info("District List:" + u);
+					// logger.info("District List:" + u);
 				}
 				// close and commit transaction of current session
 				session.getTransaction().commit();
@@ -60,7 +60,7 @@ public class DistrictDAOImpl implements DistrictDAO {
 			session.getTransaction().begin();
 			District d = (District) session.load(District.class, new Integer(id));
 			if (d != null) {
-				logger.info("District loaded successfully, District details=" + d);
+				// logger.info("District loaded successfully, District details=" + d);
 				// close and commit transaction of current session
 				session.getTransaction().commit();
 				return d;

@@ -37,7 +37,7 @@ public class StrookDAOImpl implements StrookDAO {
 			List<Strook> strookList = session.createQuery("from Strook").list();
 			if (strookList != null) {
 				for (Strook s : strookList) {
-					logger.info("Strook List:" + s);
+					// logger.info("Strook List:" + s);
 				}
 				// close and commit transaction of current session
 				session.getTransaction().commit();
@@ -64,7 +64,7 @@ public class StrookDAOImpl implements StrookDAO {
 			session.getTransaction().begin();
 			Strook s = (Strook) session.load(Strook.class, new Integer(id));
 			if (s != null) {
-				logger.info("Strook loaded successfully, Strook details=" + s);
+				// logger.info("Strook loaded successfully, Strook details=" + s);
 				// close and commit transaction of current session
 				session.getTransaction().commit();
 				return s;

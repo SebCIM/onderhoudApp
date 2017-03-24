@@ -35,7 +35,7 @@ public class WegenDAOImpl implements WegenDAO {
 			List<Wegenlijst> wegList = session.createQuery("from Wegenlijst").list();
 			if (wegList != null) {
 				for (Wegenlijst w : wegList) {
-					logger.info("Weg List:" + w);
+					// logger.info("Weg List:" + w);
 				}
 				// close and commit transaction of current session
 				session.getTransaction().commit();
@@ -62,7 +62,7 @@ public class WegenDAOImpl implements WegenDAO {
 			session.getTransaction().begin();
 			Wegenlijst w = (Wegenlijst) session.load(Wegenlijst.class, new Integer(id));
 			if (w != null) {
-				logger.info("Baan loaded successfully, Baan details=" + w);
+				// logger.info("Baan loaded successfully, Baan details=" + w);
 				// close and commit transaction of current session
 				session.getTransaction().commit();
 				return w;
