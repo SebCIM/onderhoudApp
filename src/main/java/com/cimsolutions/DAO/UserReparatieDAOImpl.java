@@ -56,6 +56,35 @@ public class UserReparatieDAOImpl implements UserReparatieDAO {
 		}
 		return null;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Userreparatie> listReparatiesById(int id) {
+		// open session from class HibernateUtils
+		SessionFactory factory = HibernateUtils.getSessionFactory();
+		// get session to connect with database
+		Session session = factory.getCurrentSession();
+
+		try {
+			// open session to work with database
+			session.getTransaction().begin();
+			List<Userreparatie> reparatieList = session.createQuery("from Userreparatie where apuserid = " + id).list();
+			if (reparatieList != null) {
+				for (Userreparatie s : reparatieList) {
+					// logger.info("Reparatie List:" + s);
+				}
+				// close and commit transaction of current session
+				session.getTransaction().commit();
+				return reparatieList;
+			}
+
+		} catch (Exception e) {
+			// if something goes wrong, we will rollback
+			session.getTransaction().rollback();
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	@Override
 	public Userreparatie getReparatieById(int id) {
@@ -72,7 +101,7 @@ public class UserReparatieDAOImpl implements UserReparatieDAO {
 			session.getTransaction().begin();
 
 			ur = (Userreparatie) session.load(Userreparatie.class, new Integer(id));
-			
+
 			System.out.println(ur.getApuser().getUsername());
 
 			if (ur != null) {

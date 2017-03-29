@@ -1,9 +1,13 @@
 package com.cimsolutions.entities;
-// Generated 24-Mar-2017 10:12:06 by Hibernate Tools 4.3.5.Final
+// Generated 27-Mar-2017 14:26:57 by Hibernate Tools 4.3.5.Final
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -13,32 +17,34 @@ import javax.persistence.Table;
 @Table(name = "baan", catalog = "onderhouddb")
 public class Baan implements java.io.Serializable {
 
-	private int baanId;
+	private int id;
 	private String baanNaam;
 	private Integer volgorde;
+	private Set<Reparatie> reparaties = new HashSet<Reparatie>(0);
 
 	public Baan() {
 	}
 
-	public Baan(int baanId) {
-		this.baanId = baanId;
+	public Baan(int id) {
+		this.id = id;
 	}
 
-	public Baan(int baanId, String baanNaam, Integer volgorde) {
-		this.baanId = baanId;
+	public Baan(int id, String baanNaam, Integer volgorde, Set<Reparatie> reparaties) {
+		this.id = id;
 		this.baanNaam = baanNaam;
 		this.volgorde = volgorde;
+		this.reparaties = reparaties;
 	}
 
 	@Id
 
-	@Column(name = "BaanID", unique = true, nullable = false)
-	public int getBaanId() {
-		return this.baanId;
+	@Column(name = "id", unique = true, nullable = false)
+	public int getId() {
+		return this.id;
 	}
 
-	public void setBaanId(int baanId) {
-		this.baanId = baanId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	@Column(name = "BaanNaam", length = 65535)
@@ -57,6 +63,15 @@ public class Baan implements java.io.Serializable {
 
 	public void setVolgorde(Integer volgorde) {
 		this.volgorde = volgorde;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "baan")
+	public Set<Reparatie> getReparaties() {
+		return this.reparaties;
+	}
+
+	public void setReparaties(Set<Reparatie> reparaties) {
+		this.reparaties = reparaties;
 	}
 
 }

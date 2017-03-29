@@ -61,10 +61,6 @@ hr {
 	height: 0
 }
 
-mark {
-	background: #ff0;
-	color: #000
-}
 
 code, kbd, pre, samp {
 	font-family: monospace, serif;
@@ -971,7 +967,7 @@ blockquote.quote {
 	margin: 2.5em 0;
 	font-size: 1.5em;
 	font-style: italic;
-	border-left: solid 0.3em #f9e11e;
+	border-left: solid 0.3em ;
 	padding-left: 1em
 }
 
@@ -2511,7 +2507,7 @@ a.media:hover .media-title, a.media:hover .more {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
-	background: #f9e11e;
+	background: ;
 	vertical-align: middle;
 	color: #222;
 	border: none;
@@ -2540,7 +2536,7 @@ a.media:hover .media-title, a.media:hover .more {
 
 .btn:focus, .btn:active, .btn:hover {
 	color: #222;
-	background: #eed60f
+	background: #
 }
 
 .btn.primary {
@@ -2726,7 +2722,7 @@ input[type='submit'].btn.primary:focus {
 }
 
 .panel.callout {
-	background: #f9e11e
+	background: 
 }
 
 .panel.soft {
@@ -2829,7 +2825,7 @@ input[type='submit'].btn.primary:focus {
 .more-btn {
 	display: inline-block;
 	padding: .5em 1em;
-	background: #f9e11e;
+	background: ;
 	color: #222;
 	font-size: 1.1em;
 	border-radius: 3px;
@@ -2988,7 +2984,7 @@ ul.roads-list li {
 
 ul.roads-list a {
 	display: block;
-	background: #f9e11e;
+	background: ;
 	color: #222;
 	text-align: center;
 	padding: .3em;
@@ -2997,7 +2993,7 @@ ul.roads-list a {
 
 ul.roads-list a:focus, ul.roads-list a:hover {
 	text-decoration: underline;
-	background: #edd406
+	background: #666
 }
 
 .touch ul.roads-list {

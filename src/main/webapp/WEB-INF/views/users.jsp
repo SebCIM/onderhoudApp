@@ -1,6 +1,6 @@
 <%@include file='default.jsp'%>
 	<h3>Onderhoudsaannemer toevoegen</h3>
-	<c:url var="addAction" value="/user/add"></c:url>
+	<c:url var="addAction" value="/gebruiker/toevoegen"></c:url>
 
 	<form:form action="${addAction}" commandName="user">
 		<table>
@@ -61,8 +61,8 @@
 						<td>${person.email}</td>
 						<td>${person.tel}</td>
 						<td>${person.district}</td>
-						<td><a href="<c:url value='user/edit/${person.id}' />">Aanpassen</a></td>
-						<td><a href="<c:url value='user/remove/${person.id}' />" class="confirm"  data-text="Weet je zeker dat je ${person.username} van ${person.bedrijf} wilt verwijderen?" >Verwijderen</a></td>
+						<td><a href="<c:url value='gebruiker/aanpassen/${person.id}' />">Aanpassen</a></td>
+						<td><a href="<c:url value='gebruiker/verwijderen/${person.id}' />" class="confirm"  data-text="Weet je zeker dat je ${person.username} van ${person.bedrijf} wilt verwijderen?" >Verwijderen</a></td>
 					</tr>
 				</c:if>
 			</c:forEach>

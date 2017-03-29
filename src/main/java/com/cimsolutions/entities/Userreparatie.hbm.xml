@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 24-Mar-2017 10:12:06 by Hibernate Tools 4.3.5.Final -->
+<!-- Generated 27-Mar-2017 14:26:57 by Hibernate Tools 4.3.5.Final -->
 <hibernate-mapping>
     <class name="com.cimsolutions.entities.Userreparatie" table="userreparatie" catalog="onderhouddb" optimistic-lock="version">
         <id name="id" type="java.lang.Integer">

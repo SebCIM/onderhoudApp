@@ -1,6 +1,6 @@
 <%@include file='default.jsp'%>
 <h1>
-	<a href="/onderhoudApp/overzicht">Terug</a>
+	<a href="/onderhoudApp/vorstschade/overzicht">Terug</a>
 </h1>
 <h3>Reparatie ${reparatie.getReparatie().getDatumtijd()}</h3>
 <table class="tg">
@@ -22,7 +22,7 @@
 	</tr>
 	<tr>
 		<th width="120">Rijksweg</th>
-		<td>${reparatie.getReparatie().getRijksweg()}</td>
+		<td>${reparatie.getReparatie().getWegenlijst().getAanduiding()}</td>
 	</tr>
 	<tr>
 		<th width="60">Hectometerbord</th>
@@ -31,11 +31,11 @@
 	<c:if test="${reparatie.getApuser().getId() == user.id}">
 		<tr>
 			<th width="30">Aanpassen</th>
-			<td><a href="<c:url value='user/edit/${reparatie.id}' />">Aanpassen</a></td>
+			<td><a href="<c:url value='vorstschade/aanpassen/${reparatie.id}' />">Aanpassen</a></td>
 		</tr>
 		<tr>
 			<th width="30">Verwijderen</th>
-			<td><a href="<c:url value='user/remove/${reparatie.id}' />"
+			<td><a href="<c:url value='vorstschade/verwijderen/${reparatie.id}' />"
 				class="confirm"
 				data-text="Weet je zeker dat je ${reparatie.getApuser().getUsername()} wilt verwijderen?">Verwijderen</a></td>
 		</tr>

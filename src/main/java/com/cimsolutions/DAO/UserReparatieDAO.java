@@ -26,4 +26,6 @@ public interface UserReparatieDAO {
 	public Userreparatie removeUserRepair(int id);
 	//Get All
 	public List<Userreparatie> listReparaties();
+	
+	public List<Userreparatie> listReparatiesById(int id);
 }

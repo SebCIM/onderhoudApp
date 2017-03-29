@@ -1,7 +1,7 @@
 <%@include file='default.jsp'%>
 	<h1><a href="/onderhoudApp/users">Back</a></h1>
 	<h3>Onderhoudsaannemer aanpassen</h3>
-	<c:url var="editAction" value="/user/edit"></c:url>
+	<c:url var="editAction" value="/gebruiker/aanpassen"></c:url>
 
 	<form:form action="${editAction}" commandName="edituser">
 		<table>
@@ -65,8 +65,8 @@
 						<td>${person.email}</td>
 						<td>${person.tel}</td>
 						<td>${person.district}</td>
-						<td><a href="<c:url value='user/edit/${person.id}' />">Aanpassen</a></td>
-						<td><a href="<c:url value='user/remove/${person.id}' />" class="confirm"  data-text="Weet je zeker dat je ${person.username} van ${person.bedrijf} wilt verwijderen?" >Verwijderen</a></td>
+						<td><a href="<c:url value='gebruiker/aanpassen/${person.id}' />">Aanpassen</a></td>
+						<td><a href="<c:url value='gebruiker/verwijderen/${person.id}' />" class="confirm"  data-text="Weet je zeker dat je ${person.username} van ${person.bedrijf} wilt verwijderen?" >Verwijderen</a></td>
 					</tr>
 				</c:if>
 			</c:forEach>

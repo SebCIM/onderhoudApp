@@ -1,9 +1,13 @@
 package com.cimsolutions.entities;
-// Generated 24-Mar-2017 10:12:06 by Hibernate Tools 4.3.5.Final
+// Generated 27-Mar-2017 14:26:57 by Hibernate Tools 4.3.5.Final
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -13,7 +17,7 @@ import javax.persistence.Table;
 @Table(name = "wegenlijst", catalog = "onderhouddb")
 public class Wegenlijst implements java.io.Serializable {
 
-	private int wegenlijstId;
+	private int id;
 	private String wegnummer;
 	private String aanduiding;
 	private String benaming;
@@ -23,17 +27,19 @@ public class Wegenlijst implements java.io.Serializable {
 	private String hectometerbordEind;
 	private String actueel;
 	private String toegevoegd;
+	private Set<Reparatie> reparaties = new HashSet<Reparatie>(0);
 
 	public Wegenlijst() {
 	}
 
-	public Wegenlijst(int wegenlijstId) {
-		this.wegenlijstId = wegenlijstId;
+	public Wegenlijst(int id) {
+		this.id = id;
 	}
 
-	public Wegenlijst(int wegenlijstId, String wegnummer, String aanduiding, String benaming, String regionaleDirectie,
-			String district, String hectometerbordBegin, String hectometerbordEind, String actueel, String toegevoegd) {
-		this.wegenlijstId = wegenlijstId;
+	public Wegenlijst(int id, String wegnummer, String aanduiding, String benaming, String regionaleDirectie,
+			String district, String hectometerbordBegin, String hectometerbordEind, String actueel, String toegevoegd,
+			Set<Reparatie> reparaties) {
+		this.id = id;
 		this.wegnummer = wegnummer;
 		this.aanduiding = aanduiding;
 		this.benaming = benaming;
@@ -43,17 +49,18 @@ public class Wegenlijst implements java.io.Serializable {
 		this.hectometerbordEind = hectometerbordEind;
 		this.actueel = actueel;
 		this.toegevoegd = toegevoegd;
+		this.reparaties = reparaties;
 	}
 
 	@Id
 
-	@Column(name = "WegenlijstID", unique = true, nullable = false)
-	public int getWegenlijstId() {
-		return this.wegenlijstId;
+	@Column(name = "id", unique = true, nullable = false)
+	public int getId() {
+		return this.id;
 	}
 
-	public void setWegenlijstId(int wegenlijstId) {
-		this.wegenlijstId = wegenlijstId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	@Column(name = "Wegnummer", length = 65535)
@@ -135,6 +142,15 @@ public class Wegenlijst implements java.io.Serializable {
 
 	public void setToegevoegd(String toegevoegd) {
 		this.toegevoegd = toegevoegd;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "wegenlijst")
+	public Set<Reparatie> getReparaties() {
+		return this.reparaties;
+	}
+
+	public void setReparaties(Set<Reparatie> reparaties) {
+		this.reparaties = reparaties;
 	}
 
 }

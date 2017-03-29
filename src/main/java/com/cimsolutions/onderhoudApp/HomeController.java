@@ -1,6 +1,9 @@
 package com.cimsolutions.onderhoudApp;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -64,13 +67,13 @@ public class HomeController {
 			model.addAttribute("title", "Gebruikerspaneel");
 			return "home";
 		} else {
-			model.addAttribute("error", token + " is not valid!");
+			model.addAttribute("error", "Probeer opnieuw");
 			model.addAttribute("title", "Invalid Token");
 			return "invalid";
 		}
 	}
 
-	@RequestMapping(value = "panel", method = RequestMethod.GET)
+	@RequestMapping(value = "paneel", method = RequestMethod.GET)
 	public String panel(Model model) {
 		if (currentUser == null) {
 			System.out.println("geen user gevonden");
@@ -83,14 +86,14 @@ public class HomeController {
 		}
 	}
 
-	@RequestMapping(value = "logout", method = RequestMethod.GET)
+	@RequestMapping(value = "loguit", method = RequestMethod.GET)
 	public String logout(Model model) {
 		currentUser = null;
 		model.addAttribute("title", "Logout");
 		return "login";
 	}
 
-	@RequestMapping(value = "users", method = RequestMethod.GET)
+	@RequestMapping(value = "gebruikers", method = RequestMethod.GET)
 	public String showUsers(Model model) {
 		if (currentUser == null) {
 			System.out.println("geen sessie gevonden");
@@ -108,16 +111,16 @@ public class HomeController {
 		}
 	}
 
-	@RequestMapping(value = "user/edit", method = RequestMethod.POST)
+	@RequestMapping(value = "gebruiker/aanpassen", method = RequestMethod.POST)
 	public String editUser(@ModelAttribute("Apuser") Apuser u) {
 
 		dao.updateUser(u);
 		System.out.println("controller opgevangen");
 
-		return "redirect:/users";
+		return "redirect:/gebruikers";
 	}
 
-	@RequestMapping(value = "user/edit/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "gebruiker/aanpassen/{id}", method = RequestMethod.GET)
 	public String editUser(@PathVariable("id") int id, Model model) {
 		if (currentUser == null) {
 			System.out.println("geen sessie gevonden");
@@ -138,16 +141,16 @@ public class HomeController {
 		}
 	}
 
-	@RequestMapping(value = "/user/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/gebruiker/toevoegen", method = RequestMethod.POST)
 	public String addUser(@ModelAttribute("Apuser") Apuser u) {
 
 		dao.addUser(u);
 
-		return "redirect:/users";
+		return "redirect:/gebruikers";
 
 	}
 
-	@RequestMapping(value = "/user/remove/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/gebruiker/verwijderen/{id}", method = RequestMethod.GET)
 	public String removeUser(@PathVariable("id") int id, Model model) {
 		if (currentUser == null) {
 			System.out.println("geen sessie gevonden");
@@ -157,11 +160,11 @@ public class HomeController {
 			model.addAttribute("user", currentUser);
 			model.addAttribute("title", "Remove");
 			System.out.println("usersessie gevonden");
-			return "redirect:/users";
+			return "redirect:/gebruikers";
 		}
 	}
 
-	@RequestMapping(value = "repair", method = RequestMethod.GET)
+	@RequestMapping(value = "vorstschade/invoeren", method = RequestMethod.GET)
 	public String Invoer(Model model) {
 		if (currentUser == null) {
 			System.out.println("geen sessie gevonden");
@@ -195,7 +198,7 @@ public class HomeController {
 		}
 	}
 
-	@RequestMapping(value = "overzicht", method = RequestMethod.GET)
+	@RequestMapping(value = "vorstschade/overzicht", method = RequestMethod.GET)
 	public String showRepairs(Model model) {
 		List<Userreparatie> reparatieList = daoUr.listReparaties();
 
@@ -211,7 +214,7 @@ public class HomeController {
 		}
 	}
 
-	@RequestMapping(value = "repair/view/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "vorstschade/bekijken/{id}", method = RequestMethod.GET)
 	public String viewRepair(@PathVariable("id") int id, Model model) {
 		if (currentUser == null) {
 			System.out.println("geen sessie gevonden");
@@ -223,8 +226,6 @@ public class HomeController {
 			} else {
 				Userreparatie viewReparatie = new Userreparatie();
 				viewReparatie = daoUr.getReparatieById(id);
-				
-				System.out.println(viewReparatie.getApuser().getUsername());
 
 				model.addAttribute("user", currentUser);
 				model.addAttribute("reparatie", viewReparatie);
@@ -234,28 +235,176 @@ public class HomeController {
 			}
 		}
 	}
-	
-	@RequestMapping(value = "repair/add", method = RequestMethod.POST)
-	public String addRepair(@ModelAttribute("Reparatie") Reparatie r) {
+
+	@RequestMapping(value = "vorstschade/toevoegen", method = RequestMethod.POST)
+	public String addRepair(@ModelAttribute("Reparatie") Reparatie r, @RequestParam("WegenlijstId") int wId,
+			@RequestParam("strookId") int sId, @RequestParam("districtId") int diId, @RequestParam("baanId") int bId) {
+
+		Wegenlijst wegenLijst = daoW.getWegById(wId);
+		Strook strookLijst = daoS.getStrookById(sId);
+		District districtLijst = daoD.getDistrictById(diId);
+		Baan baanLijst = daoB.getBaanById(bId);
+		r.setWegenlijst(wegenLijst);
+		r.setDistrict(districtLijst);
+		r.setStrook(strookLijst);
+		r.setBaan(baanLijst);
 		daoUr.addReparatie(r, currentUser.getId());
 
-		return "redirect:/overzicht";
+		return "redirect:/vorstschade/overzicht";
 	}
-	
+
 	@RequestMapping(value = "/repair/remove/{id}", method = RequestMethod.GET)
 	public String removeRepair(@PathVariable("id") int id, Model model) {
 		if (currentUser == null) {
 			System.out.println("geen sessie gevonden");
 			return "login";
 		} else {
-			
+
 			Userreparatie ur = daoUr.removeUserRepair(id);
 			daoR.removeRepair(ur.getReparatie().getId());
-			
+
 			model.addAttribute("user", currentUser);
 			model.addAttribute("title", "Remove");
 			System.out.println("usersessie gevonden");
-			return "redirect:/overzicht";
+			return "redirect:/vorstschade/overzicht";
 		}
+	}
+
+	@RequestMapping(value = "printen", method = RequestMethod.GET)
+	public String filterRepairs(Model model, @RequestParam(value = "aannemer", required = false) Integer uId,
+			@RequestParam(value = "district", required = false) Integer dId,
+			@RequestParam(value = "start", required = false) String start,
+			@RequestParam(value = "eind", required = false) String eind) {
+		List<Userreparatie> reparatieList = daoUr.listReparaties();
+		List<Userreparatie> reparatieFilterList = new ArrayList<Userreparatie>();
+		int filterAannemer = 0;
+		int filterDistrict = 0;
+
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+		Date startDatum = new Date();
+		Date eindDatum = new Date();
+
+		if (uId != null && uId != 0) {
+			reparatieList = daoUr.listReparatiesById(uId);
+			filterAannemer = uId;
+		}
+
+		if (dId != null) {
+			filterDistrict = dId;
+		}
+
+		if (start != "" && eind != "" && start != null && eind != null) {
+			try {
+				startDatum = simpleDateFormat.parse(start);
+				eindDatum = simpleDateFormat.parse(eind);
+
+				for (int i = 0; i < reparatieList.size(); i++) {
+					Date constatering = simpleDateFormat.parse(reparatieList.get(i).getReparatie().getConstatering());
+					if (betweenDates(constatering, startDatum, eindDatum)) {
+						System.out
+								.println("Datum ligt ertussen" + reparatieList.get(i).getReparatie().getConstatering());
+						reparatieFilterList.add(reparatieList.get(i));
+					}
+				}
+			} catch (ParseException ex) {
+				System.out.println("Exception " + ex);
+			}
+		} else {
+			if (start != "" && start != null) {
+				System.out.println("start" + start);
+
+				try {
+					startDatum = simpleDateFormat.parse(start);
+
+					for (int i = 0; i < reparatieList.size(); i++) {
+						Date constatering = simpleDateFormat
+								.parse(reparatieList.get(i).getReparatie().getConstatering());
+						if (afterDates(constatering, startDatum)) {
+							System.out
+									.println("Datum komt erna" + reparatieList.get(i).getReparatie().getConstatering());
+							reparatieFilterList.add(reparatieList.get(i));
+						}
+					}
+				} catch (ParseException ex) {
+					System.out.println("Exception " + ex);
+				}
+			} else {
+				if (eind != "" && eind != null) {
+					System.out.println("eind" + eind);
+
+					try {
+						eindDatum = simpleDateFormat.parse(eind);
+
+						for (int i = 0; i < reparatieList.size(); i++) {
+							Date constatering = simpleDateFormat
+									.parse(reparatieList.get(i).getReparatie().getConstatering());
+							if (beforeDates(constatering, eindDatum)) {
+								System.out.println(
+										"Datum komt ervoor" + reparatieList.get(i).getReparatie().getConstatering());
+								reparatieFilterList.add(reparatieList.get(i));
+							}
+						}
+					} catch (ParseException ex) {
+						System.out.println("Exception " + ex);
+					}
+				} else {
+					reparatieFilterList = daoUr.listReparaties();
+				}
+			}
+		}
+
+		List<Apuser> aannemerList = dao.listUsers();
+		List<District> districtList = daoD.listDistrict();
+
+		if (currentUser == null) {
+			System.out.println("geen sessie gevonden");
+			return "login";
+		} else {
+			model.addAttribute("listReparaties", reparatieFilterList);
+			model.addAttribute("user", currentUser);
+			model.addAttribute("title", "Gebruikers");
+			model.addAttribute("filterAannemer", filterAannemer);
+			model.addAttribute("filterDistrict", filterDistrict);
+			model.addAttribute("filterStartDatum", start);
+			model.addAttribute("filterEindDatum", eind);
+			model.addAttribute("listAannemers", aannemerList);
+			model.addAttribute("listDistricten", districtList);
+			System.out.println("usersessie gevonden");
+			return "print";
+		}
+	}
+
+	private static boolean betweenDates(Date date, Date dateStart, Date dateEnd) {
+		if (date != null && dateStart != null && dateEnd != null) {
+			if (date.after(dateStart) && date.before(dateEnd)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return false;
+	}
+
+	private static boolean afterDates(Date date, Date dateStart) {
+		if (date != null && dateStart != null) {
+			if (date.after(dateStart)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return false;
+	}
+
+	private static boolean beforeDates(Date date, Date dateEnd) {
+		if (date != null && dateEnd != null) {
+			if (date.before(dateEnd)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return false;
 	}
 }

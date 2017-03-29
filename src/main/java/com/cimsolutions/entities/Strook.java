@@ -1,9 +1,13 @@
 package com.cimsolutions.entities;
-// Generated 24-Mar-2017 10:12:06 by Hibernate Tools 4.3.5.Final
+// Generated 27-Mar-2017 14:26:57 by Hibernate Tools 4.3.5.Final
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -13,32 +17,34 @@ import javax.persistence.Table;
 @Table(name = "strook", catalog = "onderhouddb")
 public class Strook implements java.io.Serializable {
 
-	private int strookId;
+	private int id;
 	private String strook;
 	private Integer volgorde;
+	private Set<Reparatie> reparaties = new HashSet<Reparatie>(0);
 
 	public Strook() {
 	}
 
-	public Strook(int strookId) {
-		this.strookId = strookId;
+	public Strook(int id) {
+		this.id = id;
 	}
 
-	public Strook(int strookId, String strook, Integer volgorde) {
-		this.strookId = strookId;
+	public Strook(int id, String strook, Integer volgorde, Set<Reparatie> reparaties) {
+		this.id = id;
 		this.strook = strook;
 		this.volgorde = volgorde;
+		this.reparaties = reparaties;
 	}
 
 	@Id
 
-	@Column(name = "StrookID", unique = true, nullable = false)
-	public int getStrookId() {
-		return this.strookId;
+	@Column(name = "id", unique = true, nullable = false)
+	public int getId() {
+		return this.id;
 	}
 
-	public void setStrookId(int strookId) {
-		this.strookId = strookId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	@Column(name = "Strook", length = 65535)
@@ -57,6 +63,15 @@ public class Strook implements java.io.Serializable {
 
 	public void setVolgorde(Integer volgorde) {
 		this.volgorde = volgorde;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "strook")
+	public Set<Reparatie> getReparaties() {
+		return this.reparaties;
+	}
+
+	public void setReparaties(Set<Reparatie> reparaties) {
+		this.reparaties = reparaties;
 	}
 
 }

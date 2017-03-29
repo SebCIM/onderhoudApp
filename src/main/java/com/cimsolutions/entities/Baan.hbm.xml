@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 24-Mar-2017 10:12:06 by Hibernate Tools 4.3.5.Final -->
+<!-- Generated 27-Mar-2017 14:26:57 by Hibernate Tools 4.3.5.Final -->
 <hibernate-mapping>
     <class name="com.cimsolutions.entities.Baan" table="baan" catalog="onderhouddb" optimistic-lock="version">
-        <id name="baanId" type="int">
-            <column name="BaanID" />
+        <id name="id" type="int">
+            <column name="id" />
             <generator class="assigned" />
         </id>
         <property name="baanNaam" type="string">
@@ -14,5 +14,11 @@
         <property name="volgorde" type="java.lang.Integer">
             <column name="Volgorde" />
         </property>
+        <set name="reparaties" table="reparatie" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="baan" />
+            </key>
+            <one-to-many class="com.cimsolutions.entities.Reparatie" />
+        </set>
     </class>
 </hibernate-mapping>

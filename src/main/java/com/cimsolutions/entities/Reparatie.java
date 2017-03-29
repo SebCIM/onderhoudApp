@@ -1,5 +1,5 @@
 package com.cimsolutions.entities;
-// Generated 24-Mar-2017 10:12:06 by Hibernate Tools 4.3.5.Final
+// Generated 27-Mar-2017 14:26:57 by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -23,38 +25,40 @@ import javax.persistence.TemporalType;
 public class Reparatie implements java.io.Serializable {
 
 	private Integer id;
+	private Baan baan;
+	private District district;
+	private Strook strook;
+	private Wegenlijst wegenlijst;
 	private String soort;
-	private String district;
-	private String rijksweg;
 	private String hectometerbord;
-	private String baan;
-	private String strook;
 	private String verhardingssoort;
 	private String reparatiemethode;
 	private Date datumtijd;
 	private String noodofspoed;
 	private String aantalgaten;
 	private String opmerking;
+	private String constatering;
 	private Set<Userreparatie> userreparaties = new HashSet<Userreparatie>(0);
 
 	public Reparatie() {
 	}
 
-	public Reparatie(String soort, String district, String rijksweg, String hectometerbord, String baan, String strook,
-			String verhardingssoort, String reparatiemethode, Date datumtijd, String noodofspoed, String aantalgaten,
-			String opmerking, Set<Userreparatie> userreparaties) {
-		this.soort = soort;
-		this.district = district;
-		this.rijksweg = rijksweg;
-		this.hectometerbord = hectometerbord;
+	public Reparatie(Baan baan, District district, Strook strook, Wegenlijst wegenlijst, String soort,
+			String hectometerbord, String verhardingssoort, String reparatiemethode, Date datumtijd, String noodofspoed,
+			String aantalgaten, String opmerking, String constatering, Set<Userreparatie> userreparaties) {
 		this.baan = baan;
+		this.district = district;
 		this.strook = strook;
+		this.wegenlijst = wegenlijst;
+		this.soort = soort;
+		this.hectometerbord = hectometerbord;
 		this.verhardingssoort = verhardingssoort;
 		this.reparatiemethode = reparatiemethode;
 		this.datumtijd = datumtijd;
 		this.noodofspoed = noodofspoed;
 		this.aantalgaten = aantalgaten;
 		this.opmerking = opmerking;
+		this.constatering = constatering;
 		this.userreparaties = userreparaties;
 	}
 
@@ -70,6 +74,46 @@ public class Reparatie implements java.io.Serializable {
 		this.id = id;
 	}
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "baan")
+	public Baan getBaan() {
+		return this.baan;
+	}
+
+	public void setBaan(Baan baan) {
+		this.baan = baan;
+	}
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "district")
+	public District getDistrict() {
+		return this.district;
+	}
+
+	public void setDistrict(District district) {
+		this.district = district;
+	}
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "strook")
+	public Strook getStrook() {
+		return this.strook;
+	}
+
+	public void setStrook(Strook strook) {
+		this.strook = strook;
+	}
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "WegenlijstId")
+	public Wegenlijst getWegenlijst() {
+		return this.wegenlijst;
+	}
+
+	public void setWegenlijst(Wegenlijst wegenlijst) {
+		this.wegenlijst = wegenlijst;
+	}
+
 	@Column(name = "soort", length = 45)
 	public String getSoort() {
 		return this.soort;
@@ -79,24 +123,6 @@ public class Reparatie implements java.io.Serializable {
 		this.soort = soort;
 	}
 
-	@Column(name = "district", length = 45)
-	public String getDistrict() {
-		return this.district;
-	}
-
-	public void setDistrict(String district) {
-		this.district = district;
-	}
-
-	@Column(name = "rijksweg", length = 45)
-	public String getRijksweg() {
-		return this.rijksweg;
-	}
-
-	public void setRijksweg(String rijksweg) {
-		this.rijksweg = rijksweg;
-	}
-
 	@Column(name = "hectometerbord", length = 45)
 	public String getHectometerbord() {
 		return this.hectometerbord;
@@ -104,24 +130,6 @@ public class Reparatie implements java.io.Serializable {
 
 	public void setHectometerbord(String hectometerbord) {
 		this.hectometerbord = hectometerbord;
-	}
-
-	@Column(name = "baan", length = 45)
-	public String getBaan() {
-		return this.baan;
-	}
-
-	public void setBaan(String baan) {
-		this.baan = baan;
-	}
-
-	@Column(name = "strook", length = 45)
-	public String getStrook() {
-		return this.strook;
-	}
-
-	public void setStrook(String strook) {
-		this.strook = strook;
 	}
 
 	@Column(name = "verhardingssoort", length = 45)
@@ -177,6 +185,15 @@ public class Reparatie implements java.io.Serializable {
 
 	public void setOpmerking(String opmerking) {
 		this.opmerking = opmerking;
+	}
+
+	@Column(name = "constatering", length = 45)
+	public String getConstatering() {
+		return this.constatering;
+	}
+
+	public void setConstatering(String constatering) {
+		this.constatering = constatering;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "reparatie")

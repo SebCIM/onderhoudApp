@@ -1,9 +1,13 @@
 package com.cimsolutions.entities;
-// Generated 24-Mar-2017 10:12:06 by Hibernate Tools 4.3.5.Final
+// Generated 27-Mar-2017 14:26:57 by Hibernate Tools 4.3.5.Final
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -13,40 +17,42 @@ import javax.persistence.Table;
 @Table(name = "district", catalog = "onderhouddb")
 public class District implements java.io.Serializable {
 
-	private int districtId;
+	private int id;
 	private String districtGebiedAfkorting;
 	private int districtCode;
 	private String districtGebied;
 	private String districtNaam;
+	private Set<Reparatie> reparaties = new HashSet<Reparatie>(0);
 
 	public District() {
 	}
 
-	public District(int districtId, int districtCode, String districtGebied, String districtNaam) {
-		this.districtId = districtId;
+	public District(int id, int districtCode, String districtGebied, String districtNaam) {
+		this.id = id;
 		this.districtCode = districtCode;
 		this.districtGebied = districtGebied;
 		this.districtNaam = districtNaam;
 	}
 
-	public District(int districtId, String districtGebiedAfkorting, int districtCode, String districtGebied,
-			String districtNaam) {
-		this.districtId = districtId;
+	public District(int id, String districtGebiedAfkorting, int districtCode, String districtGebied,
+			String districtNaam, Set<Reparatie> reparaties) {
+		this.id = id;
 		this.districtGebiedAfkorting = districtGebiedAfkorting;
 		this.districtCode = districtCode;
 		this.districtGebied = districtGebied;
 		this.districtNaam = districtNaam;
+		this.reparaties = reparaties;
 	}
 
 	@Id
 
-	@Column(name = "DistrictID", unique = true, nullable = false)
-	public int getDistrictId() {
-		return this.districtId;
+	@Column(name = "id", unique = true, nullable = false)
+	public int getId() {
+		return this.id;
 	}
 
-	public void setDistrictId(int districtId) {
-		this.districtId = districtId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	@Column(name = "DistrictGebiedAfkorting", length = 5)
@@ -83,6 +89,15 @@ public class District implements java.io.Serializable {
 
 	public void setDistrictNaam(String districtNaam) {
 		this.districtNaam = districtNaam;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "district")
+	public Set<Reparatie> getReparaties() {
+		return this.reparaties;
+	}
+
+	public void setReparaties(Set<Reparatie> reparaties) {
+		this.reparaties = reparaties;
 	}
 
 }

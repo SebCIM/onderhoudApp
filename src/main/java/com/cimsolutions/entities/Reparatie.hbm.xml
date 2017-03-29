@@ -1,30 +1,30 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 24-Mar-2017 10:12:06 by Hibernate Tools 4.3.5.Final -->
+<!-- Generated 27-Mar-2017 14:26:57 by Hibernate Tools 4.3.5.Final -->
 <hibernate-mapping>
     <class name="com.cimsolutions.entities.Reparatie" table="reparatie" catalog="onderhouddb" optimistic-lock="version">
         <id name="id" type="java.lang.Integer">
             <column name="id" />
             <generator class="identity" />
         </id>
+        <many-to-one name="baan" class="com.cimsolutions.entities.Baan" fetch="select">
+            <column name="baan" />
+        </many-to-one>
+        <many-to-one name="district" class="com.cimsolutions.entities.District" fetch="select">
+            <column name="district" />
+        </many-to-one>
+        <many-to-one name="strook" class="com.cimsolutions.entities.Strook" fetch="select">
+            <column name="strook" />
+        </many-to-one>
+        <many-to-one name="wegenlijst" class="com.cimsolutions.entities.Wegenlijst" fetch="select">
+            <column name="WegenlijstId" />
+        </many-to-one>
         <property name="soort" type="string">
             <column name="soort" length="45" />
         </property>
-        <property name="district" type="string">
-            <column name="district" length="45" />
-        </property>
-        <property name="rijksweg" type="string">
-            <column name="rijksweg" length="45" />
-        </property>
         <property name="hectometerbord" type="string">
             <column name="hectometerbord" length="45" />
-        </property>
-        <property name="baan" type="string">
-            <column name="baan" length="45" />
-        </property>
-        <property name="strook" type="string">
-            <column name="strook" length="45" />
         </property>
         <property name="verhardingssoort" type="string">
             <column name="verhardingssoort" length="45" />
@@ -43,6 +43,9 @@
         </property>
         <property name="opmerking" type="string">
             <column name="opmerking" />
+        </property>
+        <property name="constatering" type="string">
+            <column name="constatering" length="45" />
         </property>
         <set name="userreparaties" table="userreparatie" inverse="true" lazy="true" fetch="select">
             <key>
