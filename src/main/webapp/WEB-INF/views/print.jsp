@@ -58,10 +58,10 @@
 					<c:forEach items="${listDistricten}" var="district">
 						<c:choose>
 							<c:when test="${filterDistrict == district.getId()}">
-								<option value="${district.getId()}" selected>${district.getDistrictCode()}</option>
+								<option value="${district.getId()}" selected>${district.getDistrictGebiedAfkorting()}</option>
 							</c:when>
 							<c:otherwise>
-								<option value="${district.getId()}">${district.getDistrictCode()}</option>
+								<option value="${district.getId()}">${district.getDistrictGebiedAfkorting()}</option>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
