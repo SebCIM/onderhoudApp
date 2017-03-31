@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,6 +30,10 @@ import com.cimsolutions.entities.Reparatie;
 import com.cimsolutions.entities.Strook;
 import com.cimsolutions.entities.Userreparatie;
 import com.cimsolutions.entities.Wegenlijst;
+import com.cimsolutions.service.EmailService;
+
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Handles requests for the application home page.
@@ -142,7 +148,23 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/gebruiker/toevoegen", method = RequestMethod.POST)
-	public String addUser(@ModelAttribute("Apuser") Apuser u) {
+	public String addUser(@ModelAttribute("Apuser") Apuser u)  throws MessagingException {
+		
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("spring-mail.xml");
+		
+		// mail addresses
+		String toAannemer = u.getEmail();
+
+		// subjects
+		String subjectAannemer = "Token Vorstschade Aangifte";
+		
+		// body
+		String emailBody = "Hierbij ontvangt u de inlog token voor het doorgeven van uw Vorstschade. Dit kan via het volgende adres: http://vorstschadeapp.com. Uw token is:" + u.getToken();
+
+		EmailService mm = (EmailService) context.getBean("EmailService");
+	        mm.sendMail("vorstschade@gmail.com", toAannemer, subjectAannemer, emailBody);
+
 
 		dao.addUser(u);
 
