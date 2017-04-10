@@ -30,10 +30,6 @@
 	</tr>
 	<c:if test="${reparatie.getApuser().getId() == user.id}">
 		<tr>
-			<th width="30">Aanpassen</th>
-			<td><a href="<c:url value='vorstschade/aanpassen/${reparatie.id}' />">Aanpassen</a></td>
-		</tr>
-		<tr>
 			<th width="30">Verwijderen</th>
 			<td><a href="<c:url value='vorstschade/verwijderen/${reparatie.id}' />"
 				class="confirm"

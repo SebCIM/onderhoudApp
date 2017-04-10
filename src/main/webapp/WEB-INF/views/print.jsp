@@ -92,7 +92,7 @@
 					test="${reparatie.getApuser().getId() == user.id || user.isAdmin}">
 					<tr>
 						<td>${reparatie.getApuser().getBedrijf()}</td>
-						<td>${reparatie.getReparatie().getDistrict().getDistrictCode()}</td>
+						<td>${reparatie.getReparatie().getDistrict().getDistrictGebiedAfkorting()}</td>
 						<td>${reparatie.getReparatie().getWegenlijst().getAanduiding()}</td>
 						<td>${reparatie.getReparatie().getHectometerbord()}</td>
 						<td>${reparatie.getReparatie().getBaan().getBaanNaam()}</td>
@@ -107,7 +107,7 @@
 					test="${reparatie.getApuser().getId() == user.id || user.isAdmin}">
 					<tr>
 						<td>${reparatie.getApuser().getBedrijf()}</td>
-						<td>${reparatie.getReparatie().getDistrict().getDistrictCode()}</td>
+						<td>${reparatie.getReparatie().getDistrict().getDistrictGebiedAfkorting()}</td>
 						<td>${reparatie.getReparatie().getWegenlijst().getAanduiding()}</td>
 						<td>${reparatie.getReparatie().getHectometerbord()}</td>
 						<td>${reparatie.getReparatie().getBaan().getBaanNaam()}</td>

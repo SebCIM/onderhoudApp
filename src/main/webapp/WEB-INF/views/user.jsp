@@ -18,7 +18,7 @@
 			</tr>
 			<tr>
 				<td>Token:</td>
-				<td><form:input path="token" /></td>
+				<td><form:input path="token" type="password" /></td>
 			</tr>
 			<tr>
 				<td>Email:</td>

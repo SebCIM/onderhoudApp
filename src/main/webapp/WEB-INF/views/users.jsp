@@ -14,7 +14,7 @@
 		</tr>
 		<tr>
 			<td>Token:</td>
-			<td><input class="token" type="text" name="token" />
+			<td><input class="token" type="password" name="token" />
 				<div class="generateToken">Genereer</div></td>
 		</tr>
 		<tr>
