@@ -26,7 +26,7 @@
 	</tr>
 	<tr>
 		<th width="60">Hectometerbord</th>
-		<td>${reparatie.getReparatie().getHectometerbord()}</td>
+		<td>${reparatie.getReparatie().getHectometerbordBegin()}</td>
 	</tr>
 	<c:if test="${reparatie.getApuser().getId() == user.id}">
 		<tr>

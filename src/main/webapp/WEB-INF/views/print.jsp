@@ -71,7 +71,7 @@
 		</tr>
 	</table>
 </form:form>
-<h3>Reparaties</h3>
+<h3>Totaal ${totalResults} Reparaties</h3>
 <c:if test="${!empty listReparaties}">
 
 	<table class="tg">
@@ -79,11 +79,11 @@
 			<th width="80">Onderhoudsaannemer</th>
 			<th width="30">District</th>
 			<th width="30">Rijksweg</th>
-			<th width="30">Hectometer</th>
+			<th width="30">Hectometer begin</th>
 			<th width="30">Baan</th>
 			<th width="30">Strook</th>
 			<th width="150">Schade d.d</th>
-			<th width="150">Opmerking</th>
+			<th width="150">Type</th>
 		</tr>
 		<c:forEach items="${listReparaties}" var="reparatie">
 			<c:if
@@ -94,11 +94,11 @@
 						<td>${reparatie.getApuser().getBedrijf()}</td>
 						<td>${reparatie.getReparatie().getDistrict().getDistrictGebiedAfkorting()}</td>
 						<td>${reparatie.getReparatie().getWegenlijst().getAanduiding()}</td>
-						<td>${reparatie.getReparatie().getHectometerbord()}</td>
+						<td>${reparatie.getReparatie().getHectometerbordBegin()}</td>
 						<td>${reparatie.getReparatie().getBaan().getBaanNaam()}</td>
 						<td>${reparatie.getReparatie().getStrook().getStrook()}</td>
 						<td>${reparatie.getReparatie().getConstatering()}</td>
-						<td>${reparatie.getReparatie().getOpmerking()}</td>
+						<td>${reparatie.getReparatie().getSoort()}</td>
 					</tr>
 				</c:if>
 			</c:if>
@@ -109,11 +109,11 @@
 						<td>${reparatie.getApuser().getBedrijf()}</td>
 						<td>${reparatie.getReparatie().getDistrict().getDistrictGebiedAfkorting()}</td>
 						<td>${reparatie.getReparatie().getWegenlijst().getAanduiding()}</td>
-						<td>${reparatie.getReparatie().getHectometerbord()}</td>
+						<td>${reparatie.getReparatie().getHectometerbordBegin()}</td>
 						<td>${reparatie.getReparatie().getBaan().getBaanNaam()}</td>
 						<td>${reparatie.getReparatie().getStrook().getStrook()}</td>
 						<td>${reparatie.getReparatie().getConstatering()}</td>
-						<td>${reparatie.getReparatie().getOpmerking()}</td>
+						<td>${reparatie.getReparatie().getSoort()}</td>
 					</tr>
 				</c:if>
 			</c:if>

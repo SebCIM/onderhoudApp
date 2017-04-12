@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 10-Apr-2017 10:46:59 by Hibernate Tools 4.3.5.Final -->
+<!-- Generated 12-Apr-2017 14:26:57 by Hibernate Tools 4.3.5.Final -->
 <hibernate-mapping>
     <class name="com.cimsolutions.entities.Reparatie" table="reparatie" catalog="onderhouddb" optimistic-lock="version">
         <id name="id" type="java.lang.Integer">
@@ -23,8 +23,11 @@
         <property name="soort" type="string">
             <column name="soort" length="45" />
         </property>
-        <property name="hectometerbord" type="string">
-            <column name="hectometerbord" length="45" />
+        <property name="hectometerbordBegin" type="string">
+            <column name="hectometerbordBegin" length="45" />
+        </property>
+        <property name="hectometerbordEind" type="string">
+            <column name="hectometerbordEind" length="45" />
         </property>
         <property name="verhardingssoort" type="string">
             <column name="verhardingssoort" length="45" />
@@ -46,6 +49,15 @@
         </property>
         <property name="constatering" type="string">
             <column name="constatering" length="45" />
+        </property>
+        <property name="metersnaden" type="string">
+            <column name="metersnaden" length="45" />
+        </property>
+        <property name="metersrafeling" type="string">
+            <column name="metersrafeling" length="45" />
+        </property>
+        <property name="status" type="string">
+            <column name="status" length="45" />
         </property>
         <set name="userreparaties" table="userreparatie" inverse="true" lazy="true" fetch="select">
             <key>

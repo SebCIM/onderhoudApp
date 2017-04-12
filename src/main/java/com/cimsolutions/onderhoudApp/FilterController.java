@@ -43,8 +43,12 @@ public class FilterController {
 		List<Userreparatie> reparatieFilterList = new ArrayList<Userreparatie>();
 		int filterAannemer = 0;
 		int filterDistrict = 0;
-		start = start + " 00:00:00";
-		eind = eind + " 24:00:00";
+		if(start != null){
+			start = start + " 00:00:00";
+		}
+		if(eind != null){
+			eind = eind + " 24:00:00";
+		}
 		
 		Apuser currentUser = HomeController.getCurrentUser();
 
@@ -129,7 +133,9 @@ public class FilterController {
 			System.out.println("geen sessie gevonden");
 			return "login";
 		} else {
+			int totalResults = reparatieFilterList.size();
 			model.addAttribute("listReparaties", reparatieFilterList);
+			model.addAttribute("totalResults", totalResults);
 			model.addAttribute("user", currentUser);
 			model.addAttribute("title", "Gebruikers");
 			model.addAttribute("filterAannemer", filterAannemer);

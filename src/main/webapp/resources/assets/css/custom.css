@@ -89,3 +89,12 @@
 h4 {
 	color: red;
 }
+
+.distance {
+	width: 8em;
+	float: left;
+}
+
+.eind, .gaten, .mrafeling, .mnaden {
+	display: none;
+}

@@ -1,5 +1,5 @@
 package com.cimsolutions.entities;
-// Generated 10-Apr-2017 10:46:59 by Hibernate Tools 4.3.5.Final
+// Generated 12-Apr-2017 14:26:57 by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -30,7 +30,8 @@ public class Reparatie implements java.io.Serializable {
 	private Strook strook;
 	private Wegenlijst wegenlijst;
 	private String soort;
-	private String hectometerbord;
+	private String hectometerbordBegin;
+	private String hectometerbordEind;
 	private String verhardingssoort;
 	private String reparatiemethode;
 	private Date datumtijd;
@@ -38,20 +39,25 @@ public class Reparatie implements java.io.Serializable {
 	private String aantalgaten;
 	private String opmerking;
 	private String constatering;
+	private String metersnaden;
+	private String metersrafeling;
+	private String status;
 	private Set<Userreparatie> userreparaties = new HashSet<Userreparatie>(0);
 
 	public Reparatie() {
 	}
 
 	public Reparatie(Baan baan, District district, Strook strook, Wegenlijst wegenlijst, String soort,
-			String hectometerbord, String verhardingssoort, String reparatiemethode, Date datumtijd, String noodofspoed,
-			String aantalgaten, String opmerking, String constatering, Set<Userreparatie> userreparaties) {
+			String hectometerbordBegin, String hectometerbordEind, String verhardingssoort, String reparatiemethode,
+			Date datumtijd, String noodofspoed, String aantalgaten, String opmerking, String constatering,
+			String metersnaden, String metersrafeling, String status, Set<Userreparatie> userreparaties) {
 		this.baan = baan;
 		this.district = district;
 		this.strook = strook;
 		this.wegenlijst = wegenlijst;
 		this.soort = soort;
-		this.hectometerbord = hectometerbord;
+		this.hectometerbordBegin = hectometerbordBegin;
+		this.hectometerbordEind = hectometerbordEind;
 		this.verhardingssoort = verhardingssoort;
 		this.reparatiemethode = reparatiemethode;
 		this.datumtijd = datumtijd;
@@ -59,6 +65,9 @@ public class Reparatie implements java.io.Serializable {
 		this.aantalgaten = aantalgaten;
 		this.opmerking = opmerking;
 		this.constatering = constatering;
+		this.metersnaden = metersnaden;
+		this.metersrafeling = metersrafeling;
+		this.status = status;
 		this.userreparaties = userreparaties;
 	}
 
@@ -123,13 +132,22 @@ public class Reparatie implements java.io.Serializable {
 		this.soort = soort;
 	}
 
-	@Column(name = "hectometerbord", length = 45)
-	public String getHectometerbord() {
-		return this.hectometerbord;
+	@Column(name = "hectometerbordBegin", length = 45)
+	public String getHectometerbordBegin() {
+		return this.hectometerbordBegin;
 	}
 
-	public void setHectometerbord(String hectometerbord) {
-		this.hectometerbord = hectometerbord;
+	public void setHectometerbordBegin(String hectometerbordBegin) {
+		this.hectometerbordBegin = hectometerbordBegin;
+	}
+
+	@Column(name = "hectometerbordEind", length = 45)
+	public String getHectometerbordEind() {
+		return this.hectometerbordEind;
+	}
+
+	public void setHectometerbordEind(String hectometerbordEind) {
+		this.hectometerbordEind = hectometerbordEind;
 	}
 
 	@Column(name = "verhardingssoort", length = 45)
@@ -194,6 +212,33 @@ public class Reparatie implements java.io.Serializable {
 
 	public void setConstatering(String constatering) {
 		this.constatering = constatering;
+	}
+
+	@Column(name = "metersnaden", length = 45)
+	public String getMetersnaden() {
+		return this.metersnaden;
+	}
+
+	public void setMetersnaden(String metersnaden) {
+		this.metersnaden = metersnaden;
+	}
+
+	@Column(name = "metersrafeling", length = 45)
+	public String getMetersrafeling() {
+		return this.metersrafeling;
+	}
+
+	public void setMetersrafeling(String metersrafeling) {
+		this.metersrafeling = metersrafeling;
+	}
+
+	@Column(name = "status", length = 45)
+	public String getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "reparatie")

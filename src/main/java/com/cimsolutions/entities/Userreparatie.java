@@ -1,5 +1,5 @@
 package com.cimsolutions.entities;
-// Generated 10-Apr-2017 10:46:59 by Hibernate Tools 4.3.5.Final
+// Generated 12-Apr-2017 14:26:57 by Hibernate Tools 4.3.5.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

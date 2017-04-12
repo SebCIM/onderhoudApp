@@ -6,11 +6,24 @@
 	<table>
 		<tr>
 			<td>Voorselectie:</td>
-			<td><select name="soort">
-					<c:forEach items="${soortList}" var="soortItem">
-						<option value="${soortItem}">${soortItem}</option>
-					</c:forEach>
-			</select></td>
+			<td><c:forEach items="${soortList}" var="soortItem">
+					<c:choose>
+						<c:when test="${soortItem == 'Open naden'}">
+							<div class="distance">
+								<input type="checkbox" id="Naden" name="soort"
+									value="${soortItem}" /> ${soortItem}
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="distance">
+								<input type="checkbox" id="${soortItem}" name="soort"
+									value="${soortItem}" /> ${soortItem}
+							</div>
+						</c:otherwise>
+					</c:choose>
+
+				</c:forEach></td>
+			<td>
 		</tr>
 		<tr>
 			<td>District Code</td>
@@ -29,9 +42,25 @@
 					</c:forEach>
 			</select></td>
 		</tr>
-		<tr>
-			<td>Hectometerbord:</td>
-			<td><input name="hectometerbord" type="text" value="" size="10" /></td>
+		<tr class="begin">
+			<td>Hectometerbord Begin:</td>
+			<td><input name="hectometerbordBegin" type="text" value="" size="10" /></td>
+		</tr>
+		<tr class="eind">
+			<td>Hectometerbord Eind:</td>
+			<td><input name="hectometerbordEind" type="text" value="" size="10" /></td>
+		</tr>
+		<tr class="gaten">
+			<td>Aantal Gaten:</td>
+			<td><input name="aantalgaten" type="text" value="" size="10" /></td>
+		</tr>
+		<tr class="mrafeling">
+			<td>Aantal Meters Rafeling:</td>
+			<td><input name="metersrafeling" type="text" value="" size="10" /></td>
+		</tr>
+		<tr class="mnaden">
+			<td>Aantal Meters Naden:</td>
+			<td><input name="metersnaden" type="text" value="" size="10" /></td>
 		</tr>
 		<tr>
 			<td>Baan:</td>
@@ -61,7 +90,7 @@
 					$(function() {
 						$('#datetimepicker9').datetimepicker({
 							viewMode : 'years',
-							format :"YYYY-MM-DD HH:mm:SS"
+							format : "YYYY-MM-DD HH:mm:SS"
 						});
 					});
 				</script>

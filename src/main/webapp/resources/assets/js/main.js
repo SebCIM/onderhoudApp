@@ -9,7 +9,42 @@ $( document ).ready(function() {
 	    cancelButton: "Nee",
 	});
 	
+	$('#Rafeling').change(function() {
+		console.log("Changed");
+		if (!$(this).is(':checked')) {
+			console.log('unchecked');
+			$('.eind').hide();
+			$('.mrafeling').hide();
+		} else {
+			console.log('checked');
+			$('.eind').show();
+			$('.mrafeling').show();
+		}
+    });
 	
+	$('#Naden').change(function() {
+		console.log("Changed");
+		if (!$(this).is(':checked')) {
+			console.log('unchecked');
+			$('.eind').hide();
+			$('.mnaden').hide();
+		} else {
+			console.log('checked');
+			$('.eind').show();
+			$('.mnaden').show();
+		}
+    });
+	
+	$('#Gaten').change(function() {
+		console.log("Changed");
+		if (!$(this).is(':checked')) {
+			console.log('unchecked');
+			$('.gaten').hide();
+		} else {
+			console.log('checked');
+			$('.gaten').show();
+		}
+    });
 	
 });
 

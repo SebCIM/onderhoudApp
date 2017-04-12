@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 10-Apr-2017 10:46:59 by Hibernate Tools 4.3.5.Final -->
+<!-- Generated 12-Apr-2017 14:26:57 by Hibernate Tools 4.3.5.Final -->
 <hibernate-mapping>
     <class name="com.cimsolutions.entities.District" table="district" catalog="onderhouddb" optimistic-lock="version">
         <id name="id" type="int">

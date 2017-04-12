@@ -115,6 +115,7 @@ public class VorstschadeController {
 		Baan baanLijst = daoB.getBaanById(bId);
 		r.setWegenlijst(wegenLijst);
 		r.setDistrict(districtLijst);
+		r.setStatus("In onderhoudsplanning");
 		r.setStrook(strookLijst);
 		r.setBaan(baanLijst);
 		daoUr.addReparatie(r, currentUser.getId());
