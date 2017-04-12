@@ -20,11 +20,6 @@
 <script src="/onderhoudApp/resources/assets/js/main.js"
 	type="text/javascript"></script>
 
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
-
 <!-- Latest compiled and minified JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
@@ -35,8 +30,7 @@
 <link rel="stylesheet" type="text/css" media="screen"
 	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 <script async="" src="//www.google-analytics.com/analytics.js"></script>
-<script type="text/javascript"
-	src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+
 <script type="text/javascript"
 	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <script

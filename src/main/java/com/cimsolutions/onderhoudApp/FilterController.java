@@ -43,6 +43,8 @@ public class FilterController {
 		List<Userreparatie> reparatieFilterList = new ArrayList<Userreparatie>();
 		int filterAannemer = 0;
 		int filterDistrict = 0;
+		start = start + " 00:00:00";
+		eind = eind + " 24:00:00";
 		
 		Apuser currentUser = HomeController.getCurrentUser();
 

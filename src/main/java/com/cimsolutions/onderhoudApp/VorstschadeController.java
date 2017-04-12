@@ -122,7 +122,7 @@ public class VorstschadeController {
 		return "redirect:/vorstschade/overzicht";
 	}
 
-	@RequestMapping(value = "/repair/remove/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/vorstschade/verwijderen/{id}", method = RequestMethod.GET)
 	public String removeRepair(@PathVariable("id") int id, Model model) {
 		
 		Apuser currentUser = HomeController.getCurrentUser();

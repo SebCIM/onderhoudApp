@@ -29,7 +29,7 @@
 					$(function() {
 						$('#datetimepicker1').datetimepicker({
 							viewMode : 'years',
-							format : "YYYY-MM-DD HH:mm:SS"
+							format : "YYYY-MM-DD"
 						});
 					});
 				</script>
@@ -45,7 +45,7 @@
 					$(function() {
 						$('#datetimepicker2').datetimepicker({
 							viewMode : 'years',
-							format : "YYYY-MM-DD HH:mm:SS"
+							format : "YYYY-MM-DD"
 						});
 					});
 				</script>
@@ -76,14 +76,14 @@
 
 	<table class="tg">
 		<tr>
-			<th width="100">Onderhoudsaannemer</th>
-			<th width="50">District</th>
-			<th width="50">Rijksweg</th>
-			<th width="50">Hectometerbord</th>
-			<th width="50">Baan</th>
-			<th width="50">Strook</th>
-			<th width="250">Schade d.d</th>
-			<th width="200">Opmerking</th>
+			<th width="80">Onderhoudsaannemer</th>
+			<th width="30">District</th>
+			<th width="30">Rijksweg</th>
+			<th width="30">Hectometer</th>
+			<th width="30">Baan</th>
+			<th width="30">Strook</th>
+			<th width="150">Schade d.d</th>
+			<th width="150">Opmerking</th>
 		</tr>
 		<c:forEach items="${listReparaties}" var="reparatie">
 			<c:if

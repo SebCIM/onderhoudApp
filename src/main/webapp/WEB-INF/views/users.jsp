@@ -45,8 +45,7 @@
 		</tr>
 	</table>
 </form:form>
-
-<h3>Onderhoudsaannemers</h3>
+<h3>Onderhoudsaannemers:</h3>
 <c:if test="${!empty listUsers}">
 	<table class="tg">
 		<tr>
