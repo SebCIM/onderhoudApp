@@ -1,5 +1,5 @@
 package com.cimsolutions.entities;
-// Generated 12-Apr-2017 14:26:57 by Hibernate Tools 4.3.5.Final
+// Generated 13-Apr-2017 14:02:10 by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -27,13 +27,13 @@ public class Reparatie implements java.io.Serializable {
 	private Integer id;
 	private Baan baan;
 	private District district;
+	private Reparatiemethoden reparatiemethoden;
 	private Strook strook;
 	private Wegenlijst wegenlijst;
 	private String soort;
 	private String hectometerbordBegin;
 	private String hectometerbordEind;
 	private String verhardingssoort;
-	private String reparatiemethode;
 	private Date datumtijd;
 	private String noodofspoed;
 	private String aantalgaten;
@@ -42,24 +42,26 @@ public class Reparatie implements java.io.Serializable {
 	private String metersnaden;
 	private String metersrafeling;
 	private String status;
+	private String reparatiedatum;
 	private Set<Userreparatie> userreparaties = new HashSet<Userreparatie>(0);
 
 	public Reparatie() {
 	}
 
-	public Reparatie(Baan baan, District district, Strook strook, Wegenlijst wegenlijst, String soort,
-			String hectometerbordBegin, String hectometerbordEind, String verhardingssoort, String reparatiemethode,
-			Date datumtijd, String noodofspoed, String aantalgaten, String opmerking, String constatering,
-			String metersnaden, String metersrafeling, String status, Set<Userreparatie> userreparaties) {
+	public Reparatie(Baan baan, District district, Reparatiemethoden reparatiemethoden, Strook strook,
+			Wegenlijst wegenlijst, String soort, String hectometerbordBegin, String hectometerbordEind,
+			String verhardingssoort, Date datumtijd, String noodofspoed, String aantalgaten, String opmerking,
+			String constatering, String metersnaden, String metersrafeling, String status, String reparatiedatum,
+			Set<Userreparatie> userreparaties) {
 		this.baan = baan;
 		this.district = district;
+		this.reparatiemethoden = reparatiemethoden;
 		this.strook = strook;
 		this.wegenlijst = wegenlijst;
 		this.soort = soort;
 		this.hectometerbordBegin = hectometerbordBegin;
 		this.hectometerbordEind = hectometerbordEind;
 		this.verhardingssoort = verhardingssoort;
-		this.reparatiemethode = reparatiemethode;
 		this.datumtijd = datumtijd;
 		this.noodofspoed = noodofspoed;
 		this.aantalgaten = aantalgaten;
@@ -68,6 +70,7 @@ public class Reparatie implements java.io.Serializable {
 		this.metersnaden = metersnaden;
 		this.metersrafeling = metersrafeling;
 		this.status = status;
+		this.reparatiedatum = reparatiedatum;
 		this.userreparaties = userreparaties;
 	}
 
@@ -101,6 +104,16 @@ public class Reparatie implements java.io.Serializable {
 
 	public void setDistrict(District district) {
 		this.district = district;
+	}
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "reparatiemethode")
+	public Reparatiemethoden getReparatiemethoden() {
+		return this.reparatiemethoden;
+	}
+
+	public void setReparatiemethoden(Reparatiemethoden reparatiemethoden) {
+		this.reparatiemethoden = reparatiemethoden;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -157,15 +170,6 @@ public class Reparatie implements java.io.Serializable {
 
 	public void setVerhardingssoort(String verhardingssoort) {
 		this.verhardingssoort = verhardingssoort;
-	}
-
-	@Column(name = "reparatiemethode", length = 45)
-	public String getReparatiemethode() {
-		return this.reparatiemethode;
-	}
-
-	public void setReparatiemethode(String reparatiemethode) {
-		this.reparatiemethode = reparatiemethode;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -241,7 +245,16 @@ public class Reparatie implements java.io.Serializable {
 		this.status = status;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "reparatie")
+	@Column(name = "reparatiedatum", length = 45)
+	public String getReparatiedatum() {
+		return this.reparatiedatum;
+	}
+
+	public void setReparatiedatum(String reparatiedatum) {
+		this.reparatiedatum = reparatiedatum;
+	}
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "reparatie")
 	public Set<Userreparatie> getUserreparaties() {
 		return this.userreparaties;
 	}

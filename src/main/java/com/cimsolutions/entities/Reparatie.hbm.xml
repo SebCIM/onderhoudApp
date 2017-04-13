@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 12-Apr-2017 14:26:57 by Hibernate Tools 4.3.5.Final -->
+<!-- Generated 13-Apr-2017 14:02:10 by Hibernate Tools 4.3.5.Final -->
 <hibernate-mapping>
     <class name="com.cimsolutions.entities.Reparatie" table="reparatie" catalog="onderhouddb" optimistic-lock="version">
         <id name="id" type="java.lang.Integer">
@@ -13,6 +13,9 @@
         </many-to-one>
         <many-to-one name="district" class="com.cimsolutions.entities.District" fetch="select">
             <column name="district" />
+        </many-to-one>
+        <many-to-one name="reparatiemethoden" class="com.cimsolutions.entities.Reparatiemethoden" fetch="select">
+            <column name="reparatiemethode" />
         </many-to-one>
         <many-to-one name="strook" class="com.cimsolutions.entities.Strook" fetch="select">
             <column name="strook" />
@@ -31,9 +34,6 @@
         </property>
         <property name="verhardingssoort" type="string">
             <column name="verhardingssoort" length="45" />
-        </property>
-        <property name="reparatiemethode" type="string">
-            <column name="reparatiemethode" length="45" />
         </property>
         <property name="datumtijd" type="timestamp">
             <column name="datumtijd" length="19" />
@@ -58,6 +58,9 @@
         </property>
         <property name="status" type="string">
             <column name="status" length="45" />
+        </property>
+        <property name="reparatiedatum" type="string">
+            <column name="reparatiedatum" length="45" />
         </property>
         <set name="userreparaties" table="userreparatie" inverse="true" lazy="true" fetch="select">
             <key>

@@ -3,20 +3,17 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 13-Apr-2017 14:02:10 by Hibernate Tools 4.3.5.Final -->
 <hibernate-mapping>
-    <class name="com.cimsolutions.entities.Baan" table="baan" catalog="onderhouddb" optimistic-lock="version">
-        <id name="id" type="int">
+    <class name="com.cimsolutions.entities.Reparatiemethoden" table="reparatiemethoden" catalog="onderhouddb" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
             <column name="id" />
-            <generator class="assigned" />
+            <generator class="identity" />
         </id>
-        <property name="baanNaam" type="string">
-            <column name="BaanNaam" length="65535" />
-        </property>
-        <property name="volgorde" type="java.lang.Integer">
-            <column name="Volgorde" />
+        <property name="naam" type="string">
+            <column name="naam" length="45" />
         </property>
         <set name="reparaties" table="reparatie" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="baan" />
+                <column name="reparatiemethode" />
             </key>
             <one-to-many class="com.cimsolutions.entities.Reparatie" />
         </set>

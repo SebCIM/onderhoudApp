@@ -2,7 +2,7 @@
 <h3>Onderhoudsaannemer toevoegen</h3>
 <c:url var="addAction" value="/gebruiker/toevoegen"></c:url>
 
-<form:form action="${addAction}" commandName="user">
+<form:form action="${addAction}" commandName="adduser">
 	<table>
 		<tr>
 			<td>Contactpersoon:</td>
@@ -27,11 +27,11 @@
 		</tr>
 		<tr>
 			<td class="filterText">District:</td>
-			<td class="filterDropDown"><select name="district">
+			<td class="filterDropDown"><select name="districtId">
 					<option value="0">Alle</option>
 					<c:forEach items="${listDistricten}" var="district">
 
-						<option value="${district.getDistrictGebiedAfkorting()}">${district.getDistrictGebiedAfkorting()}</option>
+						<option value="${district.getId()}">${district.getDistrictGebiedAfkorting()}, ${district.getDistrictNaam()}</option>
 					</c:forEach>
 			</select></td>
 		</tr>
@@ -66,7 +66,7 @@
 					<td>${person.bedrijf}</td>
 					<td>${person.email}</td>
 					<td>${person.tel}</td>
-					<td>${person.district}</td>
+					<td>${person.getDistrict().getDistrictGebiedAfkorting()}</td>
 					<td><a
 						href="<c:url value='gebruiker/aanpassen/${person.id}' />">Aanpassen</a></td>
 					<td><a

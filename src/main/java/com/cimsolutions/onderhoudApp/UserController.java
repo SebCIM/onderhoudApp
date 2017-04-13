@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cimsolutions.DAO.UserDaoImpl;
 import com.cimsolutions.DAO.WegenDAOImpl;
@@ -17,7 +18,9 @@ import com.cimsolutions.DAO.ReparatieDAOImpl;
 import com.cimsolutions.DAO.UserReparatieDAOImpl;
 import com.cimsolutions.DAO.StrookDAOImpl;
 import com.cimsolutions.entities.Apuser;
+import com.cimsolutions.entities.Baan;
 import com.cimsolutions.entities.District;
+import com.cimsolutions.entities.Reparatie;
 import com.cimsolutions.service.EmailService;
 
 import java.util.List;
@@ -54,7 +57,8 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "gebruiker/aanpassen", method = RequestMethod.POST)
-	public String editUser(@ModelAttribute("Apuser") Apuser u) {
+	public String editUser(@ModelAttribute("Apuser") Apuser u, @RequestParam("districtId") int diId) {
+		u.setDistrict(daoD.getDistrictById(diId));
 		dao.updateUser(u);
 
 		return "redirect:/gebruikers";
@@ -72,18 +76,22 @@ public class UserController {
 			} else {
 				Apuser editUser = new Apuser();
 				editUser = dao.getUserById(id);
-
+				
 				model.addAttribute("user", currentUser);
 				model.addAttribute("edituser", editUser);
 				model.addAttribute("listUsers", dao.listUsers());
+				model.addAttribute("listDistricten", daoD.listDistrict());
 				model.addAttribute("title", "Gebruiker -" + editUser.getUsername());
 				return "user";
 			}
 		}
 	}
 
-	@RequestMapping(value = "/gebruiker/toevoegen", method = RequestMethod.POST)
-	public String addUser(@ModelAttribute("Apuser") Apuser u) throws MessagingException {
+	@RequestMapping(value = "gebruiker/toevoegen", method = RequestMethod.POST)
+	public String addRepair(@ModelAttribute("Apuser") Apuser u, @RequestParam("districtId") int diId) {
+		
+		District districtLijst = daoD.getDistrictById(diId);
+		u.setDistrict(districtLijst);
 
 		ApplicationContext context = new ClassPathXmlApplicationContext("spring-mail.xml");
 
@@ -101,8 +109,12 @@ public class UserController {
 		mm.sendMail("vorstschade@gmail.com", toAannemer, subjectAannemer, emailBody);
 
 		dao.addUser(u);
-
+		
+		System.out.println("test");
+		
 		return "redirect:/gebruikers";
+		
+		
 
 	}
 

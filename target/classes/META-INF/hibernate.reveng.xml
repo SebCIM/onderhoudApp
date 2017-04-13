@@ -9,4 +9,5 @@
   <table-filter match-catalog="onderhouddb" match-name="baan"/>
   <table-filter match-catalog="onderhouddb" match-name="wegenlijst"/>
   <table-filter match-catalog="onderhouddb" match-name="strook"/>
+  <table-filter match-catalog="onderhouddb" match-name="reparatiemethoden"/>
 </hibernate-reverse-engineering>

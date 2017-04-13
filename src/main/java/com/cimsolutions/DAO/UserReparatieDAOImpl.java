@@ -106,7 +106,7 @@ public class UserReparatieDAOImpl implements UserReparatieDAO {
 
 			if (ur != null) {
 				session.getTransaction().commit();
-				logger.info("UserReparatie selected successfully, UserReparatie details=" + ur);
+				// logger.info("UserReparatie selected successfully, UserReparatie details=" + ur);
 				return ur;
 			}
 

@@ -21,4 +21,7 @@ public interface ReparatieDAO {
 	
 	// Remove
 	public void removeRepair(int id);
+	
+	// Update
+	public void updateRepair(Reparatie r);
 }

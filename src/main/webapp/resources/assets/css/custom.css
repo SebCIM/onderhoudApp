@@ -95,6 +95,6 @@ h4 {
 	float: left;
 }
 
-.eind, .gaten, .mrafeling, .mnaden {
+.eind, .gaten, .mrafeling, .mnaden, .rdatum, .rmethode {
 	display: none;
 }

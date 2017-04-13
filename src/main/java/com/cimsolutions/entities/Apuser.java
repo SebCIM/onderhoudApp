@@ -1,5 +1,5 @@
 package com.cimsolutions.entities;
-// Generated 12-Apr-2017 14:26:57 by Hibernate Tools 4.3.5.Final
+// Generated 13-Apr-2017 14:02:10 by Hibernate Tools 4.3.5.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -20,6 +22,7 @@ import javax.persistence.Table;
 public class Apuser implements java.io.Serializable {
 
 	private Integer id;
+	private District district;
 	private String username;
 	private String bedrijf;
 	private String password;
@@ -27,14 +30,14 @@ public class Apuser implements java.io.Serializable {
 	private Boolean isAdmin;
 	private String email;
 	private String tel;
-	private String district;
 	private Set<Userreparatie> userreparaties = new HashSet<Userreparatie>(0);
 
 	public Apuser() {
 	}
 
-	public Apuser(String username, String bedrijf, String password, String token, Boolean isAdmin, String email,
-			String tel, String district, Set<Userreparatie> userreparaties) {
+	public Apuser(District district, String username, String bedrijf, String password, String token, Boolean isAdmin,
+			String email, String tel, Set<Userreparatie> userreparaties) {
+		this.district = district;
 		this.username = username;
 		this.bedrijf = bedrijf;
 		this.password = password;
@@ -42,7 +45,6 @@ public class Apuser implements java.io.Serializable {
 		this.isAdmin = isAdmin;
 		this.email = email;
 		this.tel = tel;
-		this.district = district;
 		this.userreparaties = userreparaties;
 	}
 
@@ -56,6 +58,16 @@ public class Apuser implements java.io.Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "district")
+	public District getDistrict() {
+		return this.district;
+	}
+
+	public void setDistrict(District district) {
+		this.district = district;
 	}
 
 	@Column(name = "username", length = 45)
@@ -121,16 +133,7 @@ public class Apuser implements java.io.Serializable {
 		this.tel = tel;
 	}
 
-	@Column(name = "district", length = 45)
-	public String getDistrict() {
-		return this.district;
-	}
-
-	public void setDistrict(String district) {
-		this.district = district;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "apuser")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "apuser")
 	public Set<Userreparatie> getUserreparaties() {
 		return this.userreparaties;
 	}

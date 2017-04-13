@@ -15,6 +15,7 @@ import com.cimsolutions.DAO.UserDaoImpl;
 import com.cimsolutions.DAO.WegenDAOImpl;
 import com.cimsolutions.DAO.BaanDAOImpl;
 import com.cimsolutions.DAO.DistrictDAOImpl;
+import com.cimsolutions.DAO.MethodeDAOImpl;
 import com.cimsolutions.DAO.ReparatieDAOImpl;
 import com.cimsolutions.DAO.UserReparatieDAOImpl;
 import com.cimsolutions.DAO.StrookDAOImpl;
@@ -36,6 +37,7 @@ public class VorstschadeController {
 	BaanDAOImpl daoB = new BaanDAOImpl();
 	WegenDAOImpl daoW = new WegenDAOImpl();
 	StrookDAOImpl daoS = new StrookDAOImpl();
+	MethodeDAOImpl daoM = new MethodeDAOImpl();
 	
 	@RequestMapping(value = "vorstschade/invoeren", method = RequestMethod.GET)
 	public String Invoer(Model model) {
@@ -96,6 +98,10 @@ public class VorstschadeController {
 
 				model.addAttribute("user", currentUser);
 				model.addAttribute("reparatie", viewReparatie);
+				model.addAttribute("listDistricten", daoD.listDistrict());
+				model.addAttribute("listMethoden", daoM.listMethode());
+				model.addAttribute("ListWegen", daoW.listWegen());
+				model.addAttribute("ListStroken", daoS.listStrook());
 				model.addAttribute("listUsers", dao.listUsers());
 				model.addAttribute("title", "Gebruiker -" + currentUser.getUsername());
 				return "reparatie";
@@ -141,5 +147,23 @@ public class VorstschadeController {
 			System.out.println("usersessie gevonden");
 			return "redirect:/vorstschade/overzicht";
 		}
+	}
+	
+	@RequestMapping(value = "vorstschade/aanpassen", method = RequestMethod.POST)
+	public String editRepair(@ModelAttribute("Reparatie") Reparatie r, @RequestParam("districtId") int diId, @RequestParam("Id") int id, @RequestParam("rijksweg") int wId, @RequestParam("reparatiemethode") int rmId) {
+		Reparatie currentRepair = daoR.getReparatieById(id);
+		r.setDatumtijd(currentRepair.getDatumtijd());
+		r.setReparatiemethoden(daoM.getMethodeById(rmId));
+		r.setSoort(currentRepair.getSoort());
+		r.setDatumtijd(currentRepair.getDatumtijd());
+		r.setConstatering(currentRepair.getConstatering());
+		r.setId(id);
+		r.setDistrict(daoD.getDistrictById(diId));
+		r.setWegenlijst(daoW.getWegById(wId));
+		System.out.println("district: " + r.getDistrict().getId());
+		System.out.println("weg: " + r.getWegenlijst().getId());
+		daoR.updateRepair(r);
+
+		return "redirect:/vorstschade/overzicht";
 	}
 }

@@ -71,7 +71,7 @@
 		</tr>
 	</table>
 </form:form>
-<h3>Totaal ${totalResults} Reparaties</h3>
+<h3>Totaal ${totalResults} vorstschades</h3>
 <c:if test="${!empty listReparaties}">
 
 	<table class="tg">

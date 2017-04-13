@@ -22,6 +22,17 @@ $( document ).ready(function() {
 		}
     });
 	
+	$('#status').change(function() {
+		console.log("Changed");
+		if ($(this).val() == 'Gerepareerd'){
+			$('.rdatum').show();
+			$('.rmethode').show();
+		} else {
+			$('.rdatum').hide();
+			$('.rmethode').hide();
+		}
+    });
+	
 	$('#Naden').change(function() {
 		console.log("Changed");
 		if (!$(this).is(':checked')) {

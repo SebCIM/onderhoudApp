@@ -1,5 +1,5 @@
 package com.cimsolutions.entities;
-// Generated 12-Apr-2017 14:26:57 by Hibernate Tools 4.3.5.Final
+// Generated 13-Apr-2017 14:02:10 by Hibernate Tools 4.3.5.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -65,7 +65,7 @@ public class Baan implements java.io.Serializable {
 		this.volgorde = volgorde;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "baan")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "baan")
 	public Set<Reparatie> getReparaties() {
 		return this.reparaties;
 	}

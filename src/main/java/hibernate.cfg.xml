@@ -20,6 +20,7 @@
         <mapping class="com.cimsolutions.entities.Strook" />
         <mapping class="com.cimsolutions.entities.Apuser" />
         <mapping class="com.cimsolutions.entities.Reparatie" />
+        <mapping class="com.cimsolutions.entities.Reparatiemethoden" />
         <mapping class="com.cimsolutions.entities.Wegenlijst" />
         <mapping class="com.cimsolutions.entities.District" />
     </session-factory>

@@ -1,5 +1,5 @@
 <%@include file='default.jsp'%>
-	<h1><a href="/onderhoudApp/users">Back</a></h1>
+	<h1><a href="/onderhoudApp/gebruikers">Terug</a></h1>
 	<h3>Onderhoudsaannemer aanpassen</h3>
 	<c:url var="editAction" value="/gebruiker/aanpassen"></c:url>
 
@@ -29,8 +29,20 @@
 				<td><form:input path="tel" /></td>
 			</tr>
 			<tr>
-				<td>District:</td>
-				<td><form:input path="district" /></td>
+				<td class="filterText">District:</td>
+			<td class="filterDropDown"><select name="districtId">
+					<option value="0">Alle</option>
+					<c:forEach items="${listDistricten}" var="district">
+						<c:choose>
+							<c:when test="${edituser.getDistrict().getId() == district.getId()}">
+								<option value="${district.getId()}" selected>${district.getDistrictGebiedAfkorting()}</option>
+							</c:when>
+							<c:otherwise>
+								<option value="${district.getId()}">${district.getDistrictGebiedAfkorting()}</option>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+			</select></td>
 			</tr>
 			<tr>
 				<td>Admin:</td>
@@ -64,9 +76,9 @@
 						<td>${person.bedrijf}</td>
 						<td>${person.email}</td>
 						<td>${person.tel}</td>
-						<td>${person.district}</td>
-						<td><a href="<c:url value='gebruiker/aanpassen/${person.id}' />">Aanpassen</a></td>
-						<td><a href="<c:url value='gebruiker/verwijderen/${person.id}' />" class="confirm"  data-text="Weet je zeker dat je ${person.username} van ${person.bedrijf} wilt verwijderen?" >Verwijderen</a></td>
+						<td>${person.getDistrict().getDistrictGebiedAfkorting()}</td>
+						<td><a href="<c:url value='/gebruiker/aanpassen/${person.id}' />">Aanpassen</a></td>
+						<td><a href="<c:url value='/gebruiker/verwijderen/${person.id}' />" class="confirm"  data-text="Weet je zeker dat je ${person.username} van ${person.bedrijf} wilt verwijderen?" >Verwijderen</a></td>
 					</tr>
 				</c:if>
 			</c:forEach>

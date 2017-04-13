@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import com.cimsolutions.entities.Apuser;
 import com.cimsolutions.entities.Reparatie;
 import com.cimsolutions.entities.Userreparatie;
 import com.cimsolutions.utils.HibernateUtils;
@@ -49,6 +50,33 @@ public class ReparatieDAOImpl implements ReparatieDAO {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	@Override
+	public void updateRepair(Reparatie r) {
+		// open session from class HibernateUtils
+		SessionFactory factory = HibernateUtils.getSessionFactory();
+		// get session to connect with database
+		Session session = factory.getCurrentSession();
+		
+		System.out.println("updaten");
+		
+		Transaction testTransaction = null;
+
+		try {
+			// open session to work with database
+			testTransaction = session.beginTransaction();
+			if (r != null) {
+				session.update(r);
+				testTransaction.commit();
+				logger.info("Vorstschade is geupdate, Vorstschade details=" + r);
+			}
+
+		} catch (Exception e) {
+			// if something goes wrong, we will rollback
+			session.getTransaction().rollback();
+			e.printStackTrace();
+		}
 	}
 
 	@Override

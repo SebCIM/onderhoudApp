@@ -25,7 +25,7 @@ import com.cimsolutions.entities.Userreparatie;
 
 @Controller
 public class FilterController {
-	
+
 	UserDaoImpl dao = new UserDaoImpl();
 	UserReparatieDAOImpl daoUr = new UserReparatieDAOImpl();
 	ReparatieDAOImpl daoR = new ReparatieDAOImpl();
@@ -33,7 +33,7 @@ public class FilterController {
 	BaanDAOImpl daoB = new BaanDAOImpl();
 	WegenDAOImpl daoW = new WegenDAOImpl();
 	StrookDAOImpl daoS = new StrookDAOImpl();
-	
+
 	@RequestMapping(value = "printen", method = RequestMethod.GET)
 	public String filterRepairs(Model model, @RequestParam(value = "aannemer", required = false) Integer uId,
 			@RequestParam(value = "district", required = false) Integer dId,
@@ -43,13 +43,7 @@ public class FilterController {
 		List<Userreparatie> reparatieFilterList = new ArrayList<Userreparatie>();
 		int filterAannemer = 0;
 		int filterDistrict = 0;
-		if(start != null){
-			start = start + " 00:00:00";
-		}
-		if(eind != null){
-			eind = eind + " 24:00:00";
-		}
-		
+
 		Apuser currentUser = HomeController.getCurrentUser();
 
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -67,6 +61,8 @@ public class FilterController {
 		}
 
 		if (start != "" && eind != "" && start != null && eind != null) {
+			start = start + " 00:00:00";
+			eind = eind + " 24:00:00";
 			try {
 				startDatum = simpleDateFormat.parse(start);
 				eindDatum = simpleDateFormat.parse(eind);
@@ -76,7 +72,11 @@ public class FilterController {
 					if (betweenDates(constatering, startDatum, eindDatum)) {
 						System.out
 								.println("Datum ligt ertussen" + reparatieList.get(i).getReparatie().getConstatering());
-						reparatieFilterList.add(reparatieList.get(i));
+						if (uId != null && uId != 0) {
+							if (uId == reparatieList.get(i).getApuser().getId()) {
+								reparatieFilterList.add(reparatieList.get(i));
+							}
+						}
 					}
 				}
 			} catch (ParseException ex) {
@@ -85,6 +85,7 @@ public class FilterController {
 		} else {
 			if (start != "" && start != null) {
 				System.out.println("start" + start);
+				start = start + " 00:00:00";
 
 				try {
 					startDatum = simpleDateFormat.parse(start);
@@ -104,6 +105,7 @@ public class FilterController {
 			} else {
 				if (eind != "" && eind != null) {
 					System.out.println("eind" + eind);
+					eind = eind + " 24:00:00";
 
 					try {
 						eindDatum = simpleDateFormat.parse(eind);
@@ -121,7 +123,32 @@ public class FilterController {
 						System.out.println("Exception " + ex);
 					}
 				} else {
-					reparatieFilterList = daoUr.listReparaties();
+					if (uId != null && uId != 0 || dId != null && dId != 0) {
+						for (int i = 0; i < reparatieList.size(); i++) {
+							if (uId != null && uId != 0) {
+								if (uId == reparatieList.get(i).getApuser().getId()) {
+									if (dId != null && dId != 0) {
+										if (dId == reparatieList.get(i).getReparatie().getDistrict().getId()) {
+											reparatieFilterList.add(reparatieList.get(i));
+										}
+									} else {
+										reparatieFilterList.add(reparatieList.get(i));
+									}
+								}
+							}else{
+								if (dId != null && dId != 0) {
+									System.out.println("district gevonden");
+									System.out.println(reparatieList.get(i).getReparatie().getDistrict().getId() + "test");
+									if (dId == reparatieList.get(i).getReparatie().getDistrict().getId()) {
+										reparatieFilterList.add(reparatieList.get(i));
+									}
+								}
+							}
+						}
+					}else {
+						reparatieFilterList = daoUr.listReparaties();
+					}
+					
 				}
 			}
 		}

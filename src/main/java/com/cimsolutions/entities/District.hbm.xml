@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 12-Apr-2017 14:26:57 by Hibernate Tools 4.3.5.Final -->
+<!-- Generated 13-Apr-2017 14:02:10 by Hibernate Tools 4.3.5.Final -->
 <hibernate-mapping>
     <class name="com.cimsolutions.entities.District" table="district" catalog="onderhouddb" optimistic-lock="version">
         <id name="id" type="int">
@@ -20,6 +20,12 @@
         <property name="districtNaam" type="string">
             <column name="DistrictNaam" length="30" not-null="true" />
         </property>
+        <set name="apusers" table="apuser" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="district" />
+            </key>
+            <one-to-many class="com.cimsolutions.entities.Apuser" />
+        </set>
         <set name="reparaties" table="reparatie" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="district" />
