@@ -1,24 +1,18 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-Apr-2017 14:02:10 by Hibernate Tools 4.3.5.Final -->
+<!-- Generated 13-Apr-2017 16:50:56 by Hibernate Tools 4.3.5.Final -->
 <hibernate-mapping>
     <class name="com.cimsolutions.entities.Reparatie" table="reparatie" catalog="onderhouddb" optimistic-lock="version">
         <id name="id" type="java.lang.Integer">
             <column name="id" />
             <generator class="identity" />
         </id>
-        <many-to-one name="baan" class="com.cimsolutions.entities.Baan" fetch="select">
-            <column name="baan" />
-        </many-to-one>
         <many-to-one name="district" class="com.cimsolutions.entities.District" fetch="select">
             <column name="district" />
         </many-to-one>
         <many-to-one name="reparatiemethoden" class="com.cimsolutions.entities.Reparatiemethoden" fetch="select">
             <column name="reparatiemethode" />
-        </many-to-one>
-        <many-to-one name="strook" class="com.cimsolutions.entities.Strook" fetch="select">
-            <column name="strook" />
         </many-to-one>
         <many-to-one name="wegenlijst" class="com.cimsolutions.entities.Wegenlijst" fetch="select">
             <column name="WegenlijstId" />
@@ -31,6 +25,12 @@
         </property>
         <property name="hectometerbordEind" type="string">
             <column name="hectometerbordEind" length="45" />
+        </property>
+        <property name="baan" type="string">
+            <column name="baan" length="45" />
+        </property>
+        <property name="strook" type="string">
+            <column name="strook" length="45" />
         </property>
         <property name="verhardingssoort" type="string">
             <column name="verhardingssoort" length="45" />

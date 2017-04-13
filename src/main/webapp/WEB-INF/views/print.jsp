@@ -21,8 +21,9 @@
 			<td class="filterText">Van:</td>
 			<td>
 				<div class='input-group date' id='datetimepicker1'>
-					<input type='text' name="start" class="form-control" value="<c:if test="${filterEindDatum != null}">${filterStartDatum}</c:if>"/> <span
-						class="input-group-addon"> <span
+					<input type='text' name="start" class="form-control"
+						value="<c:if test="${filterEindDatum != null}">${filterStartDatum}</c:if>" />
+					<span class="input-group-addon"> <span
 						class="glyphicon glyphicon-calendar"> </span>
 					</span>
 				</div> <script type="text/javascript">
@@ -37,8 +38,9 @@
 			<td class="filterText">Tot:</td>
 			<td>
 				<div class='input-group date' id='datetimepicker2'>
-					<input type='text' name="eind" class="form-control" value="<c:if test="${filterEindDatum != null}">${filterEindDatum}</c:if>" /> <span
-						class="input-group-addon"> <span
+					<input type='text' name="eind" class="form-control"
+						value="<c:if test="${filterEindDatum != null}">${filterEindDatum}</c:if>" />
+					<span class="input-group-addon"> <span
 						class="glyphicon glyphicon-calendar"> </span>
 					</span>
 				</div> <script type="text/javascript">
@@ -95,8 +97,22 @@
 						<td>${reparatie.getReparatie().getDistrict().getDistrictGebiedAfkorting()}</td>
 						<td>${reparatie.getReparatie().getWegenlijst().getAanduiding()}</td>
 						<td>${reparatie.getReparatie().getHectometerbordBegin()}</td>
-						<td>${reparatie.getReparatie().getBaan().getBaanNaam()}</td>
-						<td>${reparatie.getReparatie().getStrook().getStrook()}</td>
+						<c:choose>
+							<c:when test="${reparatie.getReparatie().getBaan() != null}">
+								<td>${reparatie.getReparatie().getBaan()}</td>
+							</c:when>
+							<c:otherwise>
+								<td></td>
+							</c:otherwise>
+						</c:choose>
+						<c:choose>
+							<c:when test="${reparatie.getReparatie().getStrook() != null}">
+								<td>${reparatie.getReparatie().getStrook()}</td>
+							</c:when>
+							<c:otherwise>
+								<td></td>
+							</c:otherwise>
+						</c:choose>
 						<td>${reparatie.getReparatie().getConstatering()}</td>
 						<td>${reparatie.getReparatie().getSoort()}</td>
 					</tr>
@@ -110,8 +126,22 @@
 						<td>${reparatie.getReparatie().getDistrict().getDistrictGebiedAfkorting()}</td>
 						<td>${reparatie.getReparatie().getWegenlijst().getAanduiding()}</td>
 						<td>${reparatie.getReparatie().getHectometerbordBegin()}</td>
-						<td>${reparatie.getReparatie().getBaan().getBaanNaam()}</td>
-						<td>${reparatie.getReparatie().getStrook().getStrook()}</td>
+						<c:choose>
+							<c:when test="${reparatie.getReparatie().getBaan() != null}">
+								<td>${reparatie.getReparatie().getBaan()}</td>
+							</c:when>
+							<c:otherwise>
+								<td></td>
+							</c:otherwise>
+						</c:choose>
+						<c:choose>
+							<c:when test="${reparatie.getReparatie().getStrook() != null}">
+								<td>${reparatie.getReparatie().getStrook()}</td>
+							</c:when>
+							<c:otherwise>
+								<td></td>
+							</c:otherwise>
+						</c:choose>
 						<td>${reparatie.getReparatie().getConstatering()}</td>
 						<td>${reparatie.getReparatie().getSoort()}</td>
 					</tr>

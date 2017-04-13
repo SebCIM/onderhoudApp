@@ -39,6 +39,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
+		// Automatische login
 		currentUser = dao.getUserByToken("admin");
 		if (currentUser == null) {
 			model.addAttribute("title", "Login");

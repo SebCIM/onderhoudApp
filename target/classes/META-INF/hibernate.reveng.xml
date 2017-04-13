@@ -10,4 +10,5 @@
   <table-filter match-catalog="onderhouddb" match-name="wegenlijst"/>
   <table-filter match-catalog="onderhouddb" match-name="strook"/>
   <table-filter match-catalog="onderhouddb" match-name="reparatiemethoden"/>
+  <table-filter match-catalog="onderhouddb" match-name="deklagenlijst"/>
 </hibernate-reverse-engineering>

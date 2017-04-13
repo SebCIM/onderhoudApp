@@ -111,19 +111,15 @@ public class VorstschadeController {
 
 	@RequestMapping(value = "vorstschade/toevoegen", method = RequestMethod.POST)
 	public String addRepair(@ModelAttribute("Reparatie") Reparatie r, @RequestParam("WegenlijstId") int wId,
-			@RequestParam("strookId") int sId, @RequestParam("districtId") int diId, @RequestParam("baanId") int bId) {
+			@RequestParam("strookId") int sId, @RequestParam("districtId") int diId) {
 		
 		Apuser currentUser = HomeController.getCurrentUser();
 
 		Wegenlijst wegenLijst = daoW.getWegById(wId);
-		Strook strookLijst = daoS.getStrookById(sId);
 		District districtLijst = daoD.getDistrictById(diId);
-		Baan baanLijst = daoB.getBaanById(bId);
 		r.setWegenlijst(wegenLijst);
 		r.setDistrict(districtLijst);
 		r.setStatus("In onderhoudsplanning");
-		r.setStrook(strookLijst);
-		r.setBaan(baanLijst);
 		daoUr.addReparatie(r, currentUser.getId());
 
 		return "redirect:/vorstschade/overzicht";
@@ -154,6 +150,7 @@ public class VorstschadeController {
 		Reparatie currentRepair = daoR.getReparatieById(id);
 		r.setDatumtijd(currentRepair.getDatumtijd());
 		r.setReparatiemethoden(daoM.getMethodeById(rmId));
+		r.setSoort(currentRepair.getBaan());
 		r.setSoort(currentRepair.getSoort());
 		r.setDatumtijd(currentRepair.getDatumtijd());
 		r.setConstatering(currentRepair.getConstatering());

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-Apr-2017 14:02:10 by Hibernate Tools 4.3.5.Final -->
+<!-- Generated 13-Apr-2017 16:50:56 by Hibernate Tools 4.3.5.Final -->
 <hibernate-mapping>
     <class name="com.cimsolutions.entities.Wegenlijst" table="wegenlijst" catalog="onderhouddb" optimistic-lock="version">
         <id name="id" type="int">

@@ -1,13 +1,9 @@
 package com.cimsolutions.entities;
-// Generated 13-Apr-2017 14:02:10 by Hibernate Tools 4.3.5.Final
+// Generated 13-Apr-2017 16:50:56 by Hibernate Tools 4.3.5.Final
 
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -20,7 +16,6 @@ public class Baan implements java.io.Serializable {
 	private int id;
 	private String baanNaam;
 	private Integer volgorde;
-	private Set<Reparatie> reparaties = new HashSet<Reparatie>(0);
 
 	public Baan() {
 	}
@@ -29,11 +24,10 @@ public class Baan implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Baan(int id, String baanNaam, Integer volgorde, Set<Reparatie> reparaties) {
+	public Baan(int id, String baanNaam, Integer volgorde) {
 		this.id = id;
 		this.baanNaam = baanNaam;
 		this.volgorde = volgorde;
-		this.reparaties = reparaties;
 	}
 
 	@Id
@@ -63,15 +57,6 @@ public class Baan implements java.io.Serializable {
 
 	public void setVolgorde(Integer volgorde) {
 		this.volgorde = volgorde;
-	}
-
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "baan")
-	public Set<Reparatie> getReparaties() {
-		return this.reparaties;
-	}
-
-	public void setReparaties(Set<Reparatie> reparaties) {
-		this.reparaties = reparaties;
 	}
 
 }

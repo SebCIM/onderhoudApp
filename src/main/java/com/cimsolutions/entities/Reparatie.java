@@ -1,5 +1,5 @@
 package com.cimsolutions.entities;
-// Generated 13-Apr-2017 14:02:10 by Hibernate Tools 4.3.5.Final
+// Generated 13-Apr-2017 16:50:56 by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -25,14 +25,14 @@ import javax.persistence.TemporalType;
 public class Reparatie implements java.io.Serializable {
 
 	private Integer id;
-	private Baan baan;
 	private District district;
 	private Reparatiemethoden reparatiemethoden;
-	private Strook strook;
 	private Wegenlijst wegenlijst;
 	private String soort;
 	private String hectometerbordBegin;
 	private String hectometerbordEind;
+	private String baan;
+	private String strook;
 	private String verhardingssoort;
 	private Date datumtijd;
 	private String noodofspoed;
@@ -48,19 +48,19 @@ public class Reparatie implements java.io.Serializable {
 	public Reparatie() {
 	}
 
-	public Reparatie(Baan baan, District district, Reparatiemethoden reparatiemethoden, Strook strook,
-			Wegenlijst wegenlijst, String soort, String hectometerbordBegin, String hectometerbordEind,
-			String verhardingssoort, Date datumtijd, String noodofspoed, String aantalgaten, String opmerking,
-			String constatering, String metersnaden, String metersrafeling, String status, String reparatiedatum,
+	public Reparatie(District district, Reparatiemethoden reparatiemethoden, Wegenlijst wegenlijst, String soort,
+			String hectometerbordBegin, String hectometerbordEind, String baan, String strook, String verhardingssoort,
+			Date datumtijd, String noodofspoed, String aantalgaten, String opmerking, String constatering,
+			String metersnaden, String metersrafeling, String status, String reparatiedatum,
 			Set<Userreparatie> userreparaties) {
-		this.baan = baan;
 		this.district = district;
 		this.reparatiemethoden = reparatiemethoden;
-		this.strook = strook;
 		this.wegenlijst = wegenlijst;
 		this.soort = soort;
 		this.hectometerbordBegin = hectometerbordBegin;
 		this.hectometerbordEind = hectometerbordEind;
+		this.baan = baan;
+		this.strook = strook;
 		this.verhardingssoort = verhardingssoort;
 		this.datumtijd = datumtijd;
 		this.noodofspoed = noodofspoed;
@@ -87,16 +87,6 @@ public class Reparatie implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "baan")
-	public Baan getBaan() {
-		return this.baan;
-	}
-
-	public void setBaan(Baan baan) {
-		this.baan = baan;
-	}
-
-	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "district")
 	public District getDistrict() {
 		return this.district;
@@ -114,16 +104,6 @@ public class Reparatie implements java.io.Serializable {
 
 	public void setReparatiemethoden(Reparatiemethoden reparatiemethoden) {
 		this.reparatiemethoden = reparatiemethoden;
-	}
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "strook")
-	public Strook getStrook() {
-		return this.strook;
-	}
-
-	public void setStrook(Strook strook) {
-		this.strook = strook;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -161,6 +141,24 @@ public class Reparatie implements java.io.Serializable {
 
 	public void setHectometerbordEind(String hectometerbordEind) {
 		this.hectometerbordEind = hectometerbordEind;
+	}
+
+	@Column(name = "baan", length = 45)
+	public String getBaan() {
+		return this.baan;
+	}
+
+	public void setBaan(String baan) {
+		this.baan = baan;
+	}
+
+	@Column(name = "strook", length = 45)
+	public String getStrook() {
+		return this.strook;
+	}
+
+	public void setStrook(String strook) {
+		this.strook = strook;
 	}
 
 	@Column(name = "verhardingssoort", length = 45)
@@ -254,7 +252,7 @@ public class Reparatie implements java.io.Serializable {
 		this.reparatiedatum = reparatiedatum;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "reparatie")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "reparatie")
 	public Set<Userreparatie> getUserreparaties() {
 		return this.userreparaties;
 	}

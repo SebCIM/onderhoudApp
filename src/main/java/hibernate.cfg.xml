@@ -17,6 +17,7 @@
         <property name="hibernate.validator.apply_to_ddl">false</property>
         <mapping class="com.cimsolutions.entities.Baan" />
         <mapping class="com.cimsolutions.entities.Userreparatie" />
+        <mapping class="com.cimsolutions.entities.Deklagenlijst" />
         <mapping class="com.cimsolutions.entities.Strook" />
         <mapping class="com.cimsolutions.entities.Apuser" />
         <mapping class="com.cimsolutions.entities.Reparatie" />
