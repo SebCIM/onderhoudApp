@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.cimsolutions.DAO.UserDaoImpl;
 import com.cimsolutions.DAO.WegenDAOImpl;
 import com.cimsolutions.DAO.BaanDAOImpl;
+import com.cimsolutions.DAO.DeklagenDAOImpl;
 import com.cimsolutions.DAO.DistrictDAOImpl;
 import com.cimsolutions.DAO.MethodeDAOImpl;
 import com.cimsolutions.DAO.ReparatieDAOImpl;
@@ -34,6 +35,7 @@ public class VorstschadeController {
 	UserReparatieDAOImpl daoUr = new UserReparatieDAOImpl();
 	ReparatieDAOImpl daoR = new ReparatieDAOImpl();
 	DistrictDAOImpl daoD = new DistrictDAOImpl();
+	DeklagenDAOImpl daoDl = new DeklagenDAOImpl();
 	BaanDAOImpl daoB = new BaanDAOImpl();
 	WegenDAOImpl daoW = new WegenDAOImpl();
 	StrookDAOImpl daoS = new StrookDAOImpl();
@@ -56,8 +58,9 @@ public class VorstschadeController {
 			soortList.add("Open naden");
 
 			model.addAttribute("user", currentUser);
+			model.addAttribute("ListFilterBaan", daoDl.listFilteredBanen());
 			model.addAttribute("ListDistrict", listDistrict);
-			model.addAttribute("ListStrook", listStrook);
+			model.addAttribute("ListFilterStrook", daoDl.listFilteredStroken());
 			model.addAttribute("ListWegen", listWegen);
 			model.addAttribute("ListBaan", listBaan);
 			model.addAttribute("soortList", soortList);
@@ -110,8 +113,7 @@ public class VorstschadeController {
 	}
 
 	@RequestMapping(value = "vorstschade/toevoegen", method = RequestMethod.POST)
-	public String addRepair(@ModelAttribute("Reparatie") Reparatie r, @RequestParam("WegenlijstId") int wId,
-			@RequestParam("strookId") int sId, @RequestParam("districtId") int diId) {
+	public String addRepair(@ModelAttribute("Reparatie") Reparatie r, @RequestParam("WegenlijstId") int wId, @RequestParam("districtId") int diId) {
 		
 		Apuser currentUser = HomeController.getCurrentUser();
 
@@ -150,17 +152,16 @@ public class VorstschadeController {
 		Reparatie currentRepair = daoR.getReparatieById(id);
 		r.setDatumtijd(currentRepair.getDatumtijd());
 		r.setReparatiemethoden(daoM.getMethodeById(rmId));
-		r.setSoort(currentRepair.getBaan());
+		r.setBaan(currentRepair.getBaan());
+		r.setStrook(currentRepair.getStrook());
 		r.setSoort(currentRepair.getSoort());
 		r.setDatumtijd(currentRepair.getDatumtijd());
 		r.setConstatering(currentRepair.getConstatering());
 		r.setId(id);
 		r.setDistrict(daoD.getDistrictById(diId));
 		r.setWegenlijst(daoW.getWegById(wId));
-		System.out.println("district: " + r.getDistrict().getId());
-		System.out.println("weg: " + r.getWegenlijst().getId());
+		
 		daoR.updateRepair(r);
-		System.out.println("Heeft geupdate");
 
 		return "redirect:/vorstschade/overzicht";
 	}

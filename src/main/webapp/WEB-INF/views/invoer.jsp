@@ -64,17 +64,17 @@
 		</tr>
 		<tr>
 			<td>Baan:</td>
-			<td><select name="baanId">
-					<c:forEach items="${ListBaan}" var="baan">
-						<option value="${baan.getId()}">${baan.getBaanNaam()}</option>
+			<td><select name="baan">
+					<c:forEach items="${ListFilterBaan}" var="baan">
+						<option value="${baan.getBaan()}">${baan.getBaan()}</option>
 					</c:forEach>
 			</select></td>
 		</tr>
 		<tr>
 			<td>Strook:</td>
-			<td><select name="strookId">
-					<c:forEach items="${ListStrook}" var="strook">
-						<option value="${strook.getId()}">${strook.getStrook()}</option>
+			<td><select name="strook">
+					<c:forEach items="${ListFilterStrook}" var="strook">
+						<option value="${strook.getStrook()}">${strook.getStrook()}</option>
 					</c:forEach>
 			</select></td>
 		</tr>
