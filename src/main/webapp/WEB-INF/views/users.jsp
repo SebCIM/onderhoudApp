@@ -31,7 +31,7 @@
 					<option value="0">Alle</option>
 					<c:forEach items="${listDistricten}" var="district">
 
-						<option value="${district.getId()}">${district.getDistrictGebiedAfkorting()}, ${district.getDistrictNaam()}</option>
+						<option value="${district.getId()}">${district.getDistrictCode()}, ${district.getDistrictGebiedAfkorting()}, ${district.getDistrictNaam()}</option>
 					</c:forEach>
 			</select></td>
 		</tr>

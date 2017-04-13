@@ -27,17 +27,17 @@
 						<c:choose>
 							<c:when
 								test="${reparatie.getReparatie().getDistrict().getId() == district.getId()}">
-								<option value="${district.getId()}" selected>${district.getDistrictGebiedAfkorting()}</option>
+								<option value="${district.getId()}" selected>${district.getDistrictCode()}, ${district.getDistrictGebiedAfkorting()}, ${district.getDistrictNaam()}</option>
 							</c:when>
 							<c:otherwise>
-								<option value="${district.getId()}">${district.getDistrictGebiedAfkorting()}</option>
+								<option value="${district.getId()}">${district.getDistrictCode()}, ${district.getDistrictGebiedAfkorting()}, ${district.getDistrictNaam()}</option>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 			</select></td>
 		</tr>
 		<tr>
-			<td>Rijksweg:</td>
+			<td>Wegnummer:</td>
 			<td class="filterDropDown"><select name="rijksweg">
 					<option value="0">Alle</option>
 					<c:forEach items="${ListWegen}" var="weg">
@@ -57,7 +57,7 @@
 		</tr>
 		<c:choose>
 			<c:when
-				test="${reparatie.getReparatie().getHectometerbordEind() != null}">
+				test="${reparatie.getReparatie().getHectometerbordEind() != ''}">
 				<tr>
 					<td>Hectometerbord Begin:</td>
 					<td><input type="text" name="hectometerbordBegin"

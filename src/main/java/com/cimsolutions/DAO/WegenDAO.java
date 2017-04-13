@@ -18,4 +18,7 @@ public interface WegenDAO {
 
 	//Get All
 	public List<Wegenlijst> listWegen();
+	
+	//Get Filtered
+	public List<Wegenlijst> listFilteredWegen();
 }

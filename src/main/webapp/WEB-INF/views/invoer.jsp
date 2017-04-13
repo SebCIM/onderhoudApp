@@ -26,15 +26,15 @@
 			<td>
 		</tr>
 		<tr>
-			<td>District Code</td>
+			<td>District:</td>
 			<td><select name="districtId">
 					<c:forEach items="${ListDistrict}" var="district">
-						<option value="${district.getId()}">${district.getDistrictGebiedAfkorting()}</option>
+						<option value="${district.getId()}">${district.getDistrictCode()}, ${district.getDistrictGebiedAfkorting()}, ${district.getDistrictNaam()}</option>
 					</c:forEach>
 			</select></td>
 		</tr>
 		<tr>
-			<td>Rijkswegen:</td>
+			<td>Wegnummer:</td>
 			<td><select name="WegenlijstId">
 					<c:forEach items="${ListWegen}" var="weg">
 						<option value="${weg.getId()}">${weg.getWegnummer()},

@@ -49,7 +49,7 @@ public class VorstschadeController {
 			ArrayList<String> soortList = new ArrayList<String>();
 			List<District> listDistrict = daoD.listDistrict();
 			List<Baan> listBaan = daoB.listBaan();
-			List<Wegenlijst> listWegen = daoW.listWegen();
+			List<Wegenlijst> listWegen = daoW.listFilteredWegen();
 			List<Strook> listStrook = daoS.listStrook();
 			soortList.add("Rafeling");
 			soortList.add("Gaten");
@@ -100,7 +100,7 @@ public class VorstschadeController {
 				model.addAttribute("reparatie", viewReparatie);
 				model.addAttribute("listDistricten", daoD.listDistrict());
 				model.addAttribute("listMethoden", daoM.listMethode());
-				model.addAttribute("ListWegen", daoW.listWegen());
+				model.addAttribute("ListWegen", daoW.listFilteredWegen());
 				model.addAttribute("ListStroken", daoS.listStrook());
 				model.addAttribute("listUsers", dao.listUsers());
 				model.addAttribute("title", "Gebruiker -" + currentUser.getUsername());
@@ -163,6 +163,7 @@ public class VorstschadeController {
 		System.out.println("district: " + r.getDistrict().getId());
 		System.out.println("weg: " + r.getWegenlijst().getId());
 		daoR.updateRepair(r);
+		System.out.println("Heeft geupdate");
 
 		return "redirect:/vorstschade/overzicht";
 	}
