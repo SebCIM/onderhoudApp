@@ -78,7 +78,7 @@
 
 	<table class="tg">
 		<tr>
-			<th width="80">Onderhoudsaannemer</th>
+			<th width="60">Onderhoudsaannemer</th>
 			<th width="30">District</th>
 			<th width="30">Rijksweg</th>
 			<th width="30">Hectometer begin</th>
@@ -86,6 +86,7 @@
 			<th width="30">Strook</th>
 			<th width="150">Schade d.d</th>
 			<th width="150">Type</th>
+			<th width="190">Status</th>
 		</tr>
 		<c:forEach items="${listReparaties}" var="reparatie">
 			<c:if
@@ -115,6 +116,7 @@
 						</c:choose>
 						<td>${reparatie.getReparatie().getConstatering()}</td>
 						<td>${reparatie.getReparatie().getSoort()}</td>
+						<td>${reparatie.getReparatie().getStatus()}</td>
 					</tr>
 				</c:if>
 			</c:if>
@@ -144,6 +146,7 @@
 						</c:choose>
 						<td>${reparatie.getReparatie().getConstatering()}</td>
 						<td>${reparatie.getReparatie().getSoort()}</td>
+						<td>${reparatie.getReparatie().getStatus()}</td>
 					</tr>
 				</c:if>
 			</c:if>
