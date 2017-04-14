@@ -1,11 +1,11 @@
 <%@include file='default.jsp'%>
-<h3>Reparaties</h3>
+<h3>Vorstschades</h3>
 <c:if test="${!empty listReparaties}">
 	<table class="tg">
 		<tr>
 			<th width="20">ID</th>
 			<th width="120">Wegnummer</th>
-			<th width="120">Status</th>
+			<th width="190">Status</th>
 			<th width="200">Reparatiedatum</th>
 			<th width="200">Reparatiemethode</th>
 		</tr>
