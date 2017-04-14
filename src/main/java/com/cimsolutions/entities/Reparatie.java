@@ -1,5 +1,5 @@
 package com.cimsolutions.entities;
-// Generated 13-Apr-2017 16:50:56 by Hibernate Tools 4.3.5.Final
+// Generated 14-Apr-2017 09:42:28 by Hibernate Tools 4.3.5.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -86,7 +86,7 @@ public class Reparatie implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "district")
 	public District getDistrict() {
 		return this.district;
@@ -96,7 +96,7 @@ public class Reparatie implements java.io.Serializable {
 		this.district = district;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "reparatiemethode")
 	public Reparatiemethoden getReparatiemethoden() {
 		return this.reparatiemethoden;
@@ -106,7 +106,7 @@ public class Reparatie implements java.io.Serializable {
 		this.reparatiemethoden = reparatiemethoden;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "WegenlijstId")
 	public Wegenlijst getWegenlijst() {
 		return this.wegenlijst;

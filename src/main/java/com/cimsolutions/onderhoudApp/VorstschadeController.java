@@ -1,7 +1,13 @@
 package com.cimsolutions.onderhoudApp;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,127 +48,180 @@ public class VorstschadeController {
 	MethodeDAOImpl daoM = new MethodeDAOImpl();
 	
 	@RequestMapping(value = "vorstschade/invoeren", method = RequestMethod.GET)
-	public String Invoer(Model model) {
-		Apuser currentUser = HomeController.getCurrentUser();
-		if (currentUser == null) {
-			System.out.println("geen sessie gevonden");
-			return "login";
-		} else {
-			ArrayList<String> soortList = new ArrayList<String>();
-			List<District> listDistrict = daoD.listDistrict();
-			List<Baan> listBaan = daoB.listBaan();
-			List<Wegenlijst> listWegen = daoW.listFilteredWegen();
-			List<Strook> listStrook = daoS.listStrook();
-			soortList.add("Rafeling");
-			soortList.add("Gaten");
-			soortList.add("Open naden");
+	public String Invoer(Model model, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			Apuser user = (Apuser) session.getAttribute("user");
+			if (user != null) {
+				ArrayList<String> soortList = new ArrayList<String>();
+				List<District> listDistrict = daoD.listDistrict();
+				List<Baan> listBaan = daoB.listBaan();
+				List<Wegenlijst> listWegen = daoW.listFilteredWegen();
+				List<Strook> listStrook = daoS.listStrook();
+				soortList.add("Rafeling");
+				soortList.add("Gaten");
+				soortList.add("Open naden");
 
-			model.addAttribute("user", currentUser);
-			model.addAttribute("ListFilterBaan", daoDl.listFilteredBanen());
-			model.addAttribute("ListDistrict", listDistrict);
-			model.addAttribute("ListFilterStrook", daoDl.listFilteredStroken());
-			model.addAttribute("ListWegen", listWegen);
-			model.addAttribute("ListBaan", listBaan);
-			model.addAttribute("soortList", soortList);
-			return "invoer";
+				model.addAttribute("user", user);
+				model.addAttribute("ListFilterBaan", daoDl.listFilteredBanen());
+				model.addAttribute("ListDistrict", listDistrict);
+				model.addAttribute("ListFilterStrook", daoDl.listFilteredStroken());
+				model.addAttribute("ListWegen", listWegen);
+				model.addAttribute("ListBaan", listBaan);
+				model.addAttribute("soortList", soortList);
+				return "invoer";
+			} else {
+				System.out.println("geen user gevonden");
+				return "login";
+			}
+		} else {
+			System.out.println("geen user gevonden");
+			return "login";
 		}
 	}
 
 	@RequestMapping(value = "vorstschade/overzicht", method = RequestMethod.GET)
-	public String showRepairs(Model model) {
-		Apuser currentUser = HomeController.getCurrentUser();
-		List<Userreparatie> reparatieList = daoUr.listReparaties();
-
-		if (currentUser == null) {
-			System.out.println("geen sessie gevonden");
-			return "login";
+	public String showRepairs(Model model, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			Apuser user = (Apuser) session.getAttribute("user");
+			if (user != null) {
+				Apuser currentUser = HomeController.getCurrentUser();
+				List<Userreparatie> reparatieList = daoUr.listReparaties();
+				
+				model.addAttribute("listReparaties", reparatieList);
+				model.addAttribute("user", user);
+				model.addAttribute("title", "Gebruikers");
+				System.out.println("usersessie gevonden");
+				return "reparaties";
+			} else {
+				System.out.println("geen user gevonden");
+				return "login";
+			}
 		} else {
-			model.addAttribute("listReparaties", reparatieList);
-			model.addAttribute("user", currentUser);
-			model.addAttribute("title", "Gebruikers");
-			System.out.println("usersessie gevonden");
-			return "reparaties";
+			System.out.println("geen user gevonden");
+			return "login";
 		}
 	}
 
 	@RequestMapping(value = "vorstschade/bekijken/{id}", method = RequestMethod.GET)
-	public String viewRepair(@PathVariable("id") int id, Model model) {
-		Apuser currentUser = HomeController.getCurrentUser();
-		if (currentUser == null) {
-			System.out.println("geen sessie gevonden");
-			return "login";
-		} else {
-			if (currentUser.getIsAdmin() == false) {
-				System.out.println("Geen admin rechten");
-				return "home";
-			} else {
+	public String viewRepair(@PathVariable("id") int id, Model model, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			Apuser user = (Apuser) session.getAttribute("user");
+			if (user != null) {
 				Userreparatie viewReparatie = new Userreparatie();
 				viewReparatie = daoUr.getReparatieById(id);
 
-				model.addAttribute("user", currentUser);
+				model.addAttribute("user", user);
 				model.addAttribute("reparatie", viewReparatie);
 				model.addAttribute("listDistricten", daoD.listDistrict());
 				model.addAttribute("listMethoden", daoM.listMethode());
 				model.addAttribute("ListWegen", daoW.listFilteredWegen());
 				model.addAttribute("ListStroken", daoS.listStrook());
 				model.addAttribute("listUsers", dao.listUsers());
-				model.addAttribute("title", "Gebruiker -" + currentUser.getUsername());
+				model.addAttribute("title", "Gebruiker -" + user.getUsername());
 				return "reparatie";
+			} else {
+				System.out.println("geen user gevonden");
+				return "login";
 			}
+		} else {
+			System.out.println("geen user gevonden");
+			return "login";
 		}
 	}
 
 	@RequestMapping(value = "vorstschade/toevoegen", method = RequestMethod.POST)
-	public String addRepair(@ModelAttribute("Reparatie") Reparatie r, @RequestParam("WegenlijstId") int wId, @RequestParam("districtId") int diId) {
-		
-		Apuser currentUser = HomeController.getCurrentUser();
+	public String addRepair(@ModelAttribute("Reparatie") Reparatie r, @RequestParam("WegenlijstId") int wId, @RequestParam("districtId") int diId, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			Apuser user = (Apuser) session.getAttribute("user");
+			if (user != null) {
+				Wegenlijst wegenLijst = daoW.getWegById(wId);
+				District districtLijst = daoD.getDistrictById(diId);
+				r.setWegenlijst(wegenLijst);
+				r.setDistrict(districtLijst);
+				r.setStatus("In onderhoudsplanning");
+				daoUr.addReparatie(r, user.getId());
 
-		Wegenlijst wegenLijst = daoW.getWegById(wId);
-		District districtLijst = daoD.getDistrictById(diId);
-		r.setWegenlijst(wegenLijst);
-		r.setDistrict(districtLijst);
-		r.setStatus("In onderhoudsplanning");
-		daoUr.addReparatie(r, currentUser.getId());
-
-		return "redirect:/vorstschade/overzicht";
+				return "redirect:/vorstschade/overzicht";
+			} else {
+				System.out.println("geen user gevonden");
+				return "login";
+			}
+		} else {
+			System.out.println("geen user gevonden");
+			return "login";
+		}
 	}
 
 	@RequestMapping(value = "/vorstschade/verwijderen/{id}", method = RequestMethod.GET)
-	public String removeRepair(@PathVariable("id") int id, Model model) {
-		
-		Apuser currentUser = HomeController.getCurrentUser();
-		
-		if (currentUser == null) {
-			System.out.println("geen sessie gevonden");
-			return "login";
+	public String removeRepair(@PathVariable("id") int id, Model model, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			Apuser user = (Apuser) session.getAttribute("user");
+			if (user != null) {
+				Userreparatie ur = daoUr.removeUserRepair(id);
+				daoR.removeRepair(ur.getReparatie().getId());
+
+				model.addAttribute("user", user);
+				model.addAttribute("title", "Remove");
+				System.out.println("usersessie gevonden");
+				return "redirect:/vorstschade/overzicht";
+			} else {
+				System.out.println("geen user gevonden");
+				return "login";
+			}
 		} else {
-
-			Userreparatie ur = daoUr.removeUserRepair(id);
-			daoR.removeRepair(ur.getReparatie().getId());
-
-			model.addAttribute("user", currentUser);
-			model.addAttribute("title", "Remove");
-			System.out.println("usersessie gevonden");
-			return "redirect:/vorstschade/overzicht";
+			System.out.println("geen user gevonden");
+			return "login";
 		}
 	}
 	
 	@RequestMapping(value = "vorstschade/aanpassen", method = RequestMethod.POST)
-	public String editRepair(@ModelAttribute("Reparatie") Reparatie r, @RequestParam("districtId") int diId, @RequestParam("Id") int id, @RequestParam("rijksweg") int wId, @RequestParam("reparatiemethode") int rmId) {
-		Reparatie currentRepair = daoR.getReparatieById(id);
-		r.setDatumtijd(currentRepair.getDatumtijd());
-		r.setReparatiemethoden(daoM.getMethodeById(rmId));
-		r.setBaan(currentRepair.getBaan());
-		r.setStrook(currentRepair.getStrook());
-		r.setSoort(currentRepair.getSoort());
-		r.setDatumtijd(currentRepair.getDatumtijd());
-		r.setConstatering(currentRepair.getConstatering());
-		r.setId(id);
-		r.setDistrict(daoD.getDistrictById(diId));
-		r.setWegenlijst(daoW.getWegById(wId));
-		
-		daoR.updateRepair(r);
+	public String editRepair(@ModelAttribute("Reparatie") Reparatie r, @RequestParam("districtId") int diId, @RequestParam("Id") int id, @RequestParam("rijksweg") int wId, @RequestParam("reparatiemethode") int rmId, @RequestParam("sjonnie") String rdId, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			Apuser user = (Apuser) session.getAttribute("user");
+			if (user != null) {
+				Reparatie currentRepair = daoR.getReparatieById(id);
+				if(rmId != 0){
+					r.setReparatiemethoden(daoM.getMethodeById(rmId));
+				} else {
+					r.setReparatiemethoden(null);
+				}
+				if(rdId != ""){
+					r.setReparatiemethoden(daoM.getMethodeById(rmId));
+				} else {
+					r.setReparatiemethoden(null);
+				}
+				r.setDatumtijd(currentRepair.getDatumtijd());
+				r.setBaan(currentRepair.getBaan());
+				r.setStrook(currentRepair.getStrook());
+				r.setSoort(currentRepair.getSoort());
+				r.setConstatering(currentRepair.getConstatering());
+				r.setId(id);
+				r.setDistrict(daoD.getDistrictById(diId));
+				r.setWegenlijst(daoW.getWegById(wId));
+				
+				daoR.updateRepair(r);
 
-		return "redirect:/vorstschade/overzicht";
+				return "redirect:/vorstschade/overzicht";
+			} else {
+				System.out.println("geen user gevonden");
+				return "login";
+			}
+		} else {
+			System.out.println("geen user gevonden");
+			return "login";
+		}
+		
 	}
 }

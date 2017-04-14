@@ -1,5 +1,5 @@
 package com.cimsolutions.entities;
-// Generated 13-Apr-2017 16:50:56 by Hibernate Tools 4.3.5.Final
+// Generated 14-Apr-2017 09:42:28 by Hibernate Tools 4.3.5.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,7 +42,7 @@ public class Userreparatie implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "apuserid")
 	public Apuser getApuser() {
 		return this.apuser;
@@ -52,7 +52,7 @@ public class Userreparatie implements java.io.Serializable {
 		this.apuser = apuser;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "reparatieid")
 	public Reparatie getReparatie() {
 		return this.reparatie;

@@ -1,10 +1,18 @@
 package com.cimsolutions.onderhoudApp;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +35,7 @@ import com.cimsolutions.entities.Userreparatie;
  * Handles requests for the application home page.
  */
 @Controller
-public class HomeController {
+public class HomeController extends HttpServlet {
 	UserDaoImpl dao = new UserDaoImpl();
 	UserReparatieDAOImpl daoUr = new UserReparatieDAOImpl();
 	ReparatieDAOImpl daoR = new ReparatieDAOImpl();
@@ -38,28 +46,46 @@ public class HomeController {
 	static Apuser currentUser = new Apuser();
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
-		// Automatische login
-		currentUser = dao.getUserByToken("admin");
-		if (currentUser == null) {
-			model.addAttribute("title", "Login");
-			return "login";
+	public String home(Model model, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			Apuser user = (Apuser) session.getAttribute("user");
+			if (user != null) {
+				System.out.println(user.getUsername());
+				model.addAttribute("user", user);
+				System.out.println("user gevonden");
+				model.addAttribute("title", "Gebruikerspaneel");
+				return "home";
+			} else {
+				System.out.println("geen user gevonden");
+				return "login";
+			}
 		} else {
-			model.addAttribute("user", currentUser);
-			model.addAttribute("title", "Login Paneel");
-			return "home";
+			System.out.println("geen user gevonden");
+			return "login";
 		}
 	}
 
 	@RequestMapping(value = "checkLogin", method = RequestMethod.POST)
-	public String checkLogin(@RequestParam("txtToken") String token, Model model) {
+	public String checkLogin(Model model, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+
+		String token = request.getParameter("txtToken");
+
 		boolean result = dao.checkLogin(token);
-		// boolean getId = dao.checkLogin(token);
+
 		if (result) {
-			currentUser = new Apuser();
-			currentUser.setToken(token);
-			currentUser = dao.getUserByToken(token);
-			model.addAttribute("user", currentUser);
+			HttpSession session = request.getSession();
+			Apuser newUser = new Apuser();
+			newUser = dao.getUserByToken(token);
+			session.setAttribute("user", newUser);
+			Apuser user = (Apuser) session.getAttribute("user");
+			System.out.println(user.getUsername());
+
+			model.addAttribute("user", user);
 			model.addAttribute("title", "Gebruikerspaneel");
 			return "home";
 		} else {
@@ -70,25 +96,36 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "paneel", method = RequestMethod.GET)
-	public String panel(Model model) {
-		if (currentUser == null) {
+	public String panel(Model model, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			Apuser user = (Apuser) session.getAttribute("user");
+			if (user != null) {
+				System.out.println(user.getUsername());
+				model.addAttribute("user", user);
+				System.out.println("user gevonden");
+				model.addAttribute("title", "Gebruikerspaneel");
+				return "home";
+			} else {
+				System.out.println("geen user gevonden");
+				return "login";
+			}
+		} else {
 			System.out.println("geen user gevonden");
 			return "login";
-		} else {
-			model.addAttribute("user", currentUser);
-			System.out.println("user gevonden");
-			model.addAttribute("title", "Gebruikerspaneel");
-			return "home";
 		}
 	}
 
 	@RequestMapping(value = "loguit", method = RequestMethod.GET)
-	public String logout(Model model) {
-		currentUser = null;
+	public String logout(Model model, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		session.invalidate();
 		model.addAttribute("title", "Logout");
 		return "login";
 	}
-	
+
 	public static Apuser getCurrentUser() {
 		return currentUser;
 	}

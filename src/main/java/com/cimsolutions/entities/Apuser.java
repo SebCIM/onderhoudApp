@@ -1,5 +1,5 @@
 package com.cimsolutions.entities;
-// Generated 13-Apr-2017 16:50:56 by Hibernate Tools 4.3.5.Final
+// Generated 14-Apr-2017 09:42:28 by Hibernate Tools 4.3.5.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -60,7 +60,7 @@ public class Apuser implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "district")
 	public District getDistrict() {
 		return this.district;
@@ -133,7 +133,7 @@ public class Apuser implements java.io.Serializable {
 		this.tel = tel;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "apuser")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "apuser")
 	public Set<Userreparatie> getUserreparaties() {
 		return this.userreparaties;
 	}

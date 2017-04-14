@@ -92,7 +92,7 @@
 					<td>Datum reparatie:</td>
 					<td>
 						<div class='input-group date' id='datetimepicker9'>
-							<input type='text' name="reparatiedatum" class="form-control" value="${reparatie.getReparatie().getReparatiedatum()}" />
+							<input type='text' name="sjonnie" class="form-control" value="${reparatie.getReparatie().getReparatiedatum()}" />
 							<span class="input-group-addon"> <span
 								class="glyphicon glyphicon-calendar"> </span>
 							</span>
@@ -134,10 +134,10 @@
 					</select></td>
 				</tr>
 				<tr class="rdatum">
-					<td>Datum reparatie:</td>
+					<td>Datum fdssgdds:</td>
 					<td>
 						<div class='input-group date' id='datetimepicker9'>
-							<input type='text' name="reparatiedatum" class="form-control" />
+							<input type='text' name="sjonnie" class="form-control" />
 							<span class="input-group-addon"> <span
 								class="glyphicon glyphicon-calendar"> </span>
 							</span>
@@ -154,6 +154,7 @@
 				<tr class="rmethode">
 					<td>Reparatie Methode:</td>
 					<td><select name="reparatiemethode">
+								<option value="0">Geen</option>
 							<c:forEach items="${listMethoden}" var="methode">
 								<option value="${methode.getId()}">${methode.getNaam()}</option>
 							</c:forEach>

@@ -1,5 +1,5 @@
 package com.cimsolutions.entities;
-// Generated 13-Apr-2017 16:50:56 by Hibernate Tools 4.3.5.Final
+// Generated 14-Apr-2017 09:42:28 by Hibernate Tools 4.3.5.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -144,7 +144,7 @@ public class Wegenlijst implements java.io.Serializable {
 		this.toegevoegd = toegevoegd;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "wegenlijst")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "wegenlijst")
 	public Set<Reparatie> getReparaties() {
 		return this.reparaties;
 	}
