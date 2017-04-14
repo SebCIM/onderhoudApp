@@ -72,7 +72,7 @@
 							<li class="main-item "><a href="/onderhoudApp/gebruikers">Gebruikers</a>
 							</li>
 						</c:if>
-					<li class="main-item "><a href="/onderhoudApp/printen">Printen</a></li>
+					<li class="main-item "><a href="/onderhoudApp/printen">Meldingen</a></li>
 				</ul>
 				<ul class="quicklinks">
 					<li><a href="/over-ons/contact/index.aspx">Contact</a></li>
