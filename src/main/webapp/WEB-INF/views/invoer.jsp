@@ -1,5 +1,5 @@
 <%@include file='default.jsp'%>
-<h1>Reparatie Doorgeven</h1>
+<h1>Vorstschade Doorgeven</h1>
 <c:url var="addAction" value="/vorstschade/toevoegen"></c:url>
 
 <form:form action="${addAction}" commandName="addrepair">
