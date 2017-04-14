@@ -185,7 +185,7 @@ public class VorstschadeController {
 	}
 	
 	@RequestMapping(value = "vorstschade/aanpassen", method = RequestMethod.POST)
-	public String editRepair(@ModelAttribute("Reparatie") Reparatie r, @RequestParam("districtId") int diId, @RequestParam("Id") int id, @RequestParam("rijksweg") int wId, @RequestParam("reparatiemethode") int rmId, @RequestParam("datumVeld") String rdId, HttpServletRequest request, HttpServletResponse response)
+	public String editRepair(@ModelAttribute("Reparatie") Reparatie r, @RequestParam("districtId") int diId, @RequestParam("Id") int id, @RequestParam("rijksweg") int wId, @RequestParam("reparatiemethode") int rmId, @RequestParam("datumveld") String rdId, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		if (session != null) {
@@ -198,9 +198,9 @@ public class VorstschadeController {
 					r.setReparatiemethoden(null);
 				}
 				if(rdId != ""){
-					r.setReparatiemethoden(daoM.getMethodeById(rmId));
+					r.setReparatiedatum(rdId);
 				} else {
-					r.setReparatiemethoden(null);
+					r.setReparatiedatum(null);
 				}
 				r.setDatumtijd(currentRepair.getDatumtijd());
 				r.setBaan(currentRepair.getBaan());

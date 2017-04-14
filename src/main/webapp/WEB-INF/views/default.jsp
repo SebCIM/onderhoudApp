@@ -66,13 +66,13 @@
 				<nav id="nav" class="nav-main">
 				<ul>
 					<li class="main-item "><a href="/onderhoudApp">Home</a></li>
-					<li class="main-item "><a href="/onderhoudApp/vorstschade/invoeren">Invoeren</a>
-					<li class="main-item "><a href="/onderhoudApp/vorstschade/overzicht">Overzicht</a>
+					<li class="main-item "><a href="/onderhoudApp/vorstschade/invoeren">Invoeren vorstschade</a>
+					<li class="main-item "><a href="/onderhoudApp/vorstschade/overzicht">Invoeren reparatie</a>
 						<c:if test="${user.isAdmin}">
 							<li class="main-item "><a href="/onderhoudApp/gebruikers">Gebruikers</a>
 							</li>
 						</c:if>
-					<li class="main-item "><a href="/onderhoudApp/printen">Meldingen</a></li>
+					<li class="main-item "><a href="/onderhoudApp/printen">Meldingen overzicht</a></li>
 				</ul>
 				<ul class="quicklinks">
 					<li><a href="/over-ons/contact/index.aspx">Contact</a></li>

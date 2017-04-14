@@ -132,11 +132,10 @@ public class UserController {
 				String toAannemer = u.getEmail();
 
 				// subjects
-				String subjectAannemer = "Token Vorstschade Aangifte";
+				String subjectAannemer = "Identificatie Code Vorstschadedatabase";
 
 				// body
-				String emailBody = "Hierbij ontvangt u de inlog token voor het doorgeven van uw Vorstschade. Dit kan via het volgende adres: http://vorstschadeapp.com. Uw token is:"
-						+ u.getToken();
+				String emailBody = "Geachte vorstschadecontactpersoon,<br /><br /> Hierbij ontvangt u de identificatie code voor het doorgeven van uw Vorstschade. Dit kan via het volgende adres: http://vorstschadeapp.com.<br /><br />Uw identificatie code:<br /><br />" + u.getToken() + "<br /><br />Met vriendelijke groeten,<br />Steunpunt Wegen en Geotechniek<br />steunpunt-wegenbouw@rws.nl<br />T: 088 79 82 500";
 
 				EmailService mm = (EmailService) context.getBean("EmailService");
 				mm.sendMail("vorstschade@gmail.com", toAannemer, subjectAannemer, emailBody);

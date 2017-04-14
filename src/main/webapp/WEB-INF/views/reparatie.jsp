@@ -27,10 +27,14 @@
 						<c:choose>
 							<c:when
 								test="${reparatie.getReparatie().getDistrict().getId() == district.getId()}">
-								<option value="${district.getId()}" selected>${district.getDistrictCode()}, ${district.getDistrictGebiedAfkorting()}, ${district.getDistrictNaam()}</option>
+								<option value="${district.getId()}" selected>${district.getDistrictCode()},
+									${district.getDistrictGebiedAfkorting()},
+									${district.getDistrictNaam()}</option>
 							</c:when>
 							<c:otherwise>
-								<option value="${district.getId()}">${district.getDistrictCode()}, ${district.getDistrictGebiedAfkorting()}, ${district.getDistrictNaam()}</option>
+								<option value="${district.getId()}">${district.getDistrictCode()},
+									${district.getDistrictGebiedAfkorting()},
+									${district.getDistrictNaam()}</option>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -89,11 +93,29 @@
 					</select></td>
 				</tr>
 				<tr>
-					<td>Datum reparatie:</td>
+					<td>Reparatie Methode:</td>
+					<td class="filterDropDown"><select name="reparatiemethode">
+							<option value="0">Alle</option>
+							<c:forEach items="${listMethoden}" var="methode">
+								<c:choose>
+									<c:when
+										test="${reparatie.getReparatie().getReparatiemethoden().getId() == methode.getId()}">
+										<option value="${methode.getId()}" selected>${methode.getNaam()}</option>
+									</c:when>
+									<c:otherwise>
+										<option value="${methode.getId()}">${methode.getNaam()}</option>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+					</select></td>
+				</tr>
+				<tr>
+					<td>Datum Reparatie:</td>
 					<td>
 						<div class='input-group date' id='datetimepicker9'>
-							<input type='text' name="datumVeld" class="form-control" value="${reparatie.getReparatie().getReparatiedatum()}" />
-							<span class="input-group-addon"> <span
+							<input type='text' name="datumveld" class="form-control"
+								value="${reparatie.getReparatie().getReparatiedatum()}" /> <span
+								class="input-group-addon"> <span
 								class="glyphicon glyphicon-calendar"> </span>
 							</span>
 						</div> <script type="text/javascript">
@@ -105,23 +127,6 @@
 							});
 						</script>
 					</td>
-				</tr>
-				<tr>
-					<td>Reparatie Methode:</td>
-					<td class="filterDropDown"><select name="reparatiemethode">
-					<option value="0">Alle</option>	
-					<c:forEach items="${listMethoden}" var="methode">
-						<c:choose>
-							<c:when
-								test="${reparatie.getReparatie().getReparatiemethoden().getId() == methode.getId()}">
-								<option value="${methode.getId()}" selected>${methode.getNaam()}</option>
-							</c:when>
-							<c:otherwise>
-								<option value="${methode.getId()}">${methode.getNaam()}</option>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-			</select></td>
 				</tr>
 			</c:when>
 			<c:otherwise>
@@ -133,12 +138,21 @@
 							<option value="Gerepareerd">Gerepareerd</option>
 					</select></td>
 				</tr>
+				<tr class="rmethode">
+					<td>Reparatie Methode:</td>
+					<td><select name="reparatiemethode">
+							<option value="0">Geen</option>
+							<c:forEach items="${listMethoden}" var="methode">
+								<option value="${methode.getId()}">${methode.getNaam()}</option>
+							</c:forEach>
+					</select></td>
+				</tr>
 				<tr class="rdatum">
-					<td>Datum fdssgdds:</td>
+					<td>Datum Reparatie:</td>
 					<td>
 						<div class='input-group date' id='datetimepicker9'>
-							<input type='text' name="sjonnie" class="form-control" />
-							<span class="input-group-addon"> <span
+							<input type='text' name="datumveld" class="form-control" /> <span
+								class="input-group-addon"> <span
 								class="glyphicon glyphicon-calendar"> </span>
 							</span>
 						</div> <script type="text/javascript">
@@ -151,15 +165,7 @@
 						</script>
 					</td>
 				</tr>
-				<tr class="rmethode">
-					<td>Reparatie Methode:</td>
-					<td><select name="reparatiemethode">
-								<option value="0">Geen</option>
-							<c:forEach items="${listMethoden}" var="methode">
-								<option value="${methode.getId()}">${methode.getNaam()}</option>
-							</c:forEach>
-					</select></td>
-				</tr>
+				
 			</c:otherwise>
 		</c:choose>
 		<tr>
@@ -176,7 +182,7 @@
 				<td><a
 					href="<c:url value='vorstschade/verwijderen/${reparatie.id}' />"
 					class="confirm"
-					data-text="Weet je zeker dat je ${reparatie.getApuser().getUsername()} wilt verwijderen?">Verwijderen</a></td>
+					data-text="Weet je zeker dat je de melding wilt verwijderen?">Verwijderen</a></td>
 			</tr>
 		</c:if>
 	</table>

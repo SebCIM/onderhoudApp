@@ -35,7 +35,7 @@
 					});
 				</script>
 			</td>
-			<td class="filterText">Tot:</td>
+			<td class="filterText">Tot en met:</td>
 			<td>
 				<div class='input-group date' id='datetimepicker2'>
 					<input type='text' name="eind" class="form-control"
