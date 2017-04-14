@@ -92,7 +92,7 @@
 					<td>Datum reparatie:</td>
 					<td>
 						<div class='input-group date' id='datetimepicker9'>
-							<input type='text' name="sjonnie" class="form-control" value="${reparatie.getReparatie().getReparatiedatum()}" />
+							<input type='text' name="datumVeld" class="form-control" value="${reparatie.getReparatie().getReparatiedatum()}" />
 							<span class="input-group-addon"> <span
 								class="glyphicon glyphicon-calendar"> </span>
 							</span>
