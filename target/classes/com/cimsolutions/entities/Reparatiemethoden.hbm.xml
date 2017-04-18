@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 14-Apr-2017 09:42:28 by Hibernate Tools 4.3.5.Final -->
+<hibernate-mapping>
+    <class name="com.cimsolutions.entities.Reparatiemethoden" table="reparatiemethoden" catalog="onderhouddb" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="naam" type="string">
+            <column name="naam" length="45" />
+        </property>
+        <set name="reparaties" table="reparatie" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="reparatiemethode" />
+            </key>
+            <one-to-many class="com.cimsolutions.entities.Reparatie" />
+        </set>
+    </class>
+</hibernate-mapping>

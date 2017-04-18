@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 14-Apr-2017 09:42:28 by Hibernate Tools 4.3.5.Final -->
+<hibernate-mapping>
+    <class name="com.cimsolutions.entities.Wegenlijst" table="wegenlijst" catalog="onderhouddb" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="wegnummer" type="string">
+            <column name="Wegnummer" length="65535" />
+        </property>
+        <property name="aanduiding" type="string">
+            <column name="Aanduiding" length="65535" />
+        </property>
+        <property name="benaming" type="string">
+            <column name="Benaming" length="65535" />
+        </property>
+        <property name="regionaleDirectie" type="string">
+            <column name="RegionaleDirectie" length="65535" />
+        </property>
+        <property name="district" type="string">
+            <column name="District" length="65535" />
+        </property>
+        <property name="hectometerbordBegin" type="string">
+            <column name="HectometerbordBegin" length="65535" />
+        </property>
+        <property name="hectometerbordEind" type="string">
+            <column name="HectometerbordEind" length="65535" />
+        </property>
+        <property name="actueel" type="string">
+            <column name="Actueel" length="65535" />
+        </property>
+        <property name="toegevoegd" type="string">
+            <column name="Toegevoegd" length="65535" />
+        </property>
+        <set name="reparaties" table="reparatie" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="WegenlijstId" />
+            </key>
+            <one-to-many class="com.cimsolutions.entities.Reparatie" />
+        </set>
+    </class>
+</hibernate-mapping>
